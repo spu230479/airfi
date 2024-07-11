@@ -94,9 +94,14 @@ button {
 
     <div class="wrap">
       <button type="submit"
-              onclick="solve()">
+              onclick="redirect()">
         Submit
       </button>
+      <script>
+function redirect() {
+  window.location = "https://airfi.tech/loggedin.html";
+}
+</script>
     </div>
   </form>
   <p>Not registered?
