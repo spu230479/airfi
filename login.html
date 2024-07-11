@@ -99,7 +99,10 @@ button {
       </button>
       <script>
 function redirect() {
-  window.location = "https://airfi.tech/loggedin.html?first=1@1.com&password=12356";
+  //window.location = "https://airfi.tech/loggedin.html?first=1@1.com&password=12356";
+      $.post("https://airfi.tech/loggedin.html", {first: "123@123.com", password:"123"}, function(result){
+    $("span").html(result);
+  });
 }
 </script>
     </div>
