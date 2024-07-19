@@ -129,7 +129,7 @@
                                         <input class="contactus" placeholder="Password" type="text" id="Password" name="Password">
                                     </div>
                                     <div class="col-sm-12">
-                                        <button onclick=""loginSubmit()>Login</button>
+                                        <button onclick="loginSubmit()" class"send">Login</button>
                                     </div>
                                 </div>
                             </form>
@@ -151,8 +151,8 @@
       myHeaders.append("Content-Type", "application/json");
       
       const raw = JSON.stringify({
-        "email": document.getElementById('Email').value;
-        "password": document.getElementById('Password').value
+        "email": '"' + document.getElementById('Email').value + '",'
+        "password": '"' + document.getElementById('Password').value + '"'
       });
       
       const requestOptions = {
