@@ -32,6 +32,11 @@
     <script>
     document.addEventListener("DOMContentLoaded", () => {
          console.log("Hello World!");
+         const urlParams = new URLSearchParams(window.location.search); 
+         if (urlParams.has("Email")) {
+            window.location.replace("http://airfi.tech/casino/loggedin.html");
+         }
+
      });
     </script>
 </head>
@@ -169,7 +174,6 @@
       };
       
       fetch("https://airfi.tech/casino/loginSubmit", requestOptions);
-      window.location.replace("http://airfi.tech/casino/loggedin.html")
         }
       </script>
 
