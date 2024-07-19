@@ -123,13 +123,13 @@
                             <form>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <input class="contactus" placeholder="Email" type="text" name="Email">
+                                        <input class="contactus" placeholder="Email" type="text" id="Email" name="Email">
                                     </div>
                                     <div class="col-sm-12">
-                                        <input class="contactus" placeholder="Password" type="text" name="Password">
+                                        <input class="contactus" placeholder="Password" type="text" id="Password" name="Password">
                                     </div>
                                     <div class="col-sm-12">
-                                        <button class="send">Login</button>
+                                        <button onclick=""loginSubmit()>Login</button>
                                     </div>
                                 </div>
                             </form>
@@ -145,7 +145,25 @@
         </div>
     </div>
     <!-- end contact -->
-
+    <script>
+        function loginSubmit() {
+          const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      
+      const raw = JSON.stringify({
+        "email": document.getElementById('Email').value;
+        "password": document.getElementById('Password').value
+      });
+      
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw
+      };
+      
+      fetch("https://airfi.tech/casino/loginSubmit", requestOptions);
+        }
+      </script>
 
     <!--  footer -->
     <footr>
