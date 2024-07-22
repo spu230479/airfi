@@ -179,14 +179,8 @@
       password = document.querySelector('input[name="Password"]').value;
       urlStr = "method=login&Email=" + email + "&Password=" + password;
 
-      fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions)
-      .then(response => {
-    // Handle the response
-    console.log(response);
-  })
-  .catch(error => {
-    // Handle errors
-  });
+      const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);
+      console.log(response);
         }
       </script>
 
