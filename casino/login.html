@@ -174,8 +174,7 @@
       
       email = document.querySelector('input[name="Email"]').value;
       password = document.querySelector('input[name="Password"]').value;
-      urlStr = "method=login&email=" + email + "&password=" + password;
-      alert(urlStr); 
+      urlStr = "method=login&Email=" + email + "&Password=" + password;
 
       fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);
         }
