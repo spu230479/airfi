@@ -174,7 +174,7 @@
     <!-- end contact -->
 
     <script>
-        async function loginSubmit() {
+        function loginSubmit() {
           const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Access-Control-Allow-Origin", "*");
@@ -202,8 +202,12 @@
       
       urlStr = "method=register&firstname=" + fname + "&lastname=" + lname + "&Email=" + email + "&phone=" + phone + "&passid=" + passid + "&housenum=" + hnum + "&pcode=" + pcode;
 
-      const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);
-      console.log(response);
+      //const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);
+      //console.log(response);
+
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr);
+      xhttp.send();
         }
       </script>
 
