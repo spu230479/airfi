@@ -148,6 +148,8 @@
                                     <script>
                                         document.getElementById("loginBtn").addEventListener("click", myFunction);  
                                         function myFunction() {  
+                                            email = document.querySelector('input[name="Email"]').value;
+                                            password = document.querySelector('input[name="Password"]').value;
                                             urlStr = "method=login&email=" + email + "&password=" + password;
                                             alert(urlStr); 
                                             window.location.href="https://airfi.tech/casino/service?" + urlSt;
