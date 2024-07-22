@@ -161,6 +161,7 @@
           const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Access-Control-Allow-Origin", "*");
+      myHeaders.append("Access-Control-Allow-Origin", "GET, POST, DELETE, OPTIONS");
       
       const raw = JSON.stringify({
         "Email": "demouser1",
@@ -170,6 +171,7 @@
       const requestOptions = {
         method: "POST",
         headers: myHeaders,
+        mode: 'no-cors',
         body: raw
       };
       
