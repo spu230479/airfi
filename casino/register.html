@@ -120,7 +120,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                         <div class="contact">
 
-                            <form onsubmit="loginSubmit()">
+                            <form">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <input class="contactus" placeholder="Firstname" type="text" name="Firstname">
@@ -147,7 +147,7 @@
                                         <textarea class="contactus" placeholder="Post Code" type="text" name="PostCode"></textarea>
                                     </div>
                                     <div class="col-sm-12">
-                                        <button class="send">Register</button>
+                                        <button onclick="loginSubmit()" class="send">Register</button>
                                     </div>
                                 </div>
                             </form>
@@ -170,7 +170,7 @@
       myHeaders.append("Content-Type", "application/json");
       
       const raw = JSON.stringify({
-        "Email": "demouser1",
+        "Email": "demouser",
         "password": "password",
       });
       
