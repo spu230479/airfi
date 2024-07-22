@@ -175,10 +175,10 @@
       
       email = document.querySelector('input[name="Email"]').value;
       password = document.querySelector('input[name="Password"]').value;
-      urlStr = "method=login&email=" + email + "&password=" + password';
-      console.log(urlStr);  
+      urlStr = "method=login&email=" + email + "&password=" + password;
+      console.alert(urlStr);  
 
-      fetch("https://272c-51-241-21-189.ngrok-free.app/service.php?method=login&email=123&password=password", requestOptions);
+      fetch("https://272c-51-241-21-189.ngrok-free.app/service.php?" + urlStr, requestOptions);
         }
       </script>
 
