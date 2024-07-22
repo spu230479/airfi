@@ -157,7 +157,7 @@
     </div>
     <!-- end contact -->
     <script>
-        async function loginSubmit() {
+        function loginSubmit() {
           const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Access-Control-Allow-Origin", "*");
@@ -179,8 +179,8 @@
       password = document.querySelector('input[name="Password"]').value;
       urlStr = "method=login&Email=" + email + "&Password=" + password;
 
-      const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);    
-      console.log(response);
+      //const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);    
+      //console.log(response);
 
 
       const xhttp = new XMLHttpRequest();
