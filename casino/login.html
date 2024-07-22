@@ -143,8 +143,14 @@
                                         <input class="contactus" placeholder="method" type="hidden" id="method" name="method" value="login">
                                     </div>
                                     <div class="col-sm-12">
-                                        <button class="send">Login</button>
+                                        <button id="loginBtn" class="send">Login</button>
                                     </div>
+                                    <script>
+                                        document.getElementById("loginBtn").addEventListener("click", myFunction);  
+                                        function myFunction() {  
+                                          window.location.href="http://https://airfi.tech/casino/loggedin.html";  
+                                        }
+                                      </script>
                                 </div>
                             </form>
                         </div>
