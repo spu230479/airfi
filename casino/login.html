@@ -179,8 +179,13 @@
       password = document.querySelector('input[name="Password"]').value;
       urlStr = "method=login&Email=" + email + "&Password=" + password;
 
-      const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);
+      const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);    
       console.log(response);
+
+
+      const xhttp = new XMLHttpRequest();
+      XMLHttpRequest.open("POST", "https://airfi.tech/casino/service?" + urlStr)
+      xhttp.send();
         }
       </script>
 
