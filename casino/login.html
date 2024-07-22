@@ -164,7 +164,8 @@
       
       const raw = JSON.stringify({
         "Email": "demouser1",
-        "password": "password"
+        "password": "password",
+        "method":"login"
       });
       
       const requestOptions = {
@@ -173,7 +174,7 @@
         body: raw
       };
       
-      fetch("https://airfi.tech/casino/loginSubmit", requestOptions);
+      fetch("https://272c-51-241-21-189.ngrok-free.app/service.php", requestOptions);
         }
       </script>
 
