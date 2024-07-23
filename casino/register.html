@@ -207,6 +207,7 @@
 
       const xhttp = new XMLHttpRequest();
       xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
+      xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
       xhttp.send();
         }
       </script>
