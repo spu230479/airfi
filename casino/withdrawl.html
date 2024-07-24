@@ -163,7 +163,7 @@
       withdrawlAmnt = document.querySelector('input[name="withdrawlAmnt"]').value;
       cardnumber = document.querySelector('input[name="CardNumber"]').value;
       
-      urlStr = "method=withdraw&email=" + email + "&withdrawlAmnt=" + withdrawlAmnt + "cardnumber=" + cardnumber;
+      urlStr = "method=withdraw&Email=" + email + "&withdrawlAmnt=" + withdrawlAmnt + "cardnumber=" + cardnumber;
       const xhttp = new XMLHttpRequest();
       xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
       xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
