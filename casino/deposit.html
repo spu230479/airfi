@@ -155,7 +155,7 @@
       amount = document.querySelector('input[name="Amount"]').value;
       cardnumber = document.querySelector('input[name="CardNumber"]').value;
       
-      urlStr = "method=deposit&email=" + email + "&amount=" + amount + "&ardnumber=" + cardnumber;
+      urlStr = "method=deposit&email=" + email + "&amount=" + amount + "&cardnumber=" + cardnumber;
 
       const xhttp = new XMLHttpRequest();
       xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
