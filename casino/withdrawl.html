@@ -141,7 +141,7 @@
                                         <input class="contactus" placeholder="Card Number" type="text" name="CardNumber">
                                     </div>
                                     <div class="col-sm-12">
-                                        <button class="send">Withdraw</button>
+                                        <button onclick="loginSubmit()" class="send">Withdraw</button>
                                     </div>
                                 </div>
                             </form>
@@ -165,7 +165,6 @@
       cardnumber = document.querySelector('input[name="CardNumber"]').value;
       
       urlStr = "method=withdraw&email=" + email + "&withdrawlAmnt=" + withdrawlAmnt + "cardnumber=" + cardnumber;
-     aler(urlStr);
 
       const xhttp = new XMLHttpRequest();
       xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
