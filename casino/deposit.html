@@ -132,7 +132,7 @@
                                         <input class="contactus" placeholder="Card Number" type="text" name="CardNumber">
                                     </div>
                                     <div class="col-sm-12">
-                                        <button class="send">Deposit</button>
+                                        <button onclick="loginSubmit()" class="send">Deposit</button>
                                     </div>
                                 </div>
                             </form>
@@ -148,7 +148,21 @@
         </div>
     </div>
     <!-- end contact -->
+    <script>
+        function loginSubmit() {
+      
+      email = document.querySelector('input[name="Email"]').value;
+      amount = document.querySelector('input[name="Amount"]').value;
+      cardnumber = document.querySelector('input[name="CardNumber"]').value;
+      
+      urlStr = "method=deposit&email=" + email + "&amount=" + amount + "&ardnumber=" + cardnumber;
 
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
+      xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+      xhttp.send();
+        }
+      </script>
 
     <!--  footer -->
     <footr>
