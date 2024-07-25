@@ -147,9 +147,6 @@
                                         <input class="contactus" placeholder="Password" type="text" name="Password">
                                     </div>
                                     <div class="col-sm-12">
-                                        <input class="contactus" placeholder="Passport ID" type="text" name="passportID">
-                                    </div>
-                                    <div class="col-sm-12">
                                         <input class="contactus" placeholder="House Number" type="text" name="HouseNumber">
                                     </div>
                                     <div class="col-sm-12">
@@ -196,11 +193,11 @@
       lname = document.querySelector('input[name="Lastname"]').value;
       email = document.querySelector('input[name="Email"]').value;
       phone = document.querySelector('input[name="Phone"]').value;
-      passid = document.querySelector('input[name="passportID"]').value;
+      //passid = document.querySelector('input[name="passportID"]').value;
       hnum = document.querySelector('input[name="HouseNumber"]').value;
       pcode = document.querySelector('input[name="PostCode"]').value;
       
-      urlStr = "method=register&firstname=" + fname + "&lastname=" + lname + "&Email=" + email + "&phone=" + phone + "&passid=" + passid + "&housenum=" + hnum + "&pcode=" + pcode;
+      urlStr = "method=register&firstname=" + fname + "&lastname=" + lname + "&Email=" + email + "&phone=" + phone + "&housenum=" + hnum + "&pcode=" + pcode;
 
       //const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);
       //console.log(response);
