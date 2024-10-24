@@ -170,6 +170,13 @@
       xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
       xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
       xhttp.send();
+      xhttp.onload = function() {
+      if (xhttp.status != 200) { // analyze HTTP status of the response
+        console.log("Error ${xhttp.status}: ${xhttp.statusText}"); // e.g. 404: Not Found
+      } else { // show the result
+        console.log("Done, got ${xhttp.response}"); // response is the server response
+        }
+      };
         }
       </script>
 
