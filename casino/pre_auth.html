@@ -13,10 +13,11 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         var req = new XMLHttpRequest();
-        req.open('GET', document.location, true);
+        req.open('HEAD', document.location, true);
         req.send(null);
         req.onload = function() {
         var headers = req.getAllResponseHeaders().toLowerCase();
+        if (headers)
         console.log(headers);
 };
 
@@ -28,7 +29,7 @@
     <h1>This is a pre_auth_step</h1>
 
     <p>
-        <a href="http://airfi.tech/casino/loggedin.html"">
+        <a href="http://airfi.tech/casino/depositSuccess.html"">
         <img border="0" alt="3dsapprova" src="images/3dsimage.png" width="600" height="600">
         </a>
     </p>   
