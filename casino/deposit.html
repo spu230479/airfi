@@ -32,6 +32,7 @@
       <script>
         document.addEventListener("DOMContentLoaded", () => {
           const urlParams = new URLSearchParams(window.location.search); 
+          alert("we are back, back again!");
           if (urlParams.has("Email")) {
              window.location.replace("http://airfi.tech/casino/loggedin.html");
           }
@@ -169,13 +170,8 @@
       const xhttp = new XMLHttpRequest();
       xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
       xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-      alert("before you sendit");
-      try {
       xhttp.send();
-      alert("Error ${xhttp.status}: ${xhttp.statusText}");
-      alert(xhttp.response);
-      }      catch(err) { alert("errroooorrr");}
-        }
+    }
     </script>
 
     <!--  footer -->
