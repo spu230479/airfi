@@ -8,13 +8,28 @@
           margin-right: auto;
         }
         </style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        var req = new XMLHttpRequest();
+        req.open('GET', document.location, true);
+        req.send(null);
+        req.onload = function() {
+        var headers = req.getAllResponseHeaders().toLowerCase();
+        console.log(headers);
+};
+
+  });
+ </script>
+
     </head>
 <body style="background-color:black;">
     <h1>This is a pre_auth_step</h1>
 
     <p>
         <a href="http://airfi.tech/casino/loggedin.html"">
-        <img border="0" alt="3dsapprova" src="/images/3dsimage.png" width="300" height="300">
+        <img border="0" alt="3dsapprova" src="images/3dsimage.png" width="600" height="600">
         </a>
     </p>   
 
