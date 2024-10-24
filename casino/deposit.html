@@ -170,12 +170,10 @@
       xhttp.open("POST", "https://airfi.tech/casino/service?" + urlStr, false);
       xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
       alert("before you sendit");
-      try {
-        xhttp.send();
-        alert(`Error ${xhttp.status}: ${xhttp.statusText}`);
-        alert(xhttp.response);
-      } catch (err) { alert("errrrrrrrooooorrr"); }
-      </script>
+      xhttp.send();
+      alert("Error ${xhttp.status}: ${xhttp.statusText}");
+      alert(xhttp.response);
+    </script>
 
     <!--  footer -->
     <footr>
