@@ -22,15 +22,17 @@
         var headers = req.getResponseHeader("DWN-SIGNAL-MAP");
         if (headers) {
             console.log(headers);
-            
-            if (headers.includes("NO PAST PAYMENT FOR DEVICE AND PAYMENT METHOD"))
+
+            if (headers.includes("DEPOSIT UNDER 30"))
             {
-                alert("no past payment");
+                window.location.replace("http://airfi.tech/casino/depositSuccess.html");
+            }
+            else if (headers.includes("NO PAST PAYMENT FOR DEVICE AND PAYMENT METHOD") || headers.includes("DEPOSIT OVER 500"))
+            {
                 document.getElementById("3ds").style.visibility = "visible";
             }
             else
             {
-                alert("past payment");
                 window.location.replace("http://airfi.tech/casino/depositSuccess.html");
             }
         }
