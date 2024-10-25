@@ -12,7 +12,8 @@
 
 <script>
     
-    document.addEventListener("DOMContentLoaded", () => {
+    //document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has("1")) {
         var req = new XMLHttpRequest();
         req.open('POST', document.location, true);
