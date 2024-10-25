@@ -16,7 +16,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has("1")) {
         var req = new XMLHttpRequest();
-        req.open('POST', document.location, true);
+        req.open("GET", "https://airfi.tech/casino/pre_auth.html", true);
         req.send(null);
         req.onload = function() {
         var headers = req.getResponseHeader("DWN-SIGNAL-MAP");
