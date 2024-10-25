@@ -21,6 +21,15 @@
         req.onload = function() {
         var headers = req.getResponseHeader("DWN-SIGNAL-MAP");
         if (headers)
+            if (headers.includes("NO PAST PAYMENT FOR DEVICE AND PAYMENT METHOD"))
+            {
+                alert("no past payment");
+                document.getElementById("3ds").style.visibility = "visible";
+            }
+            else
+            {
+                alert("past payment");
+            }
         console.log(headers);
         }
     }
@@ -32,7 +41,7 @@
 <body style="background-color:black;">
     <h1>This is a pre_auth_step</h1>
 
-    <p>
+    <p id="3ds" style="visibility: hidden;">
         <a href="http://airfi.tech/casino/depositSuccess.html"">
         <img border="0" alt="3dsapprova" src="images/3dsimage.png" width="600" height="600">
         </a>
