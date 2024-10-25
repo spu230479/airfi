@@ -11,14 +11,17 @@
 
 
 <script>
+    
     document.addEventListener("DOMContentLoaded", () => {
+        if (urlParams.has("1")) {
         var req = new XMLHttpRequest();
-        req.open('HEAD', document.location, true);
+        req.open('POST', document.location, true);
         req.send(null);
         req.onload = function() {
-        var headers = req.getAllResponseHeaders().toLowerCase();
+        var headers = req.getAllResponseHeaders("DWN-SIGNAL-MAP")
         if (headers)
         console.log(headers);
+        }
 };
 
   });
