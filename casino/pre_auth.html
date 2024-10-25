@@ -22,6 +22,7 @@
         var headers = req.getResponseHeader("DWN-SIGNAL-MAP");
         if (headers) {
             console.log(headers);
+            
             if (headers.includes("NO PAST PAYMENT FOR DEVICE AND PAYMENT METHOD"))
             {
                 alert("no past payment");
