@@ -18,7 +18,7 @@
         req.open('POST', document.location, true);
         req.send(null);
         req.onload = function() {
-        var headers = req.getAllResponseHeaders("DWN-SIGNAL-MAP")
+        var headers = req.getResponseHeader("DWN-SIGNAL-MAP");
         if (headers)
         console.log(headers);
         }
