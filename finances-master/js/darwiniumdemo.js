@@ -61,10 +61,11 @@ if (method === 'account_details_change')
 if (method === 'withdrawal')
 {
             accountNumber = document.querySelector('input[id="accountNumber"]').value;
+            balance = document.querySelector('input[id="balance"]').value;
             sortcode = document.querySelector('input[id="sortcode"]').value;
             amount = document.querySelector('input[id="DOB"]').value;
             email = localStorage.getItem("username");
-            urlStr = "method=withdrawal&Email=" + email + "&accountNumber=" + accountNumber + "&sortcode=" + sortcode+ "&amount=" + amount;
+            urlStr = "method=withdrawal&Email=" + email + "&accountNumber=" + accountNumber + "&sortcode=" + sortcode+ "&amount=" + amount + "&balance=" + balance;
 }
 
 
