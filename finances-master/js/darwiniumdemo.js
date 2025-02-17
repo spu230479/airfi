@@ -63,7 +63,7 @@ if (method === 'withdrawal')
             accountNumber = document.querySelector('input[id="accountNumber"]').value;
             balance = document.querySelector('input[id="balance"]').value;
             sortcode = document.querySelector('input[id="sortcode"]').value;
-            amount = document.querySelector('input[id="DOB"]').value;
+            amount = document.querySelector('input[id="amount"]').value;
             email = localStorage.getItem("username");
             urlStr = "method=withdrawal&Email=" + email + "&accountNumber=" + accountNumber + "&sortcode=" + sortcode+ "&amount=" + amount + "&balance=" + balance;
 }
