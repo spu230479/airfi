@@ -12,8 +12,8 @@ myHeaders.append("Access-Control-Allow-Origin", "GET, POST, DELETE, OPTIONS");
 const requestOptions = {
 method: "POST",
 headers: myHeaders,
-mode: 'no-cors',
-body: raw
+mode: 'no-cors'
+//body: raw
 };
 
 //email = document.querySelector('input[name="Email"]').value;
