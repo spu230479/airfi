@@ -27,7 +27,16 @@ urlStr = "method=account_login_success&Email=" + email + "&Password=" + password
 
 
 const xhttp = new XMLHttpRequest();
+
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       
+       console.log(xhttp.responseText);
+       document.location('./home.html');
+    }
+};
 xhttp.open("POST", "https://airfi.tech/finances-master/submit?" + urlStr, false);
 xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
 xhttp.send();
+
 }
