@@ -48,6 +48,25 @@ if (method === 'recover')
         localStorage.setItem("username", email);
         urlStr = "method=account_forgot_user_id&Email=" + email + "&mobileNumber=" + mobileNumber + "&dob=" + dob+ "&lname=" + lname+ "&fname=" + fname;
 }
+if (method === 'account_details_change')
+{
+            fname = document.querySelector('input[id="fname"]').value;
+            lname = document.querySelector('input[id="lname"]').value;
+            dob = document.querySelector('input[id="DOB"]').value;
+            email = document.querySelector('input[id="email"]').value;
+            mobileNumber = document.querySelector('input[id="mobileNumber"]').value;
+            localStorage.setItem("username", email);
+            urlStr = "method=account_details_change&Email=" + email + "&mobileNumber=" + mobileNumber + "&dob=" + dob+ "&lname=" + lname+ "&fname=" + fname;
+}
+if (method === 'withdrawal')
+{
+            accountNumber = document.querySelector('input[id="accountNumber"]').value;
+            sortcode = document.querySelector('input[id="sortcode"]').value;
+            amount = document.querySelector('input[id="DOB"]').value;
+            email = localStorage.getItem("username");
+            urlStr = "method=withdrawal&Email=" + email + "&accountNumber=" + accountNumber + "&sortcode=" + sortcode+ "&amount=" + amount;
+}
+
 
 //const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);    
 //console.log(response);
@@ -59,11 +78,11 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-       if (method === 'login' || method === 'otp')
+       if (method === 'login' || method === 'otp' || method === 'withdrawal')
        {
             window.location.replace('https://airfi.tech/finances-master/home.html');
        }
-       if (method === 'register' || method === 'recover')
+       if (method === 'register' || method === 'recover' || method === 'account_details_change')
        {
             window.location.replace('https://airfi.tech/finances-master/otp.html');
        }
