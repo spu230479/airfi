@@ -69,7 +69,7 @@ if (method === 'withdrawal')
 }
 if (method === 'vendor-register')
 {
-                busName = document.querySelector('input[id="bus-nae"]').value;
+                busName = document.querySelector('input[id="bus-name"]').value;
                 busPhone = document.querySelector('input[id="bus-phone"]').value;
                 busEmail = document.querySelector('input[id="bus-email"]').value;
                 username = document.querySelector('input[id="username"]').value;
