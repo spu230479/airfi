@@ -17,7 +17,7 @@ mode: 'no-cors'
 
 if (method === 'login')
 {
-    email = document.querySelector('input[id="username"]').value;
+    email = document.querySelector('input[id="email"]').value;
     password = document.querySelector('input[id="password"]').value;
     localStorage.setItem("username", email);
     urlStr = "method=account_login_success&Email=" + email + "&Password=" + password;
