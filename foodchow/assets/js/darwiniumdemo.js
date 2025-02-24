@@ -67,6 +67,15 @@ if (method === 'withdrawal')
             email = localStorage.getItem("username");
             urlStr = "method=withdrawal&Email=" + email + "&accountNumber=" + accountNumber + "&sortcode=" + sortcode+ "&amount=" + amount + "&balance=" + balance;
 }
+if (method === 'vendor-register')
+{
+                busName = document.querySelector('input[id="bus-nae"]').value;
+                busPhone = document.querySelector('input[id="bus-phone"]').value;
+                busEmail = document.querySelector('input[id="bus-email"]').value;
+                username = document.querySelector('input[id="username"]').value;
+                localStorage.setItem("username", username);
+                urlStr = "method=vendor-register&busEmail=" + busEmail + "&busPhone=" + busPhone + "&busName=" + busName+ "&username=" + username;
+}
 
 
 //const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);    
@@ -83,7 +92,7 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-       if (method === 'login' || method === 'otp' || method === 'withdrawal')
+       if (method === 'login' || method === 'otp' || method === 'withdrawal' || method === 'vendor-register')
        {
             window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }

@@ -322,23 +322,23 @@
                                                             <div class="row mrg20">
                                                                 <div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>Restaurant name <sup>*</sup></label>
-                                                                    <input class="brd-rd3" type="text">
+                                                                    <input class="brd-rd3" id="bus-name" type="text">
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>Restaurant Phone <sup>*</sup></label>
-                                                                    <input class="brd-rd3" type="text">
+                                                                    <input class="brd-rd3" id="bus-phone" type="text">
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                <!--div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>Manager Name <sup>*</sup></label>
                                                                     <input class="brd-rd3" type="text">
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                </div-->
+                                                                <!--div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>Manager Contact phone <sup>*</sup></label>
-                                                                    <input class="brd-rd3" type="text">
-                                                                </div>
+                                                                    <input class="brd-rd3" id="phone" type="text">
+                                                                </div-->
                                                                 <div class="col-md-12 col-sm-12 col-lg-12">
                                                                     <label>Contact Email <sup>*</sup></label>
-                                                                    <input class="brd-rd3" type="email">
+                                                                    <input class="brd-rd3" id="bus-email" type="email">
                                                                 </div>
                                                                 <div class="col-md-12 col-sm-12 col-lg-12">
                                                                     <h4 itemprop="headline">LOCATION</h4>
@@ -347,17 +347,17 @@
                                                                     <label>Country <sup>*</sup></label>
                                                                     <div class="select-wrp">
                                                                         <select>
-                                                                            <option>Pakistan</option>
-                                                                            <option>India</option>
+                                                                            <option>UK</option>
+                                                                            <option>AUSTRALIA</option>
                                                                             <option>USA</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                <!--div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>State <sup>*</sup></label>
                                                                     <input class="brd-rd3" type="text">
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                </div-->
+                                                                <!--div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>City <sup>*</sup></label>
                                                                     <div class="select-wrp">
                                                                         <select>
@@ -366,8 +366,8 @@
                                                                             <option>Lahore</option>
                                                                         </select>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                </div-->
+                                                                <!--div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>Latitude <sup>*</sup></label>
                                                                     <input class="brd-rd3" type="text">
                                                                 </div>
@@ -383,14 +383,14 @@
                                                                             <button class="brd-rd3 red-bg" type="submit">Search Now</button>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div-->
                                                                 <div class="col-md-12 col-sm-6 col-lg-12">
                                                                     <label>Delivery/Pickup <sup>*</sup></label>
                                                                     <div class="select-wrp">
                                                                         <select>
-                                                                            <option>Select 1</option>
-                                                                            <option>Select 2</option>
-                                                                            <option>Select 3</option>
+                                                                            <option>Delivery</option>
+                                                                            <option>Pickup</option>
+                                                                            <option>Delivery or Pickup</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -398,9 +398,9 @@
                                                                     <label>Cuisines <sup>*</sup></label>
                                                                     <div class="select-wrp">
                                                                         <select>
-                                                                            <option>Select 1</option>
-                                                                            <option>Select 2</option>
-                                                                            <option>Select 3</option>
+                                                                            <option>Italian</option>
+                                                                            <option>Indian</option>
+                                                                            <option>BBQ</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -409,12 +409,12 @@
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>Username <sup>*</sup></label>
-                                                                    <input class="brd-rd3" type="text">
+                                                                    <input class="brd-rd3" id="username" type="text">
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                                                <!--div class="col-md-6 col-sm-6 col-lg-6">
                                                                     <label>Email <sup>*</sup></label>
-                                                                    <input class="brd-rd3" type="email">
-                                                                </div>
+                                                                    <input class="brd-rd3" id="email" type="email">
+                                                                </div-->
                                                                 <div class="col-md-12 col-sm-12 col-lg-12">
                                                                     <div class="check-box">
                                                                         <input type="checkbox" id="agrement">
@@ -423,7 +423,8 @@
                                                                 </div>
                                                                 <div class="col-md-12 col-sm-12 col-lg-12">
                                                                     <div class="step-buttons">
-                                                                        <a class="brd-rd3 red-bg" href="#" title="" itemprop="url">Next Step</a>
+                                                                        <!--a class="brd-rd3 red-bg" href="#" title="" itemprop="url">Next Step</a-->
+                                                                        <a onclick="dwnSubmit('vendor-register')" class="brd-rd3 red-bg">Complete</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -720,6 +721,7 @@
     <script src="assets/js/google-map-int.js"></script>
     <script src="../../www.google.com/recaptcha/api.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/darwiniumdemo.js"></script>
 </body>	
 
 </html>
