@@ -81,7 +81,7 @@ if (method === 'vendor-register')
                 busEmail = document.querySelector('input[id="bus-email"]').value;
                 username = document.querySelector('input[id="username"]').value;
                 localStorage.setItem("username", username);
-                urlStr = "method=vendor-register&busEmail=" + busEmail + "&busPhone=" + busPhone + "&busName=" + busName+ "&username=" + username;
+                urlStr = "method=account_creation&busEmail=" + busEmail + "&busPhone=" + busPhone + "&busName=" + busName+ "&username=" + username;
 }
 
 
