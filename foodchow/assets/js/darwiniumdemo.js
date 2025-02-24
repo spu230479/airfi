@@ -30,13 +30,13 @@ if (method === 'otp')
     }
 if (method === 'register')
 {
-    fname = document.querySelector('input[id="fname"]').value;
-    lname = document.querySelector('input[id="lname"]').value;
-    dob = document.querySelector('input[id="DOB"]').value;
+    //fname = document.querySelector('input[id="fname"]').value;
+    //lname = document.querySelector('input[id="lname"]').value;
+    //dob = document.querySelector('input[id="DOB"]').value;
     email = document.querySelector('input[id="email"]').value;
-    mobileNumber = document.querySelector('input[id="mobileNumber"]').value;
+    //mobileNumber = document.querySelector('input[id="mobileNumber"]').value;
     localStorage.setItem("username", email);
-    urlStr = "method=account_creation&Email=" + email + "&mobileNumber=" + mobileNumber + "&dob=" + dob+ "&lname=" + lname+ "&fname=" + fname;
+    urlStr = "method=account_creation&Email=" + email;
 }
 if (method === 'recover')
 {
@@ -81,15 +81,15 @@ xhttp.onreadystatechange = function() {
        console.log(xhttp.responseText);
        if (method === 'login' || method === 'otp' || method === 'withdrawal')
        {
-            window.location.replace('https://airfi.tech/finances-master/home.html');
+            window.location.replace('https://airfi.tech/foodchow/index2.html');
        }
        if (method === 'register' || method === 'recover' || method === 'account_details_change')
        {
-            window.location.replace('https://airfi.tech/finances-master/otp.html');
+            window.location.replace('https://airfi.tech/foodchow/index2.html');
        }
     }
 };
-xhttp.open("POST", "https://airfi.tech/finances-master/submit?" + urlStr, false);
+xhttp.open("POST", "https://airfi.tech/foodchow/submit?" + urlStr, false);
 xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
 xhttp.send();
 
