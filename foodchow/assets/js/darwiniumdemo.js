@@ -81,11 +81,11 @@ xhttp.onreadystatechange = function() {
        console.log(xhttp.responseText);
        if (method === 'login' || method === 'otp' || method === 'withdrawal')
        {
-            window.location.replace('https://airfi.tech/foodchow/index2.html');
+            window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
        if (method === 'register' || method === 'recover' || method === 'account_details_change')
        {
-            window.location.replace('https://airfi.tech/foodchow/index2.html');
+            window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
     }
 };
