@@ -33,7 +33,7 @@ if (method === 'register')
     //fname = document.querySelector('input[id="fname"]').value;
     //lname = document.querySelector('input[id="lname"]').value;
     //dob = document.querySelector('input[id="DOB"]').value;
-    email = document.querySelector('input[id="email"]').value;
+    email = document.querySelector('input[id="email-reg"]').value;
     //mobileNumber = document.querySelector('input[id="mobileNumber"]').value;
     localStorage.setItem("username", email);
     urlStr = "method=account_creation&Email=" + email;
