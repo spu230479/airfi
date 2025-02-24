@@ -72,6 +72,10 @@ if (method === 'withdrawal')
 //const response = await fetch("https://airfi.tech/casino/service?" + urlStr, requestOptions);    
 //console.log(response);
 
+if (method === 'logout')
+{
+         window.location.replace('https://airfi.tech/foodchow/index2.html');
+}
 
 const xhttp = new XMLHttpRequest();
 
