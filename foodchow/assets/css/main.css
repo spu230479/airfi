@@ -1023,11 +1023,12 @@ header.sticky nav > div > ul > li span {font-size: 11px;}
   margin-top: 55px;
 }
 .register-btn > a {
-  font-size: 12px;
-  color: #2a2a2a;
+  float: left;
+  width: 100%;
+  color: #fff;
+  font-weight: 700;
   font-family: Poppins;
-  padding: 11px 25px 10px;
-  display: inline-block;
+  padding: 15px 20px;
 }
 .register-btn > a.red-bg:hover {color: #333;}
 .register-btn > a.yellow-bg:hover {color: #fff;}
@@ -5325,11 +5326,12 @@ input:checked + .switch-slider:before {
 }
 .sign-form button:hover {color: #333;}
 .sign-form a {
-  display: inline-block;
-  margin-top: 19px;
-  color: #444;
-  font-size: 11px;
+  float: left;
+  width: 100%;
+  color: #fff;
+  font-weight: 700;
   font-family: Poppins;
+  padding: 15px 20px;
 }
 .sign-form a.recover-btn {float: right;}
 /*===== Login & Register Popup =====*/
