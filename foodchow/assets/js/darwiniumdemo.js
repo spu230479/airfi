@@ -1,4 +1,4 @@
-function dwnSubmit(method) {
+function dwnSubmit(method, amnt, busName) {
 console.log(method);
 
 const myHeaders = new Headers();
@@ -15,12 +15,11 @@ headers: myHeaders,
 mode: 'no-cors'
 };
 
-if (method === 'login')
+
+if (method === 'payment')
 {
-    email = document.querySelector('input[id="email"]').value;
-    //password = document.querySelector('input[id="password"]').value;
-    localStorage.setItem("username", email);
-    urlStr = "method=account_login_success&Email=" + email; // + "&Password=" + password;
+        email = localStorage.getItem("username");
+        urlStr = "method=payment&Email=" + email + "&busName=" + busName + "&amnt=" + amnt;
 }
 if (method === 'bus-login')
     {
@@ -103,7 +102,7 @@ xhttp.onreadystatechange = function() {
        {
             window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
-       if (method === 'register' || method === 'recover' || method === 'account_details_change')
+       if (method === 'register' || method === 'recover' || method === 'account_details_change' || method === 'payment')
        {
             window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
