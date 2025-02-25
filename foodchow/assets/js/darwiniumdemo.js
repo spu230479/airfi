@@ -21,13 +21,20 @@ if (method === 'payment')
         email = localStorage.getItem("username");
         urlStr = "method=payment&Email=" + email + "&busName=" + busName + "&amnt=" + amnt;
 }
-if (method === 'bus-login')
-    {
+if (method === 'login')
+{
         email = document.querySelector('input[id="email"]').value;
         //password = document.querySelector('input[id="password"]').value;
         localStorage.setItem("username", email);
         urlStr = "method=account_login_success&busEmail=" + email; // + "&Password=" + password;
-    }
+}
+if (method === 'bus-login')
+{
+        email = document.querySelector('input[id="email"]').value;
+        //password = document.querySelector('input[id="password"]').value;
+        localStorage.setItem("username", email);
+        urlStr = "method=account_login_success&busEmail=" + email; // + "&Password=" + password;
+}
 if (method === 'otp')
     {
         otp = document.querySelector('input[id="otp"]').value;
