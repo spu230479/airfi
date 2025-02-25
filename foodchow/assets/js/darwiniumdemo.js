@@ -18,7 +18,7 @@ mode: 'no-cors'
 if (method === 'review')
 {
             email = localStorage.getItem("username");
-            urlStr = "method=review&Email=" + email + "&busName=" + busName + "&review=" + "positive";
+            urlStr = "method=misc_other&Email=" + email + "&busName=" + busName + "&review=" + "positive";
 }
 if (method === 'payment')
 {
