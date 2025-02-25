@@ -15,7 +15,7 @@ headers: myHeaders,
 mode: 'no-cors'
 };
 
-if (method === 'review')
+if (method === 'review') //misc_other review method
 {
             email = localStorage.getItem("username");
             urlStr = "method=misc_other&Email=" + email + "&busName=" + busName + "&review=" + "positive";
