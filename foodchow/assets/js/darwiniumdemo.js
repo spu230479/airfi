@@ -15,7 +15,11 @@ headers: myHeaders,
 mode: 'no-cors'
 };
 
-
+if (method === 'review')
+{
+            email = localStorage.getItem("username");
+            urlStr = "method=review&Email=" + email + "&busName=" + busName + "&amnt=" + amnt;
+}
 if (method === 'payment')
 {
         email = localStorage.getItem("username");
@@ -109,7 +113,7 @@ xhttp.onreadystatechange = function() {
        {
             window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
-       if (method === 'register' || method === 'recover' || method === 'account_details_change' || method === 'payment')
+       if (method === 'register' || method === 'recover' || method === 'account_details_change' || method === 'payment' || method === 'review')
        {
             window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
