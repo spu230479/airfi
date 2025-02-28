@@ -118,6 +118,9 @@ xhttp.onreadystatechange = function() {
             window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
     }
+    if (this.readyState == 4 && this.status == 400) {
+        window.location.replace('https://airfi.tech/foodchow/404.html');
+    }
 };
 xhttp.open("POST", "https://airfi.tech/foodchow/submit?" + urlStr, false);
 xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
