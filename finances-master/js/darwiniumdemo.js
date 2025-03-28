@@ -100,8 +100,17 @@ xhttp.onreadystatechange = function() {
        }
     }
 };
-xhttp.open("POST", "https://airfi.tech/finances-master/submit?" + urlStr, false);
-xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-xhttp.send();
+if (method === 'logon'){
+    xhttp.open("POST", "https://airfi.tech/finances-master/go?" + urlStr, false);
+    xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhttp.send();
+}
+else
+{
+    xhttp.open("POST", "https://airfi.tech/finances-master/submit?" + urlStr, false);
+    xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhttp.send();
+}
+
 
 }
