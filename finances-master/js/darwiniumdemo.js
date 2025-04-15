@@ -74,7 +74,7 @@ if (method === 'withdrawal')
             fromswiftcode = document.querySelector('input[id="fromswiftcode"]').value;
             amount = document.querySelector('input[id="amount"]').value;
             email = localStorage.getItem("username");
-            urlStr = "method=withdrawal&Email=" + email + "&fromaccountNumber=" + fromaccountNumber + "&toaccountNumber=" + toaccountNumber + "&fromswiftcode=" + fromswitfcode + "&toswiftcode=" + toswitfcode + "&amount=" + amount + "&balance=" + balance;
+            urlStr = "method=withdrawal&Email=" + email + "&fromaccountNumber=" + fromaccountNumber + "&toaccountNumber=" + toaccountNumber + "&fromswiftcode=" + fromswiftcode + "&toswiftcode=" + toswiftcode + "&amount=" + amount + "&balance=" + balance;
 }
 
 
