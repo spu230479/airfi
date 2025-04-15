@@ -70,11 +70,11 @@ if (method === 'withdrawal')
             fromaccountNumber = document.querySelector('input[id="fromaccountNumber"]').value;
             toaccountNumber = document.querySelector('input[id="toaccountNumber"]').value;
             balance = document.querySelector('input[id="balance"]').value;
-            toswitfcode = document.querySelector('input[id="toswiftcode"]').value;
-            fromswitfcode = document.querySelector('input[id="fromswiftcode"]').value;
+            toswiftcode = document.querySelector('input[id="toswiftcode"]').value;
+            fromswiftcode = document.querySelector('input[id="fromswiftcode"]').value;
             amount = document.querySelector('input[id="amount"]').value;
             email = localStorage.getItem("username");
-            urlStr = "method=withdrawal&Email=" + email + "&fromaccountNumber=" + fromaccountNumber + "&toaccountNumber=" + toaccountNumber + "&fromswitfcode=" + fromswitfcode + "&toswitfcode=" + toswitfcode + "&amount=" + amount + "&balance=" + balance;
+            urlStr = "method=withdrawal&Email=" + email + "&fromaccountNumber=" + fromaccountNumber + "&toaccountNumber=" + toaccountNumber + "&fromswiftcode=" + fromswitfcode + "&toswiftcode=" + toswitfcode + "&amount=" + amount + "&balance=" + balance;
 }
 
 
