@@ -47,13 +47,13 @@ if (method === 'otp')
     }
 if (method === 'register')
 {
-    //fname = document.querySelector('input[id="fname"]').value;
-    //lname = document.querySelector('input[id="lname"]').value;
-    //dob = document.querySelector('input[id="DOB"]').value;
-    email = document.querySelector('input[id="email-reg"]').value;
-    //mobileNumber = document.querySelector('input[id="mobileNumber"]').value;
+    fname = document.querySelector('input[id="fname"]').value;
+    lname = document.querySelector('input[id="lname"]').value;
+    email = document.querySelector('input[id="email"]').value;
+    mobile = document.querySelector('input[id="mobile"]').value;
+    nationalID = document.querySelector('input[id="nationalID"]').value;
     localStorage.setItem("username", email);
-    urlStr = "method=account_creation&Email=" + email;
+    urlStr = "method=account_creation&Email=" + email + "&fname=" + fname + "&lname=" + lname + "&mobile=" + mobile + "&nationalID=" + nationalID;
 }
 if (method === 'recover')
 {
@@ -111,18 +111,18 @@ xhttp.onreadystatechange = function() {
        console.log(xhttp.responseText);
        if (method === 'login' || method === 'otp' || method === 'withdrawal' || method === 'vendor-register' || method === 'bus-login')
        {
-            window.location.replace('https://airfi.tech/foodchow/loggedin.html');
+            //window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
        if (method === 'register' || method === 'recover' || method === 'account_details_change' || method === 'payment' || method === 'review')
        {
-            window.location.replace('https://airfi.tech/foodchow/loggedin.html');
+            //window.location.replace('https://airfi.tech/foodchow/loggedin.html');
        }
     }
     if (this.readyState == 4 && this.status == 400) {
-        window.location.replace('https://airfi.tech/foodchow/404.html');
+        //window.location.replace('https://airfi.tech/foodchow/404.html');
     }
 };
-xhttp.open("POST", "https://airfi.tech/foodchow/submit?" + urlStr, false);
+xhttp.open("POST", "https://airfi.tech/promo/submit?" + urlStr, false);
 xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
 xhttp.send();
 
