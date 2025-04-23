@@ -100,7 +100,7 @@ if (method === 'vendor-register')
 
 if (method === 'logout')
 {
-         window.location.replace('https://airfi.tech/foodchow/index2.html');
+         window.location.replace('https://www.livescorebet.com/uk/');
 }
 
 const xhttp = new XMLHttpRequest();
