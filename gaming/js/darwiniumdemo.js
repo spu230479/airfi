@@ -93,7 +93,7 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-       if (method === 'login' || method === 'otp' || method === 'withdrawal')
+       if (method === 'login' || method === 'otp' || method === 'withdrawal' || method === 'payment' )
        {
             window.location.replace('https://airfi.tech/gaming/home.html');
        }
