@@ -67,14 +67,19 @@ if (method === 'account_details_change')
 }
 if (method === 'withdrawal')
 {
-            fromaccountNumber = document.querySelector('input[id="fromaccountNumber"]').value;
-            toaccountNumber = document.querySelector('input[id="toaccountNumber"]').value;
-            balance = document.querySelector('input[id="balance"]').value;
-            toswiftcode = document.querySelector('input[id="toswiftcode"]').value;
-            fromswiftcode = document.querySelector('input[id="fromswiftcode"]').value;
+            provider = document.querySelector('input[id="provider"]').value;
+            paymentAccount = document.querySelector('input[id="provider-id"]').value;
             amount = document.querySelector('input[id="amount"]').value;
             email = localStorage.getItem("username");
-            urlStr = "method=withdrawal&Email=" + email + "&fromaccountNumber=" + fromaccountNumber + "&toaccountNumber=" + toaccountNumber + "&fromswiftcode=" + fromswiftcode + "&toswiftcode=" + toswiftcode + "&amount=" + amount + "&balance=" + balance;
+            urlStr = "method=withdrawal&Email=" + email + "&paymentAccount=" + paymentAccount + "&amount=" + amount + "&balance=" + balance;            urlStr = "method=withdrawal&Email=" + email + "&fromaccountNumber=" + fromaccountNumber + "&toaccountNumber=" + toaccountNumber + "&fromswiftcode=" + fromswiftcode + "&toswiftcode=" + toswiftcode + "&amount=" + amount + "&balance=" + balance;
+}
+if (method === 'payment')
+{
+            provider = document.querySelector('input[id="provider"]').value;
+            paymentAccount = document.querySelector('input[id="provider-id"]').value;
+            amount = document.querySelector('input[id="amount"]').value;
+            email = localStorage.getItem("username");
+            urlStr = "method=payment&Email=" + email + "&paymentAccount=" + paymentAccount + "&amount=" + amount + "&balance=" + balance;
 }
 
 
