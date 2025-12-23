@@ -1006,6 +1006,348 @@
   
   <script src="js/main.js"></script>
 
-  
+  <script>
+(async function () {
+
+  /* =========================
+     HELPERS
+  ========================== */
+  const sha256 = async (str) => {
+    const buf = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(str)
+    );
+    return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+  };
+
+  const safe = (v) => (v === undefined || v === null ? "" : String(v));
+
+  /* =========================
+     BASE SIGNALS
+  ========================== */
+  const nav = navigator;
+  const scr = screen;
+
+  const base = {
+    ua: safe(nav.userAgent),
+    platform: safe(nav.platform),
+    vendor: safe(nav.vendor),
+    languages: (nav.languages || []).join(","),
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    tzOffset: new Date().getTimezoneOffset(),
+    cores: nav.hardwareConcurrency || 0,
+    memory: nav.deviceMemory || 0,
+    touch: nav.maxTouchPoints || 0,
+    dpr: window.devicePixelRatio || 1
+  };
+
+  /* =========================
+     SCREEN (NORMALIZED)
+  ========================== */
+  const screenData = {
+    w: scr.width,
+    h: scr.height,
+    aw: scr.availWidth,
+    ah: scr.availHeight,
+    cd: scr.colorDepth,
+    pd: scr.pixelDepth
+  };
+
+  /* =========================
+     NETWORK (LOW ENTROPY)
+  ========================== */
+  const connection = nav.connection ? {
+    type: nav.connection.effectiveType,
+    saveData: nav.connection.saveData
+  } : {};
+
+  /* =========================
+     WEBGL (GPU SIGNAL)
+  ========================== */
+  let webgl = {};
+  try {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (gl) {
+      const dbg = gl.getExtension("WEBGL_debug_renderer_info");
+      webgl = {
+        vendor: dbg ? gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) : "",
+        renderer: dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : ""
+      };
+    }
+  } catch {}
+
+  /* =========================
+     CANVAS FINGERPRINT
+  ========================== */
+  let canvasFp = "";
+  try {
+    const c = document.createElement("canvas");
+    const ctx = c.getContext("2d");
+    ctx.textBaseline = "top";
+    ctx.font = "14px Arial";
+    ctx.fillText("fingerprint", 2, 2);
+    canvasFp = c.toDataURL();
+  } catch {}
+
+  /* =========================
+     AUDIO CONTEXT
+  ========================== */
+  let audioFp = "";
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      const ctx = new AudioCtx();
+      audioFp = ctx.sampleRate + ":" + ctx.state;
+      ctx.close();
+    }
+  } catch {}
+
+  /* =========================
+     STORAGE SUPPORT
+  ========================== */
+  const storage = {
+    ls: !!window.localStorage,
+    ss: !!window.sessionStorage,
+    idb: !!window.indexedDB,
+    cookies: nav.cookieEnabled
+  };
+
+  /* =========================
+     BUILD FINGERPRINTS
+  ========================== */
+
+  // STRICT: fraud / abuse
+  const strictSource = JSON.stringify({
+    base,
+    screenData,
+    connection,
+    webgl,
+    canvasFp,
+    audioFp,
+    storage
+  });
+
+  // SOFT: analytics / personalization
+  const softSource = JSON.stringify({
+    ua: base.ua,
+    platform: base.platform,
+    languages: base.languages,
+    timezone: base.timezone,
+    screen: {
+      w: screenData.w,
+      h: screenData.h,
+      dpr: base.dpr
+    },
+    cores: base.cores,
+    memory: base.memory
+  });
+
+  const fp_strict = await sha256(strictSource);
+  const fp_soft = await sha256(softSource);
+
+  /* =========================
+     RESULT
+  ========================== */
+  const fingerprint = {
+    fp_strict,
+    fp_soft,
+    components: {
+      base,
+      screenData,
+      connection,
+      webgl,
+      canvasFp: canvasFp ? "present" : "",
+      audioFp,
+      storage
+    }
+  };
+
+  console.log("Fingerprint:", fingerprint);
+  window.__FINGERPRINT__ = fingerprint;
+
+})();
+</script>
+<script>
+(async function collectDeviceInfo() {
+  const info = {};
+
+  /* =========================
+     BASIC BROWSER & OS
+  ========================== */
+  info.userAgent = navigator.userAgent;
+  info.userAgentData = navigator.userAgentData || null;
+  info.platform = navigator.platform;
+  info.appVersion = navigator.appVersion;
+  info.vendor = navigator.vendor;
+  info.language = navigator.language;
+  info.languages = navigator.languages;
+  info.cookieEnabled = navigator.cookieEnabled;
+  info.doNotTrack = navigator.doNotTrack;
+
+  /* =========================
+     HARDWARE (APPROXIMATE)
+  ========================== */
+  info.hardwareConcurrency = navigator.hardwareConcurrency || null;
+  info.deviceMemoryGB = navigator.deviceMemory || null;
+  info.maxTouchPoints = navigator.maxTouchPoints || 0;
+  info.touchSupport = 'ontouchstart' in window;
+
+  /* =========================
+     SCREEN & VIEWPORT
+  ========================== */
+  info.screen = {
+    width: screen.width,
+    height: screen.height,
+    availWidth: screen.availWidth,
+    availHeight: screen.availHeight,
+    colorDepth: screen.colorDepth,
+    pixelDepth: screen.pixelDepth,
+    devicePixelRatio: window.devicePixelRatio,
+    orientation: screen.orientation?.type || null
+  };
+
+  info.viewport = {
+    innerWidth: window.innerWidth,
+    innerHeight: window.innerHeight,
+    outerWidth: window.outerWidth,
+    outerHeight: window.outerHeight
+  };
+
+  /* =========================
+     TIME & LOCALE
+  ========================== */
+  info.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  info.locale = Intl.DateTimeFormat().resolvedOptions().locale;
+  info.timezoneOffsetMinutes = new Date().getTimezoneOffset();
+
+  /* =========================
+     NETWORK INFO (LIMITED)
+  ========================== */
+  if (navigator.connection) {
+    info.connection = {
+      effectiveType: navigator.connection.effectiveType,
+      downlink: navigator.connection.downlink,
+      rtt: navigator.connection.rtt,
+      saveData: navigator.connection.saveData
+    };
+  }
+
+  /* =========================
+     STORAGE CAPABILITIES
+  ========================== */
+  info.storage = {
+    localStorage: !!window.localStorage,
+    sessionStorage: !!window.sessionStorage,
+    indexedDB: !!window.indexedDB,
+    cookiesEnabled: navigator.cookieEnabled
+  };
+
+  if (navigator.storage && navigator.storage.estimate) {
+    info.storageEstimate = await navigator.storage.estimate();
+  }
+
+  /* =========================
+     MEDIA DEVICES (PERMISSION-BASED)
+  ========================== */
+  info.mediaDevices = [];
+  if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      info.mediaDevices = devices.map(d => ({
+        kind: d.kind,
+        label: d.label || null,
+        deviceId: d.deviceId ? 'present' : null
+      }));
+    } catch (e) {
+      info.mediaDevicesError = e.message;
+    }
+  }
+
+  /* =========================
+     BATTERY (RESTRICTED)
+  ========================== */
+  if (navigator.getBattery) {
+    try {
+      const battery = await navigator.getBattery();
+      info.battery = {
+        charging: battery.charging,
+        level: battery.level,
+        chargingTime: battery.chargingTime,
+        dischargingTime: battery.dischargingTime
+      };
+    } catch (e) {
+      info.batteryError = e.message;
+    }
+  }
+
+  /* =========================
+     PERMISSIONS STATE (NO PROMPT)
+  ========================== */
+  info.permissions = {};
+  if (navigator.permissions) {
+    const perms = ['geolocation', 'camera', 'microphone', 'notifications'];
+    for (const p of perms) {
+      try {
+        const status = await navigator.permissions.query({ name: p });
+        info.permissions[p] = status.state;
+      } catch {}
+    }
+  }
+
+  /* =========================
+     WEBGL (GPU FINGERPRINTING)
+  ========================== */
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (gl) {
+      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+      info.webgl = {
+        vendor: debugInfo ? gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) : null,
+        renderer: debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : null
+      };
+    }
+  } catch {}
+
+  /* =========================
+     AUDIO CONTEXT FINGERPRINT
+  ========================== */
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      const ctx = new AudioCtx();
+      info.audioContext = {
+        sampleRate: ctx.sampleRate,
+        state: ctx.state
+      };
+      ctx.close();
+    }
+  } catch {}
+
+  /* =========================
+     FEATURE SUPPORT FLAGS
+  ========================== */
+  info.features = {
+    serviceWorker: 'serviceWorker' in navigator,
+    webRTC: 'RTCPeerConnection' in window,
+    bluetooth: 'bluetooth' in navigator,
+    usb: 'usb' in navigator,
+    clipboard: 'clipboard' in navigator,
+    vibration: 'vibrate' in navigator,
+    share: 'share' in navigator
+  };
+
+  /* =========================
+     OUTPUT
+  ========================== */
+  console.log('Device & Browser Info:', info);
+  window.__DEVICE_INFO__ = info; // accessible globally
+
+})();
+</script>
+
   </body>
 </html>
