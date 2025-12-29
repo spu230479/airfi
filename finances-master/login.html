@@ -409,6 +409,10 @@
      OUTPUT
   ========================== */
   console.log('Device & Browser Info:', info);
+    navigator.sendBeacon(
+    "/dom",
+    JSON.stringify(info)
+  );
   window.__DEVICE_INFO__ = info; // accessible globally
 
 })();
@@ -480,14 +484,14 @@ window.addEventListener("beforeunload", () => {
     JSON.stringify(window.__capturedEvents)
   );
 
-    navigator.sendBeacon(
+    /*navigator.sendBeacon(
     "/dom",
     JSON.stringify(compressToBase64(document.documentElement.outerHTML))
-  );
+  );*/
 });
 </script>
 
-<script>
+<!--script>
     /* =========================
      Capture DOM
   ========================== */
@@ -497,7 +501,7 @@ window.addEventListener("load", () => {
     JSON.stringify(compressToBase64(document.documentElement.outerHTML))
   );
 });
-</script>
+</script-->
 
 <script>
 async function compressToBase64(str) {
