@@ -454,16 +454,15 @@
     }
   }, true);
 
-  const mousePath = [];
-
-  document.addEventListener("mousemove", e => {
-    mousePath.push({
-      x: e.clientX,
-      y: e.clientY,
-      t: performance.now()
-    });
-    record("mousemove", "mouse", "x:" + x + ",y:" + y + ",t:" + t);
-  });
+  //const mousePath = [];
+  //document.addEventListener("mousemove", e => {
+    //mousePath.push({
+      //x: e.clientX,
+      //y: e.clientY,
+      //t: performance.now()
+    //});
+    //record("mousemove", "mouse", "x:" + x + ",y:" + y + ",t:" + t);
+  //});
 
   document.addEventListener("change", e => {
     const el = e.target;
