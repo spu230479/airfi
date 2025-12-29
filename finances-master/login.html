@@ -518,5 +518,47 @@ async function compressToBase64(str) {
 }
 </script>
 
+<script>
+//element finder
+function findElement(meta) {
+  if (meta.id) {
+    const el = document.getElementById(meta.id);
+    if (el) return el;
+  }
+
+  if (meta.name) {
+    const el = document.querySelector(`[name="${meta.name}"]`);
+    if (el) return el;
+  }
+
+  return document.querySelector(meta.tag.toLowerCase());
+}
+</script>
+
+<script>
+  //Replay logic
+async function replayEvents(events, delay = 300) {
+  for (const e of events) {
+    const el = findElement(e.element);
+    if (!el) continue;
+
+    if (e.event === "input") {
+      el.focus();
+      el.value = e.value;
+
+      // Trigger real input events so frameworks (React/Vue) detect it
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      el.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    if (e.event === "click") {
+      el.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    }
+
+    await new Promise(r => setTimeout(r, delay));
+  }
+}
+</script>
+
   </body>
 </html>
