@@ -482,7 +482,7 @@ window.addEventListener("beforeunload", () => {
 
     navigator.sendBeacon(
     "/dom",
-    JSON.stringify(document.documentElement.outerHTML)
+    JSON.stringify(compressToBase64(document.documentElement.outerHTML))
   );
 });
 </script>
@@ -494,9 +494,24 @@ window.addEventListener("beforeunload", () => {
 window.addEventListener("load", () => {
   navigator.sendBeacon(
     "/dom",
-    JSON.stringify(document.documentElement.outerHTML)
+    JSON.stringify(compressToBase64(document.documentElement.outerHTML))
   );
 });
+</script>
+
+<script>
+async function compressToBase64(str) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+
+  const cs = new CompressionStream("gzip");
+  const writer = cs.writable.getWriter();
+  writer.write(data);
+  writer.close();
+
+  const compressed = await new Response(cs.readable).arrayBuffer();
+  return btoa(String.fromCharCode(...new Uint8Array(compressed)));
+}
 </script>
 
   </body>
