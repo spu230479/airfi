@@ -462,7 +462,7 @@
       y: e.clientY,
       t: performance.now()
     });
-    record("mousemove", "X:" + x + "-Y:" + y, t);
+    record("mousemove", "mouse", "x:" + x + ",y:" + y + ",t:" + t);
   });
 
   document.addEventListener("change", e => {
