@@ -454,6 +454,17 @@
     }
   }, true);
 
+  const mousePath = [];
+
+  document.addEventListener("mousemove", e => {
+    mousePath.push({
+      x: e.clientX,
+      y: e.clientY,
+      t: performance.now()
+    });
+    record("mousemove", "X:" + x + "-Y:" + y, t);
+  });
+
   document.addEventListener("change", e => {
     const el = e.target;
     if (["SELECT", "INPUT"].includes(el.tagName)) {
