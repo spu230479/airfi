@@ -604,5 +604,21 @@ async function replayEvents(events, delay = 300) {
 }
 </script>
 
+<script>
+  async function base64Gunzip(base64) {
+  // Base64 → Uint8Array
+  const binary = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+
+  // GZIP inflate
+  const ds = new DecompressionStream("gzip");
+  const writer = ds.writable.getWriter();
+  writer.write(binary);
+  writer.close();
+
+  const decompressed = await new Response(ds.readable).arrayBuffer();
+  return new TextDecoder().decode(decompressed);
+}
+</script>
+
   </body>
 </html>
