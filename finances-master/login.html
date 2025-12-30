@@ -571,10 +571,16 @@ async function replayEvents(events, delay = 300) {
   document.body.appendChild(cursor);
 
   for (const e of events) {
-    if (e.event != "mousemove") {
-      const el = findElement(e.element);
-      if (!el) continue;
+    if (e.event === "mousemove") {
+    setTimeout(() => {
+      cursor.style.left = e.x + "px";
+      cursor.style.top = e.y + "px";
+    }, e.t);
     }
+    if (e.event === "mousemove") continue;
+
+    const el = findElement(e.element);
+    if (!el) continue;
 
     if (e.event === "input") {
       el.focus();
@@ -591,12 +597,7 @@ async function replayEvents(events, delay = 300) {
       el.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     }
 
-    if (e.event === "mousemove") {
-    setTimeout(() => {
-      cursor.style.left = e.x + "px";
-      cursor.style.top = e.y + "px";
-    }, e.t);
-    }
+
 
     await new Promise(r => setTimeout(r, delay));
   }
