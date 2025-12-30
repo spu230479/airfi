@@ -454,16 +454,6 @@
     }
   }, true);
 
-  //const mousePath = [];
-  //document.addEventListener("mousemove", e => {
-    //mousePath.push({
-      //x: e.clientX,
-      //y: e.clientY,
-      //t: performance.now()
-    //});
-    //record("mousemove", "mouse", "x:" + x + ",y:" + y + ",t:" + t);
-  //});
-
   document.addEventListener("change", e => {
     const el = e.target;
     if (["SELECT", "INPUT"].includes(el.tagName)) {
@@ -482,6 +472,26 @@
   // Expose for debugging / export
   window.__capturedEvents = events;
 })();
+</script>
+
+<script>
+  //CAPTURE MOUSE MOVEMENT EVENTS
+  const mouseEvents = [];
+let last = 0;
+const THROTTLE_MS = 25; // ~40 Hz
+
+document.addEventListener("mousemove", e => {
+  const now = performance.now();
+  if (now - last < THROTTLE_MS) return;
+  last = now;
+
+  events.push({
+    event: "mousemove",
+    x: e.clientX,
+    y: e.clientY,
+    t: now
+  });
+});
 </script>
 
 <script>
@@ -548,6 +558,21 @@ function findElement(meta) {
 <script>
   //Replay logic
 async function replayEvents(events, delay = 300) {
+
+  const cursor = document.createElement("div");
+  cursor.style.cssText = `
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%);
+  `;
+
+  document.body.appendChild(cursor);
+
   for (const e of events) {
     const el = findElement(e.element);
     if (!el) continue;
@@ -565,6 +590,13 @@ async function replayEvents(events, delay = 300) {
       el.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
       el.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
       el.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    }
+
+    if (e.event === "mousemove") {
+    setTimeout(() => {
+      cursor.style.left = e.x + "px";
+      cursor.style.top = e.y + "px";
+    }, e.t);
     }
 
     await new Promise(r => setTimeout(r, delay));
