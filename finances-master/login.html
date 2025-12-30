@@ -469,14 +469,7 @@
     }
   }, true);
 
-  // Expose for debugging / export
-  window.__capturedEvents = events;
-})();
-</script>
-
-<script>
-  //CAPTURE MOUSE MOVEMENT EVENTS
-  const mouseEvents = [];
+//CAPTURE MOUSE MOVEMENT EVENTS
 let last = 0;
 const THROTTLE_MS = 25; // ~40 Hz
 
@@ -492,6 +485,10 @@ document.addEventListener("mousemove", e => {
     t: now
   });
 });
+
+  // Expose for debugging / export
+  window.__capturedEvents = events;
+})();
 </script>
 
 <script>
