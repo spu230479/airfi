@@ -410,7 +410,7 @@
   ========================== */
   console.log('Device & Browser Info:', info);
     navigator.sendBeacon(
-    "/dom",
+    "/device",
     JSON.stringify(info)
   );
   window.__DEVICE_INFO__ = info; // accessible globally
@@ -571,8 +571,10 @@ async function replayEvents(events, delay = 300) {
   document.body.appendChild(cursor);
 
   for (const e of events) {
-    const el = findElement(e.element);
-    if (!el) continue;
+    if (e.event != "mousemove") {
+      const el = findElement(e.element);
+      if (!el) continue;
+    }
 
     if (e.event === "input") {
       el.focus();
