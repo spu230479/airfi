@@ -502,11 +502,11 @@ window.addEventListener("beforeunload", () => {
   );
 
   
-    compressToBase64(document.documentElement.outerHTML).then(domstr => {
-    navigator.sendBeacon(
-    "/dom",
-    domstr
-  );});
+   // compressToBase64(document.documentElement.outerHTML).then(domstr => {
+    //navigator.sendBeacon(
+    //"/dom",
+    //domstr
+  //);});
 });
 </script>
 
