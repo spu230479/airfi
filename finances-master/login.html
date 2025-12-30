@@ -501,24 +501,24 @@ window.addEventListener("beforeunload", () => {
     JSON.stringify(window.__capturedEvents)
   );
 
-    /*navigator.sendBeacon(
+    navigator.sendBeacon(
     "/dom",
-    JSON.stringify(compressToBase64(document.documentElement.outerHTML))
-  );*/
+    compressToBase64(document.documentElement.outerHTML)
+  );
 });
 </script>
 
-<!--script>
+<script>
     /* =========================
      Capture DOM
   ========================== */
 window.addEventListener("load", () => {
   navigator.sendBeacon(
     "/dom",
-    JSON.stringify(compressToBase64(document.documentElement.outerHTML))
+    compressToBase64(document.documentElement.outerHTML)
   );
 });
-</script-->
+</script>
 
 <script>
 async function compressToBase64(str) {
