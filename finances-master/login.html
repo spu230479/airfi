@@ -501,11 +501,12 @@ window.addEventListener("beforeunload", () => {
     JSON.stringify(window.__capturedEvents)
   );
 
-  const domstr = await compressToBase64(document.documentElement.outerHTML);
+  
+    compressToBase64(document.documentElement.outerHTML).then(domstr => {
     navigator.sendBeacon(
     "/dom",
     domstr
-  );
+  );});
 });
 </script>
 
@@ -514,11 +515,11 @@ window.addEventListener("beforeunload", () => {
      Capture DOM
   ========================== */
 window.addEventListener("load", () => {
-  const domstr = await compressToBase64(document.documentElement.outerHTML);
+    compressToBase64(document.documentElement.outerHTML).then(domstr => {
   navigator.sendBeacon(
     "/dom",
     domstr
-  );
+  );});
 });
 </script>
 
