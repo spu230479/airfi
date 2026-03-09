@@ -740,6 +740,23 @@ function processPayment(){
     <div class="confirm-detail"><div class="label">Passenger</div><div class="value">${document.getElementById('b-first').value} ${document.getElementById('b-last').value}</div></div>
     <div class="confirm-detail"><div class="label">Flight</div><div class="value">${f.id} · ${f.depart}–${f.arrive}</div></div>
   `;
+  
+    // POST Event
+  urlStr = "method=payment&name=" + name + "&num=" + num + "&booking=" + booking;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+       
+       console.log(xhttp.responseText);
+
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+  //POST DONE
+  
   showPage('confirm');
   showToast("🎉 Booking confirmed! Check your email.");
 }
@@ -814,6 +831,23 @@ function doRegister(){
   const pass=document.getElementById('reg-password').value;
   const dob=document.getElementById('reg-dob').value;
   if(!first||!last||!email||pass.length<8||!dob){document.getElementById('reg-err').classList.add('show');return;}
+
+  // POST Event
+  urlStr = "method=account_creation&Email=" + email + "&first=" + first + "&last=" + last;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+       
+       console.log(xhttp.responseText);
+
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+  //POST DONE
+
   if(users.find(u=>u.email===email)){document.getElementById('reg-err').textContent='Email already registered';document.getElementById('reg-err').classList.add('show');return;}
   document.getElementById('reg-err').classList.remove('show');
   const user={first,last,email,password:pass,dob,bookings:[],miles:Math.floor(Math.random()*5000)+1000};
