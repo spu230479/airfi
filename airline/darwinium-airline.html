@@ -726,6 +726,13 @@ function processPayment(){
 function doLogin(){
   const email=document.getElementById('login-email').value.trim();
   const pass=document.getElementById('login-password').value;
+  
+  // add users list
+    users.push({first:'Frank',last:'Darwin',email:email,password:'password123',dob:'1990-01-01',miles:24800,bookings:[
+    {ref:'DW-DEMO01',flight:{id:'DW1002',airline:'DW Express',from:'London (LHR)',to:'New York (JFK)',date:'2025-10-15',depart:'09:45',arrive:'18:00',duration:'8h 15m'},seat:'3C',price:1240,date:'1 Oct 2025'}
+  ]});
+  // add users to list done
+  
   const user=users.find(u=>u.email===email&&u.password===pass);
 
   // POST Event
