@@ -311,7 +311,7 @@
       </div>
       <div class="form-group">
         <label>Flying Club Account</label>
-        <input type="email" id="login-email" placeholder="you@example.com">
+        <input type="email" id="booking-email" placeholder="you@example.com">
         <span class="error-msg" id="login-err">Invalid email</span>
       </div>
       <button class="btn-primary" onclick="doBooking()">Add Booking →</button>
@@ -782,7 +782,7 @@ function doLogin(){
 
 // ─── Add booking ──────────────────────────────────────────────────────
 function doBooking(){
-  const email=document.getElementById('login-email').value.trim();
+  const email=document.getElementById('booking-email').value.trim();
   const bookingref=document.getElementById('booking-ref').value;
 
   // POST Event
