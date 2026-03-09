@@ -788,7 +788,7 @@ function processPayment(){
   
     // POST Event
     const email=localStorage.getItem("username");
-  urlStr = "method=payment&name=" + name + "&num=" + num.substring(0,8) + "&booking=" + booking + "&email=" + email + "&amount=" + state.totalPrice;
+  urlStr = "method=payment&name=" + name + "&num=" + num.substring(0,8) + "&booking=" + booking + "&Email=" + email + "&amount=" + state.totalPrice;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
@@ -877,7 +877,7 @@ function doTransfer(){
   const email=localStorage.getItem("username");
 
   // POST Event
-  urlStr = "method=transfer&tfremail=" + tfremail + "&tfrpoints=" + tfrpoints + "&email=" + email;
+  urlStr = "method=transfer&tfremail=" + tfremail + "&tfrpoints=" + tfrpoints + "&Email=" + email;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
@@ -904,7 +904,7 @@ function doChangeEmail(){
   const email=localStorage.getItem("username");
 
   // POST Event
-  urlStr = "method=account_details_change&newemail=" + newemail + "&email=" + email;
+  urlStr = "method=account_details_change&newemail=" + newemail + "&Email=" + email;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
