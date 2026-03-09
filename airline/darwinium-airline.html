@@ -854,7 +854,7 @@ function doTransfer(){
   const email=localStorage.getItem("username");
 
   // POST Event
-  urlStr = "method=bind_policy&tfremail=" + tfremail + "&tfrpoints=" + tfrpoints + "&email=" + email;
+  urlStr = "method=transfer&tfremail=" + tfremail + "&tfrpoints=" + tfrpoints + "&email=" + email;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
