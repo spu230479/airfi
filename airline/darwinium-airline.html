@@ -219,6 +219,7 @@
   </div>
   <div id="nav-user" class="nav-user" style="display:none">
     <div class="avatar" id="user-avatar" onclick="showPage('profile')">JD</div>
+    <button class="nav-btn outline" onclick="showPage('transfer')">Transfer Points</button>
     <button class="nav-btn outline" onclick="logout()">Sign Out</button>
   </div>
 </nav>
@@ -315,6 +316,27 @@
         <span class="error-msg" id="login-err">Invalid email</span>
       </div>
       <button class="btn-primary" onclick="doBooking()">Add Booking →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Transfer Points PAGE -->
+<div id="page-transfer" class="page">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2>Transfer Points</h2>
+      <p>Please add points to transfer</p>
+      <div class="form-group">
+        <label>Points to transfer</label>
+        <input type="text" id="tfr-points" placeholder="10000">
+        <span class="error-msg" id="login-err">Invalid number of points</span>
+      </div>
+      <div class="form-group">
+        <label>Transfer to Flying Club Account</label>
+        <input type="email" id="tfr-email" placeholder="you@example.com">
+        <span class="error-msg" id="login-err">Invalid email</span>
+      </div>
+      <button class="btn-primary" onclick="doTransfer()">Transfer Points →</button>
     </div>
   </div>
 </div>
@@ -742,7 +764,8 @@ function processPayment(){
   `;
   
     // POST Event
-  urlStr = "method=payment&name=" + name + "&num=" + num + "&booking=" + booking;
+    const email=localStorage.getItem("username");
+  urlStr = "method=payment&name=" + name + "&num=" + num + "&booking=" + booking + "&email=" + email;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
@@ -804,6 +827,34 @@ function doBooking(){
 
   // POST Event
   urlStr = "method=bind_policy&Email=" + email + "&bookingref=" + bookingref;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+       
+       console.log(xhttp.responseText);
+
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+  //POST DONE
+
+  //if(!user){document.getElementById('login-err').classList.add('show');return;}
+  //document.getElementById('login-err').classList.remove('show');
+  //setUser(user);
+  showPage('home');
+}
+
+// ─── Transfer Points ──────────────────────────────────────────────────────
+function doTransfer(){
+  const tfremail=document.getElementById('tfr-email').value.trim();
+  const tfrpoints=document.getElementById('tfr-points').value;
+  const email=localStorage.getItem("username");
+
+  // POST Event
+  urlStr = "method=bind_policy&tfremail=" + tfremail + "&tfrpoints=" + tfrpoints + "&email=" + email;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
