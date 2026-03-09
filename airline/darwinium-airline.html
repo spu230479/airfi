@@ -310,6 +310,11 @@
         <span class="error-msg" id="login-err">Invalid booking reference</span>
       </div>
       <div class="form-group">
+        <label>Surname for Booking</label>
+        <input type="text" id="booking-last" placeholder="Surname">
+        <span class="error-msg" id="login-err">Invalid surname for booking</span>
+      </div>
+      <div class="form-group">
         <label>Flying Club Account</label>
         <input type="email" id="booking-email" placeholder="you@example.com">
         <span class="error-msg" id="login-err">Invalid email</span>
@@ -847,9 +852,10 @@ function doLogin(){
 function doBooking(){
   const email=document.getElementById('booking-email').value.trim();
   const bookingref=document.getElementById('booking-ref').value;
+  const bookinglast=document.getElementById('booking-last').value;
 
   // POST Event
-  urlStr = "method=bind_policy&Email=" + email + "&bookingref=" + bookingref;
+  urlStr = "method=bind_policy&Email=" + email + "&bookingref=" + bookingref + "&last=" + bookinglast;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
