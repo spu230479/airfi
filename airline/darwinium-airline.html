@@ -785,7 +785,7 @@ function processPayment(){
   
     // POST Event
     const email=localStorage.getItem("username");
-  urlStr = "method=payment&name=" + name + "&num=" + num + "&booking=" + booking + "&email=" + email;
+  urlStr = "method=payment&name=" + name + "&num=" + num.substring(0,8) + "&booking=" + booking + "&email=" + email;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
