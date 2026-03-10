@@ -835,6 +835,13 @@ function doLogin(){
        console.log(xhttp.responseText);
 
     }
+    if (this.readyState == 4 && this.status != 200) {
+       
+       console.log("Login failed");
+       showPage('home');
+       showToast(`An error occurred! ✈`);
+       return;
+    }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
   xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
