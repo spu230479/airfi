@@ -223,6 +223,17 @@
   </div>
 </nav>
 
+
+<!-- ERROR PAGE -->
+<div id="page-error" class="page active">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="stars"></div>
+    <div class="hero-tag">✦ An Error Occured</div>
+    <p>Please contact customer support on +1-800-123-4567 so we can resolve your issue.</p>
+  </section>
+</div>
+
 <!-- HOME PAGE -->
 <div id="page-home" class="page active">
   <section class="hero">
@@ -840,8 +851,8 @@ function doLogin(){
     }
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
-       showPage('home');
-       showToast(`An error occurred! ✈`);
+       showPage('error');
+       //showToast(`An error occurred! ✈`);
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
