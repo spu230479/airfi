@@ -831,28 +831,29 @@ function doLogin(){
 
   xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
-       
-       console.log(xhttp.responseText);
-
+      console.log(xhttp.responseText);
+      if(!user){document.getElementById('login-err').classList.add('show');return;}
+      document.getElementById('login-err').classList.remove('show');
+      setUser(user);
+      showPage('home');
+      showToast(`Welcome back, ${user.first}! ✈`);
     }
     if (this.readyState == 4 && this.status != 200) {
-       
        console.log("Login failed");
        showPage('home');
        showToast(`An error occurred! ✈`);
-       return;
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
   xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
   xhttp.send();
   //POST DONE
-
-  if(!user){document.getElementById('login-err').classList.add('show');return;}
-  document.getElementById('login-err').classList.remove('show');
-  setUser(user);
-  showPage('home');
-  showToast(`Welcome back, ${user.first}! ✈`);
+  //if(!user){document.getElementById('login-err').classList.add('show');return;}
+  //document.getElementById('login-err').classList.remove('show');
+  //setUser(user);
+  //showPage('home');
+  //showToast(`Welcome back, ${user.first}! ✈`);
+ 
 }
 
 // ─── Add booking ──────────────────────────────────────────────────────
