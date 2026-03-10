@@ -225,7 +225,7 @@
 
 
 <!-- ERROR PAGE -->
-<div id="page-error" class="page active">
+<div id="page-errorscreen" class="page active">
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="stars"></div>
@@ -816,7 +816,7 @@ function processPayment(){
     }
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
-       showPage('error');
+       showPage('errorscreen');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -856,7 +856,7 @@ function doLogin(){
     }
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
-       showPage('error');
+       showPage('errorscreen');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -889,7 +889,7 @@ function doBooking(){
     }
   if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
-       showPage('error');
+       showPage('errorscreen');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -921,7 +921,7 @@ function doTransfer(){
     }
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
-       showPage('error');
+       showPage('errorscreen');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -952,7 +952,7 @@ function doChangeEmail(){
     }
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
-       showPage('error');
+       showPage('errorscreen');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -992,7 +992,7 @@ function doRegister(){
     }
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
-       showPage('error');
+       showPage('errorscreen');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
