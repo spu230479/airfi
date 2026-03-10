@@ -811,7 +811,12 @@ function processPayment(){
   if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-
+       showPage('confirm');
+       showToast("🎉 Booking confirmed! Check your email.");
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+       showPage('error');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -819,8 +824,8 @@ function processPayment(){
   xhttp.send();
   //POST DONE
   
-  showPage('confirm');
-  showToast("🎉 Booking confirmed! Check your email.");
+  //showPage('confirm');
+  //showToast("🎉 Booking confirmed! Check your email.");
 }
 
 // ─── AUTH ──────────────────────────────────────────────────────
@@ -852,7 +857,6 @@ function doLogin(){
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
        showPage('error');
-       //showToast(`An error occurred! ✈`);
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -881,7 +885,11 @@ function doBooking(){
   if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-
+       showPage('home');
+    }
+  if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+       showPage('error');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -892,7 +900,7 @@ function doBooking(){
   //if(!user){document.getElementById('login-err').classList.add('show');return;}
   //document.getElementById('login-err').classList.remove('show');
   //setUser(user);
-  showPage('home');
+  //showPage('home');
 }
 
 // ─── Transfer Points ──────────────────────────────────────────────────────
@@ -909,7 +917,11 @@ function doTransfer(){
   if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-
+      showPage('home');
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+       showPage('error');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -920,7 +932,7 @@ function doTransfer(){
   //if(!user){document.getElementById('login-err').classList.add('show');return;}
   //document.getElementById('login-err').classList.remove('show');
   //setUser(user);
-  showPage('home');
+  //showPage('home');
 }
 
 // ─── Change Email ──────────────────────────────────────────────────────
@@ -936,7 +948,11 @@ function doChangeEmail(){
   if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-
+       showPage('home');
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+       showPage('error');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -947,7 +963,7 @@ function doChangeEmail(){
   //if(!user){document.getElementById('login-err').classList.add('show');return;}
   //document.getElementById('login-err').classList.remove('show');
   //setUser(user);
-  showPage('home');
+  //showPage('home');
 }
 
 function doRegister(){
@@ -966,7 +982,17 @@ function doRegister(){
   if (this.readyState == 4 && this.status == 200) {
        
        console.log(xhttp.responseText);
-
+       if(users.find(u=>u.email===email)){document.getElementById('reg-err').textContent='Email already registered';document.getElementById('reg-err').classList.add('show');return;}
+       document.getElementById('reg-err').classList.remove('show');
+       const user={first,last,email,password:pass,dob,bookings:[],miles:Math.floor(Math.random()*5000)+1000};
+       users.push(user);
+       setUser(user);
+       showPage('home');
+       showToast(`Welcome to Darwinium, ${first}! ✈`);
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+       showPage('error');
     }
   };
   xhttp.open("POST", "https://airfi.tech/airline/submit?" + urlStr, false);
@@ -974,13 +1000,13 @@ function doRegister(){
   xhttp.send();
   //POST DONE
 
-  if(users.find(u=>u.email===email)){document.getElementById('reg-err').textContent='Email already registered';document.getElementById('reg-err').classList.add('show');return;}
-  document.getElementById('reg-err').classList.remove('show');
-  const user={first,last,email,password:pass,dob,bookings:[],miles:Math.floor(Math.random()*5000)+1000};
-  users.push(user);
-  setUser(user);
-  showPage('home');
-  showToast(`Welcome to Darwinium, ${first}! ✈`);
+  //if(users.find(u=>u.email===email)){document.getElementById('reg-err').textContent='Email already registered';document.getElementById('reg-err').classList.add('show');return;}
+  //document.getElementById('reg-err').classList.remove('show');
+  //const user={first,last,email,password:pass,dob,bookings:[],miles:Math.floor(Math.random()*5000)+1000};
+  //users.push(user);
+  //setUser(user);
+  //showPage('home');
+  //showToast(`Welcome to Darwinium, ${first}! ✈`);
 }
 
 function setUser(u){
