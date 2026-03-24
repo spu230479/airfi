@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darwinium Airlines</title>
+<style>
+  :root {
+    --ej-orange: #FF6600;
+    --ej-orange-dark: #E55A00;
+    --ej-orange-light: #FFF3EC;
+    --ej-white: #FFFFFF;
+    --ej-dark: #1A1A1A;
+    --ej-gray: #F5F5F5;
+    --ej-mid-gray: #666666;
+    --ej-light-border: #E0E0E0;
+    --ej-text: #222222;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f7f7f7; color:var(--ej-text); font-family:'Helvetica Neue',Arial,sans-serif; font-size:15px; }
+
+  /* NAV */
+  nav { background:var(--ej-orange); padding:0 24px; display:flex; align-items:center; justify-content:space-between; height:60px; }
+  .logo { display:flex; align-items:center; gap:10px; cursor:pointer; }
+  .logo-text { font-size:1.5rem; font-weight:900; color:#fff; letter-spacing:-0.5px; }
+  .logo-sub { font-size:0.65rem; color:rgba(255,255,255,0.75); letter-spacing:2px; text-transform:uppercase; display:block; margin-top:-3px; }
+  .nav-links { display:flex; gap:8px; align-items:center; }
+  .nav-btn { padding:8px 18px; border-radius:4px; border:none; cursor:pointer; font-size:0.85rem; font-weight:700; transition:all 0.15s; }
+  .nav-btn.outline { background:transparent; border:2px solid #fff; color:#fff; }
+  .nav-btn.outline:hover { background:rgba(255,255,255,0.15); }
+  .nav-btn.filled { background:#fff; color:var(--ej-orange); }
+  .nav-btn.filled:hover { background:#f0f0f0; }
+  .avatar { width:34px; height:34px; border-radius:50%; background:#fff; color:var(--ej-orange); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:0.8rem; cursor:pointer; border:2px solid rgba(255,255,255,0.5); }
+
+  /* PAGES */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* HERO */
+  .hero { background:var(--ej-orange); padding:40px 24px 0; }
+  .hero-inner { max-width:1000px; margin:0 auto; }
+  .hero h1 { color:#fff; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:900; margin-bottom:8px; }
+  .hero p { color:rgba(255,255,255,0.85); font-size:1rem; margin-bottom:28px; }
+
+  /* SEARCH BOX */
+  .search-box { background:#fff; border-radius:8px 8px 0 0; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.1); max-width:1000px; margin:0 auto; }
+  .trip-tabs { display:flex; gap:0; margin-bottom:20px; border-bottom:2px solid var(--ej-light-border); }
+  .trip-tab { padding:10px 20px; border:none; background:transparent; color:var(--ej-mid-gray); cursor:pointer; font-size:0.88rem; font-weight:600; border-bottom:3px solid transparent; margin-bottom:-2px; transition:all 0.15s; }
+  .trip-tab.active { color:var(--ej-orange); border-bottom-color:var(--ej-orange); }
+  .search-fields { display:grid; grid-template-columns:1fr 1fr 1fr 1fr auto; gap:12px; align-items:end; }
+  .field-group { display:flex; flex-direction:column; gap:5px; }
+  .field-group label { font-size:0.72rem; color:var(--ej-mid-gray); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
+  .field-group input { background:#fff; border:2px solid var(--ej-light-border); border-radius:4px; padding:10px 12px; color:var(--ej-text); font-size:0.9rem; outline:none; transition:border 0.15s; }
+  .field-group input:focus { border-color:var(--ej-orange); }
+  .search-btn { padding:12px 24px; background:var(--ej-orange); border:none; border-radius:4px; color:#fff; font-weight:900; font-size:0.95rem; cursor:pointer; white-space:nowrap; transition:background 0.15s; }
+  .search-btn:hover { background:var(--ej-orange-dark); }
+  .hero-bottom-strip { background:#fff; height:20px; max-width:1000px; margin:0 auto; }
+
+  /* RESULTS */
+  .results-page { padding:24px; max-width:900px; margin:0 auto; }
+  .results-header { margin-bottom:20px; }
+  .results-header h2 { font-size:1.4rem; font-weight:900; }
+  .results-header p { color:var(--ej-mid-gray); font-size:0.88rem; margin-top:3px; }
+  .filter-bar { background:#fff; border:1px solid var(--ej-light-border); border-radius:4px; padding:12px 16px; margin-bottom:16px; display:flex; gap:12px; align-items:center; font-size:0.83rem; color:var(--ej-mid-gray); }
+  .filter-pill { padding:5px 14px; border:1px solid var(--ej-light-border); border-radius:20px; cursor:pointer; font-size:0.8rem; font-weight:600; transition:all 0.15s; }
+  .filter-pill.active { background:var(--ej-orange); border-color:var(--ej-orange); color:#fff; }
+  .flight-card { background:#fff; border:1px solid var(--ej-light-border); border-radius:6px; padding:20px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:16px; transition:box-shadow 0.15s; cursor:pointer; }
+  .flight-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.1); border-color:#ccc; }
+  .flight-airline-col { display:flex; flex-direction:column; align-items:center; min-width:80px; }
+  .airline-logo { width:44px; height:44px; border-radius:6px; background:var(--ej-orange); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:0.65rem; color:#fff; text-align:center; line-height:1.3; }
+  .airline-name { font-size:0.72rem; color:var(--ej-mid-gray); margin-top:4px; text-align:center; }
+  .flight-route { flex:1; display:flex; align-items:center; justify-content:center; gap:16px; }
+  .route-time .time { font-size:1.5rem; font-weight:900; line-height:1; }
+  .route-time .city { font-size:0.72rem; color:var(--ej-mid-gray); margin-top:2px; }
+  .route-time .airport { font-size:0.7rem; color:#999; }
+  .route-mid { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:100px; }
+  .duration-text { font-size:0.75rem; color:var(--ej-mid-gray); font-weight:600; }
+  .route-line-wrap { width:100%; display:flex; align-items:center; gap:4px; }
+  .route-line-seg { flex:1; height:2px; background:var(--ej-light-border); }
+  .plane-icon { color:var(--ej-orange); font-size:14px; }
+  .badge { display:inline-block; padding:2px 8px; border-radius:3px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+  .badge.direct { background:#E8F5E9; color:#2E7D32; }
+  .badge.stop { background:#FFF8E1; color:#F57F17; }
+  .flight-price-col { text-align:right; min-width:140px; }
+  .from-text { font-size:0.72rem; color:var(--ej-mid-gray); }
+  .flight-price { font-size:1.8rem; font-weight:900; color:var(--ej-orange); line-height:1; }
+  .per-person { font-size:0.72rem; color:var(--ej-mid-gray); }
+  .book-flight-btn { display:block; width:100%; margin-top:10px; padding:10px; background:var(--ej-orange); border:none; border-radius:4px; color:#fff; font-weight:900; cursor:pointer; font-size:0.88rem; transition:background 0.15s; }
+  .book-flight-btn:hover { background:var(--ej-orange-dark); }
+
+  /* AUTH */
+  .auth-page { min-height:calc(100vh - 60px); background:#f7f7f7; display:flex; align-items:flex-start; justify-content:center; padding:40px 20px; }
+  .auth-card { background:#fff; border:1px solid var(--ej-light-border); border-radius:6px; padding:36px; width:100%; max-width:440px; }
+  .auth-card h2 { font-size:1.5rem; font-weight:900; margin-bottom:4px; }
+  .auth-card > p { color:var(--ej-mid-gray); font-size:0.88rem; margin-bottom:24px; }
+  .form-group { margin-bottom:16px; }
+  .form-group label { display:block; font-size:0.72rem; color:var(--ej-mid-gray); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; margin-bottom:6px; }
+  .form-group input { width:100%; background:#fff; border:2px solid var(--ej-light-border); border-radius:4px; padding:11px 14px; color:var(--ej-text); font-size:0.92rem; outline:none; transition:border 0.15s; }
+  .form-group input:focus { border-color:var(--ej-orange); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .btn-primary { width:100%; padding:13px; background:var(--ej-orange); border:none; border-radius:4px; color:#fff; font-weight:900; font-size:1rem; cursor:pointer; margin-top:8px; transition:background 0.15s; }
+  .btn-primary:hover { background:var(--ej-orange-dark); }
+  .auth-switch { text-align:center; margin-top:18px; font-size:0.85rem; color:var(--ej-mid-gray); }
+  .auth-switch a { color:var(--ej-orange); cursor:pointer; font-weight:700; text-decoration:underline; }
+  .error-msg { color:#d32f2f; font-size:0.8rem; margin-top:5px; display:none; }
+  .error-msg.show { display:block; }
+
+  /* BOOKING */
+  .booking-page { max-width:780px; margin:0 auto; padding:28px 20px; }
+  .booking-page h2 { font-size:1.5rem; font-weight:900; margin-bottom:4px; }
+  .booking-page > p { color:var(--ej-mid-gray); font-size:0.88rem; margin-bottom:24px; }
+  .steps { display:flex; margin-bottom:28px; border:1px solid var(--ej-light-border); border-radius:6px; overflow:hidden; background:#fff; }
+  .step { flex:1; padding:12px; display:flex; align-items:center; justify-content:center; gap:8px; font-size:0.82rem; font-weight:700; color:var(--ej-mid-gray); border-right:1px solid var(--ej-light-border); cursor:default; }
+  .step:last-child { border-right:none; }
+  .step.active { background:var(--ej-orange); color:#fff; }
+  .step.done { background:#FFF3EC; color:var(--ej-orange); }
+  .step-num { width:22px; height:22px; border-radius:50%; background:currentColor; opacity:0.25; display:flex; align-items:center; justify-content:center; font-size:0.75rem; }
+  .step.active .step-num { background:rgba(255,255,255,0.3); opacity:1; color:#fff; }
+  .step.done .step-num { background:var(--ej-orange); opacity:1; color:#fff; }
+  .booking-card { background:#fff; border:1px solid var(--ej-light-border); border-radius:6px; padding:24px; margin-bottom:16px; }
+  .booking-card h3 { font-size:0.95rem; font-weight:900; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--ej-light-border); text-transform:uppercase; letter-spacing:0.5px; color:var(--ej-mid-gray); }
+  .flight-summary { display:flex; justify-content:space-between; align-items:center; background:var(--ej-orange-light); border:1px solid #FFD5B8; border-radius:4px; padding:16px 20px; margin-bottom:20px; }
+  .summary-route { font-size:1.2rem; font-weight:900; }
+  .summary-details { font-size:0.78rem; color:var(--ej-mid-gray); margin-top:3px; }
+  .summary-price { font-size:1.4rem; font-weight:900; color:var(--ej-orange); }
+  .seat-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:5px; max-width:300px; }
+  .seat { width:38px; height:34px; border-radius:4px; border:1px solid var(--ej-light-border); background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:var(--ej-mid-gray); font-weight:600; transition:all 0.15s; }
+  .seat:hover { border-color:var(--ej-orange); color:var(--ej-orange); }
+  .seat.selected { background:var(--ej-orange); border-color:var(--ej-orange); color:#fff; }
+  .seat.taken { background:#f5f5f5; color:#ccc; cursor:not-allowed; border-color:#ececec; }
+  .seat-legend { display:flex; gap:16px; margin-top:12px; }
+  .legend-item { display:flex; align-items:center; gap:6px; font-size:0.73rem; color:var(--ej-mid-gray); }
+  .legend-dot { width:13px; height:13px; border-radius:3px; }
+
+  /* PAYMENT */
+  .card-visual { background:linear-gradient(135deg,#1a1a2e,#16213e); border-radius:12px; padding:24px; margin-bottom:20px; position:relative; }
+  .card-chip { width:36px; height:26px; background:#d4a847; border-radius:4px; margin-bottom:18px; }
+  .card-number { font-size:1rem; letter-spacing:3px; font-weight:600; margin-bottom:16px; font-family:monospace; color:#fff; }
+  .card-bottom { display:flex; justify-content:space-between; }
+  .card-label { font-size:0.6rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:1px; }
+  .card-value { font-size:0.88rem; font-weight:700; color:#fff; }
+  .order-summary { background:#f7f7f7; border-radius:4px; padding:14px; margin-bottom:16px; }
+  .order-row { display:flex; justify-content:space-between; padding:7px 0; font-size:0.88rem; border-bottom:1px solid var(--ej-light-border); }
+  .order-row:last-child { border:none; font-weight:900; font-size:1rem; padding-top:10px; }
+  .order-row .label { color:var(--ej-mid-gray); }
+  .order-row.total .label { color:var(--ej-text); }
+  .order-row.total .val { color:var(--ej-orange); }
+
+  /* CONFIRMATION */
+  .confirm-page { max-width:580px; margin:0 auto; padding:50px 20px; text-align:center; }
+  .confirm-icon { width:72px; height:72px; border-radius:50%; background:var(--ej-orange); display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 24px; color:#fff; font-weight:900; }
+  .confirm-page h2 { font-size:1.8rem; font-weight:900; margin-bottom:10px; }
+  .confirm-page > p { color:var(--ej-mid-gray); margin-bottom:28px; }
+  .booking-ref-box { background:#fff; border:2px solid var(--ej-orange); border-radius:6px; padding:20px; margin-bottom:24px; }
+  .ref-label { font-size:0.72rem; color:var(--ej-mid-gray); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; font-weight:700; }
+  .ref-number { font-size:1.8rem; font-weight:900; color:var(--ej-orange); font-family:monospace; letter-spacing:3px; }
+  .confirm-details { display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:left; }
+  .confirm-detail { background:#fff; border:1px solid var(--ej-light-border); border-radius:4px; padding:14px; }
+  .confirm-detail .label { font-size:0.68rem; color:var(--ej-mid-gray); text-transform:uppercase; letter-spacing:0.5px; font-weight:700; margin-bottom:4px; }
+  .confirm-detail .value { font-weight:900; font-size:0.92rem; }
+
+  /* PROFILE */
+  .profile-page { max-width:780px; margin:0 auto; padding:28px 20px; }
+  .profile-header { background:var(--ej-orange); border-radius:6px; padding:24px; display:flex; align-items:center; gap:18px; margin-bottom:20px; }
+  .profile-avatar { width:64px; height:64px; border-radius:50%; background:#fff; color:var(--ej-orange); display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:900; }
+  .profile-info h2 { font-size:1.3rem; font-weight:900; color:#fff; }
+  .profile-info p { color:rgba(255,255,255,0.8); font-size:0.88rem; }
+  .profile-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .profile-card { background:#fff; border:1px solid var(--ej-light-border); border-radius:6px; padding:20px; }
+  .profile-card h3 { font-size:0.78rem; font-weight:900; color:var(--ej-mid-gray); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--ej-light-border); }
+  .booking-history-item { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #f0f0f0; }
+  .booking-history-item:last-child { border:none; }
+  .bhi-route { font-weight:700; font-size:0.9rem; }
+  .bhi-date { font-size:0.75rem; color:var(--ej-mid-gray); }
+  .bhi-status { font-size:0.7rem; padding:3px 8px; border-radius:3px; font-weight:700; text-transform:uppercase; }
+  .bhi-status.confirmed { background:#E8F5E9; color:#2E7D32; }
+  .miles-box { display:flex; align-items:center; gap:12px; background:#FFF3EC; border:1px solid #FFD5B8; border-radius:4px; padding:14px; margin-bottom:10px; }
+  .miles-num { font-size:1.3rem; font-weight:900; color:var(--ej-orange); }
+  .miles-label { font-size:0.75rem; color:var(--ej-mid-gray); }
+
+  /* TOAST */
+  .toast { position:fixed; bottom:24px; right:24px; background:var(--ej-dark); color:#fff; padding:12px 20px; border-radius:4px; font-weight:700; font-size:0.88rem; box-shadow:0 4px 16px rgba(0,0,0,0.25); z-index:9999; animation:slideUp 0.3s ease; }
+  @keyframes slideUp { from { transform:translateY(16px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+  /* MISC */
+  .back-btn { display:inline-flex; align-items:center; gap:6px; color:var(--ej-mid-gray); cursor:pointer; font-size:0.85rem; margin-bottom:20px; background:none; border:none; font-weight:600; }
+  .back-btn:hover { color:var(--ej-orange); }
+  .passengers-select { display:flex; align-items:center; gap:8px; }
+  .qty-btn { width:28px; height:28px; border-radius:50%; border:2px solid var(--ej-light-border); background:#fff; color:var(--ej-text); cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; font-weight:900; }
+  .qty-btn:hover { border-color:var(--ej-orange); color:var(--ej-orange); }
+  input[type="date"]::-webkit-calendar-picker-indicator { cursor:pointer; }
+  .page-wrap { background:#f7f7f7; min-height:calc(100vh - 60px); padding-bottom:40px; }
+
+  /* BREADCRUMB */
+  .breadcrumb { background:#fff; border-bottom:1px solid var(--ej-light-border); padding:10px 24px; font-size:0.8rem; color:var(--ej-mid-gray); }
+  .breadcrumb span { color:var(--ej-orange); font-weight:700; cursor:pointer; }
+  .breadcrumb span:hover { text-decoration:underline; }
+
+  /* TRUST BAR */
+  .trust-bar { background:#fff; border-top:1px solid var(--ej-light-border); padding:14px 24px; display:flex; justify-content:center; gap:32px; margin-top:0; }
+  .trust-item { display:flex; align-items:center; gap:7px; font-size:0.78rem; color:var(--ej-mid-gray); font-weight:600; }
+
+  .nav-user { display:flex; align-items:center; gap:10px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="showPage('home')">
+    <div>
+      <span class="logo-text">darwinium</span>
+      <span class="logo-sub">Airlines</span>
+    </div>
+  </div>
+  <div id="nav-auth" class="nav-links">
+    <button class="nav-btn outline" onclick="showPage('login')">Log in</button>
+    <button class="nav-btn outline" onclick="showPage('bookingref')">Manage booking</button>
+    <button class="nav-btn filled" onclick="showPage('register')">Sign up</button>
+  </div>
+  <div id="nav-user" class="nav-user" style="display:none">
+    <div class="avatar" id="user-avatar" onclick="showPage('profile')">JD</div>
+    <button class="nav-btn filled" onclick="logout()">Sign out</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>Fly smarter. Pay less.</h1>
+      <p>Book direct flights to 180+ destinations from just £29.99</p>
+    </div>
+    <div class="search-box">
+      <div class="trip-tabs">
+        <button class="trip-tab active" onclick="setTripType('roundtrip',this)">Return</button>
+        <button class="trip-tab" onclick="setTripType('oneway',this)">One way</button>
+        <button class="trip-tab" onclick="setTripType('multi',this)">Multi-city</button>
+      </div>
+      <div class="search-fields">
+        <div class="field-group">
+          <label>From</label>
+          <input type="text" id="s-from" placeholder="City or airport" value="London (LHR)">
+        </div>
+        <div class="field-group">
+          <label>To</label>
+          <input type="text" id="s-to" placeholder="City or airport" value="New York (JFK)">
+        </div>
+        <div class="field-group">
+          <label>Depart</label>
+          <input type="date" id="s-depart">
+        </div>
+        <div class="field-group">
+          <label>Passengers</label>
+          <div class="passengers-select">
+            <button class="qty-btn" onclick="changePassengers(-1)">−</button>
+            <span id="pax-count" style="min-width:20px;text-align:center;font-weight:700">1</span>
+            <button class="qty-btn" onclick="changePassengers(1)">+</button>
+          </div>
+        </div>
+        <button class="search-btn" onclick="searchFlights()">Search flights</button>
+      </div>
+    </div>
+  </div>
+  <div class="trust-bar">
+    <div class="trust-item">✓ No hidden fees</div>
+    <div class="trust-item">✓ Free cancellation 24h</div>
+    <div class="trust-item">✓ 30 million passengers a year</div>
+    <div class="trust-item">✓ Award-winning service</div>
+  </div>
+</div>
+
+<!-- ERROR PAGE -->
+<div id="page-errorscreen" class="page">
+  <div class="page-wrap" style="display:flex;align-items:center;justify-content:center;padding:60px 20px;">
+    <div style="text-align:center;max-width:400px;">
+      <div style="font-size:3rem;margin-bottom:16px;">⚠️</div>
+      <h2 style="font-size:1.4rem;font-weight:900;margin-bottom:8px;">Something went wrong</h2>
+      <p style="color:var(--ej-mid-gray);margin-bottom:24px;">Please contact customer support on +1-800-123-4567 to resolve your issue.</p>
+      <button class="btn-primary" onclick="showPage('home')" style="max-width:200px">Back to home</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS PAGE -->
+<div id="page-results" class="page">
+  <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &rsaquo; Search results</div>
+  <div class="results-page">
+    <button class="back-btn" onclick="showPage('home')">&#8592; New search</button>
+    <div class="results-header">
+      <h2 id="results-title">Available Flights</h2>
+      <p id="results-sub"></p>
+    </div>
+    <div class="filter-bar">
+      <strong style="color:var(--ej-text)">Sort by:</strong>
+      <button class="filter-pill active">Price</button>
+      <button class="filter-pill">Duration</button>
+      <button class="filter-pill">Departure time</button>
+      <span style="margin-left:auto;font-size:0.78rem">Prices include taxes &amp; fees</span>
+    </div>
+    <div id="flights-list"></div>
+  </div>
+</div>
+
+<!-- LOGIN PAGE -->
+<div id="page-login" class="page">
+  <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &rsaquo; Log in</div>
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2>Log in</h2>
+      <p>Access your bookings and exclusive deals</p>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" id="login-email" placeholder="you@example.com">
+        <span class="error-msg" id="login-err">Email or password is incorrect</span>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="Enter your password">
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Log in</button>
+      <div class="auth-switch">New to darwinium? <a onclick="showPage('register')">Create an account</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE BOOKING PAGE -->
+<div id="page-bookingref" class="page">
+  <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &rsaquo; Manage booking</div>
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2>Manage booking</h2>
+      <p>Retrieve your booking with your reference and surname</p>
+      <div class="form-group">
+        <label>Booking reference</label>
+        <input type="text" id="booking-ref" placeholder="e.g. DW1234">
+      </div>
+      <div class="form-group">
+        <label>Lead passenger surname</label>
+        <input type="text" id="booking-last" placeholder="As shown on passport">
+      </div>
+      <div class="form-group">
+        <label>Flying club email</label>
+        <input type="email" id="booking-email" placeholder="you@example.com">
+      </div>
+      <button class="btn-primary" onclick="doBooking()">Find booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSFER POINTS PAGE -->
+<div id="page-transfer" class="page">
+  <div class="breadcrumb"><span onclick="showPage('profile')">My account</span> &rsaquo; Transfer points</div>
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2>Transfer points</h2>
+      <p>Send darwinium miles to another member</p>
+      <div class="form-group">
+        <label>Points to transfer</label>
+        <input type="text" id="tfr-points" placeholder="e.g. 10000">
+      </div>
+      <div class="form-group">
+        <label>Recipient flying club email</label>
+        <input type="email" id="tfr-email" placeholder="recipient@example.com">
+      </div>
+      <button class="btn-primary" onclick="doTransfer()">Transfer points</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHANGE EMAIL PAGE -->
+<div id="page-updatemail" class="page">
+  <div class="breadcrumb"><span onclick="showPage('profile')">My account</span> &rsaquo; Change email</div>
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2>Change email address</h2>
+      <p>Update the email address on your account</p>
+      <div class="form-group">
+        <label>New email address</label>
+        <input type="email" id="new-email" placeholder="newemail@example.com">
+      </div>
+      <button class="btn-primary" onclick="doChangeEmail()">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER PAGE -->
+<div id="page-register" class="page">
+  <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &rsaquo; Create account</div>
+  <div class="auth-page">
+    <div class="auth-card">
+      <h2>Create an account</h2>
+      <p>Join millions of darwinium flyers</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First name</label>
+          <input type="text" id="reg-first" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label>Last name</label>
+          <input type="text" id="reg-last" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" id="reg-email" placeholder="you@example.com">
+        <span class="error-msg" id="reg-err">Please complete all fields correctly</span>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="reg-password" placeholder="Minimum 8 characters">
+      </div>
+      <div class="form-group">
+        <label>Date of birth</label>
+        <input type="date" id="reg-dob">
+      </div>
+      <button class="btn-primary" onclick="doRegister()">Create account</button>
+      <div class="auth-switch">Already have an account? <a onclick="showPage('login')">Log in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING PAGE -->
+<div id="page-booking" class="page">
+  <div class="breadcrumb"><span onclick="showPage('results')">Flights</span> &rsaquo; <span onclick="showPage('results')">Search results</span> &rsaquo; Book</div>
+  <div class="booking-page">
+    <button class="back-btn" onclick="showPage('results')">&#8592; Back to results</button>
+    <h2>Complete your booking</h2>
+    <p>You're just steps away from your trip</p>
+
+    <div class="steps">
+      <div class="step active" id="step1"><span class="step-num">1</span> Passenger details</div>
+      <div class="step" id="step2"><span class="step-num">2</span> Seat selection</div>
+      <div class="step" id="step3"><span class="step-num">3</span> Payment</div>
+    </div>
+
+    <div id="booking-step1">
+      <div class="booking-card">
+        <h3>Your flight</h3>
+        <div class="flight-summary" id="booking-flight-summary"></div>
+      </div>
+      <div class="booking-card">
+        <h3>Passenger details</h3>
+        <div class="form-row">
+          <div class="form-group"><label>First name</label><input type="text" id="b-first" placeholder="As on passport"></div>
+          <div class="form-group"><label>Last name</label><input type="text" id="b-last" placeholder="As on passport"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Passport number</label><input type="text" id="b-passport" placeholder="e.g. AB123456"></div>
+          <div class="form-group"><label>Nationality</label><input type="text" id="b-nation" placeholder="e.g. British"></div>
+        </div>
+        <div class="form-group"><label>Email address</label><input type="email" id="b-email" placeholder="Confirmation sent here"></div>
+        <span class="error-msg" id="b-err">Please complete all passenger details</span>
+        <button class="btn-primary" onclick="goToStep(2)" style="margin-top:8px">Continue to seat selection &rsaquo;</button>
+      </div>
+    </div>
+
+    <div id="booking-step2" style="display:none">
+      <div class="booking-card">
+        <h3>Choose your seat</h3>
+        <p style="color:var(--ej-mid-gray);font-size:0.83rem;margin-bottom:18px">Select one seat for your journey. Standard seats are free.</p>
+        <div id="seat-map" class="seat-grid"></div>
+        <div class="seat-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1px solid #ddd"></div>Available</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--ej-orange)"></div>Selected</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#f5f5f5;border:1px solid #ececec"></div>Taken</div>
+        </div>
+        <span class="error-msg" id="seat-err">Please select a seat to continue</span>
+        <button class="btn-primary" onclick="goToStep(3)" style="margin-top:18px">Continue to payment &rsaquo;</button>
+      </div>
+    </div>
+
+    <div id="booking-step3" style="display:none">
+      <div class="booking-card">
+        <h3>Payment details</h3>
+        <div class="card-visual">
+          <div class="card-chip"></div>
+          <div class="card-number" id="card-display">•••• •••• •••• ••••</div>
+          <div class="card-bottom">
+            <div><div class="card-label">Cardholder</div><div class="card-value" id="card-name-display">YOUR NAME</div></div>
+            <div><div class="card-label">Expires</div><div class="card-value" id="card-exp-display">MM/YY</div></div>
+          </div>
+        </div>
+        <div class="form-group"><label>Cardholder name</label><input type="text" id="card-name" placeholder="Name on card" oninput="updateCardDisplay()"></div>
+        <div class="form-group"><label>Card number</label><input type="text" id="card-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this);updateCardDisplay()"></div>
+        <div class="form-row">
+          <div class="form-group"><label>Expiry date</label><input type="text" id="card-exp" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this);updateCardDisplay()"></div>
+          <div class="form-group"><label>Security code</label><input type="password" id="card-cvv" placeholder="•••" maxlength="3"></div>
+        </div>
+        <div class="order-summary" id="order-summary"></div>
+        <span class="error-msg" id="pay-err">Please enter valid payment details</span>
+        <button class="btn-primary" onclick="processPayment()">&#128274; Pay and confirm booking</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMATION PAGE -->
+<div id="page-confirm" class="page">
+  <div class="confirm-page">
+    <div class="confirm-icon">&#10003;</div>
+    <h2>Booking confirmed!</h2>
+    <p>Your booking is confirmed. A confirmation email is on its way.</p>
+    <div class="booking-ref-box">
+      <div class="ref-label">Booking reference</div>
+      <div class="ref-number" id="booking-ref-num">DW-XXXXXX</div>
+    </div>
+    <div class="confirm-details" id="confirm-details"></div>
+    <button class="btn-primary" style="margin-top:24px;max-width:280px" onclick="showPage('home')">Return to home</button>
+  </div>
+</div>
+
+<!-- PROFILE PAGE -->
+<div id="page-profile" class="page">
+  <div class="breadcrumb">My account</div>
+  <div class="profile-page">
+    <div class="profile-header">
+      <div class="profile-avatar" id="profile-avatar-big">JD</div>
+      <div class="profile-info">
+        <h2 id="profile-name">John Doe</h2>
+        <p id="profile-email">john@example.com</p>
+      </div>
+    </div>
+    <div class="profile-grid">
+      <div class="profile-card" style="grid-column:1/-1">
+        <h3>My miles</h3>
+        <div class="miles-box">
+          <div>
+            <div class="miles-num" id="profile-miles">12,450</div>
+            <div class="miles-label">darwinium miles &mdash; Gold status</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-card" style="grid-column:1/-1">
+        <h3>Booking history</h3>
+        <div id="booking-history"></div>
+      </div>
+      <div class="profile-card">
+        <h3>Transfer points</h3>
+        <p style="color:var(--ej-mid-gray);font-size:0.82rem;margin-bottom:12px">Send miles to another flying club member</p>
+        <button class="nav-btn outline" style="border-color:var(--ej-orange);color:var(--ej-orange);width:100%" onclick="showPage('transfer')">Transfer miles</button>
+      </div>
+      <div class="profile-card">
+        <h3>Account settings</h3>
+        <p style="color:var(--ej-mid-gray);font-size:0.82rem;margin-bottom:12px">Update your contact details</p>
+        <button class="nav-btn outline" style="border-color:var(--ej-orange);color:var(--ej-orange);width:100%" onclick="showPage('updatemail')">Change email</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let state = { user:null, passengers:1, searchData:null, selectedFlight:null, selectedSeat:null, bookingStep:1, bookings:[] };
+let users = [];
+
+function genFlights(from, to, date, pax) {
+  const times = [["06:15","14:30"],["09:45","18:00"],["13:20","21:45"],["18:00","02:15"],["22:30","06:45"]];
+  const durs = ["8h 15m","9h 45m","7h 30m","8h 45m","8h 15m"];
+  return times.map((t,i) => ({
+    id:`DW${1000+i}`, airline:"darwinium airlines", from, to, date,
+    depart:t[0], arrive:t[1], duration:durs[i],
+    stops:i===1?1:0,
+    price:Math.round((180+Math.floor(Math.random()*600))*pax),
+    basePrice:180+Math.floor(Math.random()*600),
+    class:i===0?"Business":i===1?"Plus":"Standard",
+    seats:42+i*8
+  }));
+}
+
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  window.scrollTo(0,0);
+  if(p==='profile') renderProfile();
+}
+
+function setTripType(t,el) {
+  document.querySelectorAll('.trip-tab').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function changePassengers(d) {
+  state.passengers = Math.max(1, Math.min(9, state.passengers+d));
+  document.getElementById('pax-count').textContent = state.passengers;
+}
+
+function searchFlights() {
+  const from=document.getElementById('s-from').value.trim();
+  const to=document.getElementById('s-to').value.trim();
+  const date=document.getElementById('s-depart').value;
+  if(!from||!to||!date){showToast("Please fill all search fields");return;}
+  if(from===to){showToast("Origin and destination must be different");return;}
+  state.searchData={from,to,date,pax:state.passengers};
+  state.flights=genFlights(from,to,date,state.passengers);
+  renderResults(state.flights);
+  showPage('results');
+}
+
+function renderResults(flights) {
+  const {from,to,date,pax}=state.searchData;
+  document.getElementById('results-title').textContent=`${from} \u2192 ${to}`;
+  document.getElementById('results-sub').textContent=`${formatDate(date)} \u00b7 ${pax} passenger${pax>1?'s':''} \u00b7 ${flights.length} flights found`;
+  document.getElementById('flights-list').innerHTML=flights.map(f=>`
+    <div class="flight-card" onclick="selectFlight('${f.id}')">
+      <div class="flight-airline-col">
+        <div class="airline-logo">DW<br>AIR</div>
+        <div class="airline-name">${f.id}</div>
+      </div>
+      <div class="flight-route">
+        <div class="route-time">
+          <div class="time">${f.depart}</div>
+          <div class="city">${f.from.split('(')[0].trim()}</div>
+          <div class="airport">${f.from.match(/\(([^)]+)\)/)?.[1]||''}</div>
+        </div>
+        <div class="route-mid">
+          <div class="duration-text">${f.duration}</div>
+          <div class="route-line-wrap"><div class="route-line-seg"></div><div class="plane-icon">&#9992;</div><div class="route-line-seg"></div></div>
+          <span class="badge ${f.stops?'stop':'direct'}">${f.stops?'1 stop':'Direct'}</span>
+        </div>
+        <div class="route-time">
+          <div class="time">${f.arrive}</div>
+          <div class="city">${f.to.split('(')[0].trim()}</div>
+          <div class="airport">${f.to.match(/\(([^)]+)\)/)?.[1]||''}</div>
+        </div>
+      </div>
+      <div class="flight-price-col">
+        <div class="from-text">From</div>
+        <div class="flight-price">$${f.price.toLocaleString()}</div>
+        <div class="per-person">${f.class} &middot; per booking</div>
+        <button class="book-flight-btn" onclick="event.stopPropagation();selectFlight('${f.id}')">Select &rsaquo;</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectFlight(id) {
+  if(!state.user){showToast("Please log in to book a flight");showPage('login');return;}
+  state.selectedFlight=state.flights.find(f=>f.id===id);
+  state.selectedSeat=null;
+  renderBooking();
+  showPage('booking');
+}
+
+function renderBooking() {
+  const f=state.selectedFlight;
+  document.getElementById('booking-flight-summary').innerHTML=`
+    <div>
+      <div class="summary-route">${f.from.split('(')[1]?.replace(')','')??''} \u2192 ${f.to.split('(')[1]?.replace(')','')??''}</div>
+      <div class="summary-details">${f.airline} \u00b7 ${f.id} \u00b7 ${formatDate(f.date)} \u00b7 ${f.depart}\u2013${f.arrive} \u00b7 ${f.duration}</div>
+    </div>
+    <div class="summary-price">$${f.price.toLocaleString()}</div>
+  `;
+  if(state.user){document.getElementById('b-first').value=state.user.first||'';document.getElementById('b-last').value=state.user.last||'';document.getElementById('b-email').value=state.user.email||'';}
+  goToStep(1);
+}
+
+function goToStep(n) {
+  if(n===2){
+    const f=document.getElementById('b-first').value.trim(),l=document.getElementById('b-last').value.trim(),p=document.getElementById('b-passport').value.trim(),e=document.getElementById('b-email').value.trim();
+    if(!f||!l||!p||!e){document.getElementById('b-err').classList.add('show');return;}
+    document.getElementById('b-err').classList.remove('show');
+    buildSeatMap();
+  }
+  if(n===3){if(!state.selectedSeat){document.getElementById('seat-err').classList.add('show');return;}document.getElementById('seat-err').classList.remove('show');buildOrderSummary();}
+  state.bookingStep=n;
+  ['step1','step2','step3'].forEach((s,i)=>{
+    document.getElementById('booking-'+s).style.display=i+1===n?'block':'none';
+    const el=document.getElementById('step'+(i+1));
+    el.className='step'+(i+1<n?' done':i+1===n?' active':'');
+  });
+}
+
+function buildSeatMap() {
+  const taken=[2,5,8,11,14,17,20,23,3,6];
+  let html='';
+  for(let r=1;r<=8;r++) for(let c=1;c<=6;c++){
+    const n=(r-1)*6+c,lbl=r+String.fromCharCode(64+c),t=taken.includes(n),sel=state.selectedSeat===lbl;
+    html+=`<div class="seat ${t?'taken':sel?'selected':''}" ${!t?`onclick="pickSeat('${lbl}',this)"`:''}>` +lbl+`</div>`;
+  }
+  document.getElementById('seat-map').innerHTML=html;
+}
+
+function pickSeat(lbl,el){document.querySelectorAll('.seat').forEach(s=>s.classList.remove('selected'));el.classList.add('selected');state.selectedSeat=lbl;document.getElementById('seat-err').classList.remove('show');}
+
+function buildOrderSummary(){
+  const f=state.selectedFlight,tax=Math.round(f.price*0.12),fee=25,total=f.price+tax+fee;
+  state.totalPrice=total;
+  document.getElementById('order-summary').innerHTML=`
+    <div class="order-row"><span class="label">Flight (${f.id})</span><span>$${f.price.toLocaleString()}</span></div>
+    <div class="order-row"><span class="label">Taxes &amp; charges</span><span>$${tax.toLocaleString()}</span></div>
+    <div class="order-row"><span class="label">Booking fee</span><span>$${fee}</span></div>
+    <div class="order-row total"><span class="label">Total to pay</span><span class="val">$${total.toLocaleString()}</span></div>
+  `;
+}
+
+function formatCard(el){let v=el.value.replace(/\D/g,'').substring(0,16);el.value=v.replace(/(.{4})/g,'$1 ').trim();}
+function formatExpiry(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2,4);el.value=v;}
+function updateCardDisplay(){
+  document.getElementById('card-display').textContent=(document.getElementById('card-num').value||'\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022').replace(/\d(?=.{4})/g,'\u2022');
+  document.getElementById('card-name-display').textContent=(document.getElementById('card-name').value||'YOUR NAME').toUpperCase();
+  document.getElementById('card-exp-display').textContent=document.getElementById('card-exp').value||'MM/YY';
+}
+
+function processPayment(){
+  const name=document.getElementById('card-name').value.trim(),num=document.getElementById('card-num').value.replace(/\s/g,''),exp=document.getElementById('card-exp').value,cvv=document.getElementById('card-cvv').value;
+  if(!name||num.length<16||exp.length<5||cvv.length<3){document.getElementById('pay-err').classList.add('show');return;}
+  document.getElementById('pay-err').classList.remove('show');
+  const ref='DW-'+Math.random().toString(36).substring(2,8).toUpperCase();
+  const f=state.selectedFlight;
+  const booking={ref,flight:f,seat:state.selectedSeat,price:state.totalPrice,date:new Date().toLocaleDateString()};
+  state.bookings.push(booking);
+  if(state.user) state.user.bookings.push(booking);
+  const email=localStorage.getItem("username")||'';
+  const urlStr="method=payment&name="+name+"&num="+num.substring(0,8)+"&Email="+email+"&amount="+state.totalPrice;
+  const xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){
+    if(this.readyState==4&&this.status==200){showBookingConfirm(ref,f);showPage('confirm');showToast("Booking confirmed!");}
+    if(this.readyState==4&&this.status!=200){showPage('errorscreen');}
+  };
+  xhttp.open("POST","https://airfi.tech/airline/submit?"+urlStr,false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+  xhttp.send();
+}
+
+function showBookingConfirm(ref,f){
+  document.getElementById('booking-ref-num').textContent=ref;
+  document.getElementById('confirm-details').innerHTML=`
+    <div class="confirm-detail"><div class="label">Route</div><div class="value">${f.from.split('(')[0].trim()} \u2192 ${f.to.split('(')[0].trim()}</div></div>
+    <div class="confirm-detail"><div class="label">Date</div><div class="value">${formatDate(f.date)}</div></div>
+    <div class="confirm-detail"><div class="label">Seat</div><div class="value">${state.selectedSeat}</div></div>
+    <div class="confirm-detail"><div class="label">Total paid</div><div class="value">$${state.totalPrice.toLocaleString()}</div></div>
+    <div class="confirm-detail"><div class="label">Passenger</div><div class="value">${document.getElementById('b-first').value} ${document.getElementById('b-last').value}</div></div>
+    <div class="confirm-detail"><div class="label">Flight</div><div class="value">${f.id} \u00b7 ${f.depart}\u2013${f.arrive}</div></div>
+  `;
+}
+
+function doLogin(){
+  const email=document.getElementById('login-email').value.trim(),pass=document.getElementById('login-password').value;
+  users.push({first:'Frank',last:'Darwin',email,password:'password123',dob:'1990-01-01',miles:24800,bookings:[{ref:'DW-DEMO01',flight:{id:'DW1002',airline:'darwinium airlines',from:'London (LHR)',to:'New York (JFK)',date:'2025-10-15',depart:'09:45',arrive:'18:00',duration:'8h 15m'},seat:'3C',price:1240,date:'1 Oct 2025'}]});
+  const user=users.find(u=>u.email===email&&u.password===pass);
+  const urlStr="method=account_login_success&Email="+email+"&Password="+pass;
+  const xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){
+    if(this.readyState==4&&this.status==200){if(!user){document.getElementById('login-err').classList.add('show');return;}document.getElementById('login-err').classList.remove('show');localStorage.setItem("username",email);setUser(user);showPage('home');showToast("Welcome back, "+user.first+"!");}
+    if(this.readyState==4&&this.status!=200){showPage('errorscreen');}
+  };
+  xhttp.open("POST","https://airfi.tech/airline/submit?"+urlStr,false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+  xhttp.send();
+}
+
+function doBooking(){
+  const email=document.getElementById('booking-email').value.trim(),ref=document.getElementById('booking-ref').value,last=document.getElementById('booking-last').value;
+  const xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){if(this.readyState==4&&this.status==200){showPage('home');}if(this.readyState==4&&this.status!=200){showPage('errorscreen');}};
+  xhttp.open("POST","https://airfi.tech/airline/submit?method=bind_policy&Email="+email+"&bookingref="+ref+"&last="+last,false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+  xhttp.send();
+}
+
+function doTransfer(){
+  const email=localStorage.getItem("username")||'',tfremail=document.getElementById('tfr-email').value.trim(),tfrpoints=document.getElementById('tfr-points').value;
+  const xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){if(this.readyState==4&&this.status==200){showPage('home');}if(this.readyState==4&&this.status!=200){showPage('errorscreen');}};
+  xhttp.open("POST","https://airfi.tech/airline/submit?method=transfer&tfremail="+tfremail+"&tfrpoints="+tfrpoints+"&Email="+email,false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+  xhttp.send();
+}
+
+function doChangeEmail(){
+  const email=localStorage.getItem("username")||'',newemail=document.getElementById('new-email').value.trim();
+  const xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){if(this.readyState==4&&this.status==200){showPage('home');}if(this.readyState==4&&this.status!=200){showPage('errorscreen');}};
+  xhttp.open("POST","https://airfi.tech/airline/submit?method=account_details_change&newemail="+newemail+"&Email="+email,false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+  xhttp.send();
+}
+
+function doRegister(){
+  const first=document.getElementById('reg-first').value.trim(),last=document.getElementById('reg-last').value.trim(),email=document.getElementById('reg-email').value.trim(),pass=document.getElementById('reg-password').value,dob=document.getElementById('reg-dob').value;
+  if(!first||!last||!email||pass.length<8||!dob){document.getElementById('reg-err').classList.add('show');return;}
+  const xhttp=new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){
+    if(this.readyState==4&&this.status==200){if(users.find(u=>u.email===email)){document.getElementById('reg-err').textContent='Email already registered';document.getElementById('reg-err').classList.add('show');return;}document.getElementById('reg-err').classList.remove('show');const user={first,last,email,password:pass,dob,bookings:[],miles:Math.floor(Math.random()*5000)+1000};users.push(user);localStorage.setItem("username",email);setUser(user);showPage('home');showToast("Welcome to darwinium, "+first+"!");}
+    if(this.readyState==4&&this.status!=200){showPage('errorscreen');}
+  };
+  xhttp.open("POST","https://airfi.tech/airline/submit?method=account_creation&Email="+email+"&first="+first+"&last="+last,false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+  xhttp.send();
+}
+
+function setUser(u){
+  state.user=u;
+  document.getElementById('nav-auth').style.display='none';
+  document.getElementById('nav-user').style.display='flex';
+  document.getElementById('user-avatar').textContent=(u.first[0]+(u.last[0]||'')).toUpperCase();
+}
+
+function logout(){state.user=null;document.getElementById('nav-auth').style.display='flex';document.getElementById('nav-user').style.display='none';showPage('home');showToast("You've been signed out.");}
+
+function renderProfile(){
+  if(!state.user) return;
+  const u=state.user;
+  document.getElementById('profile-avatar-big').textContent=(u.first[0]+(u.last[0]||'')).toUpperCase();
+  document.getElementById('profile-name').textContent=u.first+' '+u.last;
+  document.getElementById('profile-email').textContent=u.email;
+  document.getElementById('profile-miles').textContent=(u.miles+state.bookings.length*320).toLocaleString();
+  const bks=[...u.bookings,...state.bookings.filter(b=>!u.bookings.includes(b))];
+  const hist=document.getElementById('booking-history');
+  if(!bks.length){hist.innerHTML='<div style="color:var(--ej-mid-gray);font-size:0.85rem;padding:8px 0">No bookings yet.</div>';return;}
+  hist.innerHTML=bks.map(b=>`
+    <div class="booking-history-item">
+      <div><div class="bhi-route">${b.flight.from.split('(')[0].trim()} \u2192 ${b.flight.to.split('(')[0].trim()}</div><div class="bhi-date">${formatDate(b.flight.date)} \u00b7 Seat ${b.seat} \u00b7 ${b.ref}</div></div>
+      <span class="bhi-status confirmed">Confirmed</span>
+    </div>
+  `).join('');
+}
+
+function formatDate(d){if(!d)return'';return new Date(d+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});}
+function showToast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3500);}
+
+(function(){
+  document.getElementById('s-depart').value=new Date().toISOString().split('T')[0];
+  users.push({first:'Alex',last:'Darwin',email:'alex@darwinium.com',password:'password123',dob:'1990-01-01',miles:24800,bookings:[{ref:'DW-DEMO01',flight:{id:'DW1002',airline:'darwinium airlines',from:'London (LHR)',to:'New York (JFK)',date:'2025-10-15',depart:'09:45',arrive:'18:00',duration:'8h 15m'},seat:'3C',price:1240,date:'1 Oct 2025'}]});
+})();
+</script>
+</body>
+</html>
