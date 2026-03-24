@@ -6,333 +6,444 @@
 <title>DARWINIUM — Fashion</title>
 <style>
 :root {
-  --black:#0a0a0a;--white:#ffffff;--off-white:#f8f7f4;--accent:#c8a96e;--accent-dark:#a8893e;
-  --gray-1:#1a1a1a;--gray-2:#2d2d2d;--gray-3:#555;--gray-4:#888;--gray-5:#bbb;--gray-6:#e5e5e5;--gray-7:#f2f2f2;
-  --red:#c0392b;--green:#27ae60;--radius:4px;
+  --dw-bg:#06101e;--dw-surface:#0d1a2d;--dw-surface2:#122038;--dw-border:rgba(0,194,255,0.18);--dw-border2:rgba(0,194,255,0.35);
+  --dw-cyan:#00c2ff;--dw-purple:#7b2ff7;--dw-gold:#f0c040;--dw-red:#e74c3c;--dw-green:#27ae60;
+  --dw-text:#e8f4ff;--dw-muted:#7a9bb5;--dw-glass:rgba(255,255,255,0.04);
+  --grad-cyan:linear-gradient(135deg,#00c2ff,#7b2ff7);--grad-gold:linear-gradient(135deg,#f0c040,#c8803a);
+  --grad-emerald:linear-gradient(135deg,#00d4aa,#00a878);--grad-platinum:linear-gradient(135deg,#e0e0e0,#9ca3af);
+  --grad-diamond:linear-gradient(135deg,#a78bfa,#60a5fa,#34d399);
+  --radius:6px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--white);color:var(--black);font-size:14px;line-height:1.5;}
-img{display:block;width:100%;height:100%;object-fit:cover;}
-button{cursor:pointer;font-family:inherit;}
-input,select,textarea{font-family:inherit;}
-a{text-decoration:none;color:inherit;}
+body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--dw-bg);color:var(--dw-text);font-size:14px;line-height:1.5;overflow-x:hidden;}
+button{cursor:pointer;font-family:inherit;}input,select,textarea{font-family:inherit;}a{text-decoration:none;color:inherit;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:
+  radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,.3) 0%,transparent 100%),
+  radial-gradient(1px 1px at 45% 8%,rgba(255,255,255,.2) 0%,transparent 100%),
+  radial-gradient(1px 1px at 75% 35%,rgba(255,255,255,.25) 0%,transparent 100%),
+  radial-gradient(1px 1px at 90% 60%,rgba(255,255,255,.15) 0%,transparent 100%),
+  radial-gradient(1px 1px at 30% 70%,rgba(255,255,255,.2) 0%,transparent 100%);}
+.page{display:none;min-height:calc(100vh - 66px);position:relative;z-index:1;}.page.active{display:block;}
+.container{max-width:1200px;margin:0 auto;padding:0 28px;}
 
-/* ── LAYOUT ── */
-.page{display:none;min-height:calc(100vh - 60px);}
-.page.active{display:block;}
-.container{max-width:1200px;margin:0 auto;padding:0 24px;}
-.container-sm{max-width:800px;margin:0 auto;padding:0 24px;}
+/* TOPBAR */
+.topbar{background:var(--dw-surface);border-bottom:1px solid var(--dw-border);color:var(--dw-muted);font-size:11px;text-align:center;padding:8px;letter-spacing:1.5px;text-transform:uppercase;}
+.topbar span{background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;}
 
-/* ── TOPBAR ── */
-.topbar{background:var(--black);color:var(--gray-5);font-size:11px;text-align:center;padding:8px;letter-spacing:1px;text-transform:uppercase;}
-.topbar span{color:var(--accent);}
-
-/* ── NAV ── */
-nav{position:sticky;top:0;z-index:200;background:var(--white);border-bottom:1px solid var(--gray-6);}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1200px;margin:0 auto;padding:0 24px;}
-.nav-logo{font-size:1.4rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;cursor:pointer;}
-.nav-logo span{color:var(--accent);}
-.nav-links{display:flex;gap:28px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
-.nav-links a{cursor:pointer;transition:color .15s;}
-.nav-links a:hover,.nav-links a.active{color:var(--accent);}
-.nav-actions{display:flex;align-items:center;gap:18px;}
-.nav-icon-btn{background:none;border:none;font-size:18px;cursor:pointer;position:relative;display:flex;align-items:center;color:var(--black);}
-.nav-icon-btn:hover{color:var(--accent);}
-.badge{position:absolute;top:-8px;right:-8px;background:var(--accent);color:var(--white);border-radius:50%;width:16px;height:16px;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(6,16,30,0.92);border-bottom:1px solid var(--dw-border);backdrop-filter:blur(16px);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;max-width:1200px;margin:0 auto;padding:0 28px;}
+.nav-logo{cursor:pointer;display:flex;flex-direction:column;}
+.nav-logo-text{font-size:1.4rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-logo-sub{font-size:9px;letter-spacing:3px;color:var(--dw-muted);text-transform:uppercase;margin-top:-2px;}
+.nav-links{display:flex;gap:24px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
+.nav-links a{cursor:pointer;color:var(--dw-muted);transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--dw-cyan);}
+.nav-links a.sale-link{color:var(--dw-red)!important;}
+.nav-links a.loyalty-link{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.nav-actions{display:flex;align-items:center;gap:14px;}
+.nav-icon-btn{background:none;border:none;font-size:17px;cursor:pointer;position:relative;display:flex;align-items:center;color:var(--dw-muted);transition:color .2s;}
+.nav-icon-btn:hover{color:var(--dw-cyan);}
+.badge{position:absolute;top:-8px;right:-8px;background:var(--dw-cyan);color:#000;border-radius:50%;width:16px;height:16px;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;}
 .search-bar-wrap{position:relative;}
-.search-bar{width:0;overflow:hidden;transition:width .3s;border:none;border-bottom:1px solid transparent;outline:none;font-size:13px;padding:4px 0;background:transparent;}
-.search-bar.open{width:180px;border-bottom-color:var(--black);}
+.search-bar{width:0;overflow:hidden;transition:width .3s;border:none;border-bottom:1px solid transparent;outline:none;font-size:12px;padding:4px 0;background:transparent;color:var(--dw-text);}
+.search-bar::placeholder{color:var(--dw-muted);}
+.search-bar.open{width:180px;border-bottom-color:var(--dw-cyan);}
 
-/* ── HERO ── */
-.hero{position:relative;height:88vh;background:var(--gray-1);overflow:hidden;display:flex;align-items:flex-end;}
-.hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;opacity:.55;}
-.hero-bg-col{background:var(--gray-2);}
-.hero-pattern{position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(200,169,110,.04) 0,rgba(200,169,110,.04) 1px,transparent 1px,transparent 20px);}
-.hero-content{position:relative;padding:60px;color:var(--white);max-width:600px;}
-.hero-tag{display:inline-block;background:var(--accent);color:var(--black);font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;margin-bottom:20px;}
-.hero h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.0;letter-spacing:-1px;margin-bottom:20px;text-transform:uppercase;}
-.hero h1 em{font-style:normal;color:var(--accent);}
-.hero p{color:rgba(255,255,255,.65);font-size:1rem;max-width:380px;margin-bottom:32px;line-height:1.7;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
-.hero-scroll{position:absolute;bottom:32px;right:40px;color:rgba(255,255,255,.4);font-size:10px;letter-spacing:2px;text-transform:uppercase;writing-mode:vertical-rl;}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:var(--radius);cursor:pointer;transition:all .2s;}
+.btn-primary{background:var(--grad-cyan);color:#fff;}.btn-primary:hover{opacity:.85;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,194,255,.3);}
+.btn-gold{background:var(--grad-gold);color:#000;}.btn-gold:hover{opacity:.85;transform:translateY(-1px);}
+.btn-emerald{background:var(--grad-emerald);color:#fff;}.btn-emerald:hover{opacity:.85;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,212,170,.3);}
+.btn-outline{background:transparent;color:var(--dw-cyan);border:1.5px solid var(--dw-cyan);}.btn-outline:hover{background:var(--dw-cyan);color:#000;}
+.btn-outline-white{background:transparent;color:var(--dw-text);border:1.5px solid rgba(255,255,255,.3);}.btn-outline-white:hover{background:rgba(255,255,255,.08);}
+.btn-outline-gold{background:transparent;color:var(--dw-gold);border:1.5px solid rgba(240,192,64,.4);}.btn-outline-gold:hover{background:rgba(240,192,64,.1);}
+.btn-sm{padding:8px 16px;font-size:10px;}.btn-full{width:100%;}
+.btn-red{background:var(--dw-red);color:#fff;}.btn-red:hover{opacity:.85;}
 
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:none;border-radius:var(--radius);cursor:pointer;transition:all .15s;}
-.btn-primary{background:var(--black);color:var(--white);}
-.btn-primary:hover{background:var(--gray-2);}
-.btn-gold{background:var(--accent);color:var(--black);}
-.btn-gold:hover{background:var(--accent-dark);color:var(--white);}
-.btn-outline{background:transparent;color:var(--black);border:1.5px solid var(--black);}
-.btn-outline:hover{background:var(--black);color:var(--white);}
-.btn-outline-white{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.5);}
-.btn-outline-white:hover{background:rgba(255,255,255,.1);}
-.btn-sm{padding:9px 18px;font-size:10px;}
-.btn-full{width:100%;}
-.btn-red{background:var(--red);color:#fff;}
-.btn-red:hover{background:#a93226;}
+/* GLASS */
+.glass{background:var(--dw-glass);border:1px solid var(--dw-border);border-radius:12px;backdrop-filter:blur(12px);}
+.glass-strong{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;}
 
-/* ── SECTION ── */
-.section{padding:72px 0;}
-.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:36px;}
-.section-title{font-size:1.4rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;}
-.section-sub{font-size:11px;color:var(--gray-4);letter-spacing:1px;text-transform:uppercase;cursor:pointer;}
-.section-sub:hover{color:var(--accent);}
+/* SECTION */
+.section{padding:64px 0;}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:32px;}
+.section-title{font-size:1.2rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.section-sub{font-size:10px;color:var(--dw-muted);letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:color .2s;}.section-sub:hover{color:var(--dw-cyan);}
 
-/* ── PROMO BANNER ── */
-.promo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px;}
-.promo-card{border-radius:var(--radius);overflow:hidden;position:relative;cursor:pointer;aspect-ratio:3/2;}
-.promo-card-bg{background:var(--gray-2);width:100%;height:100%;}
-.promo-card-inner{position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%);}
-.promo-card-title{color:#fff;font-size:1rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
-.promo-card-sub{color:rgba(255,255,255,.7);font-size:11px;letter-spacing:1px;text-transform:uppercase;}
-.promo-badge{position:absolute;top:12px;right:12px;background:var(--red);color:#fff;font-size:10px;font-weight:900;padding:4px 10px;border-radius:var(--radius);letter-spacing:1px;text-transform:uppercase;}
+/* HERO */
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(0,194,255,.1) 0%,transparent 55%),radial-gradient(ellipse at 75% 30%,rgba(123,47,247,.1) 0%,transparent 50%);}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(0,194,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,194,255,.04) 1px,transparent 1px);background-size:80px 80px;}
+.hero-content{position:relative;padding:60px;max-width:680px;z-index:2;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.3);color:var(--dw-cyan);font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:24px;}
+.hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:900;line-height:1.0;letter-spacing:-1px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1 em{font-style:normal;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:var(--dw-muted);font-size:1rem;max-width:420px;margin-bottom:36px;line-height:1.8;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-accent-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--dw-cyan),transparent);}
 
-/* ── PRODUCT GRID ── */
+/* PROMO GRID */
+.promo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:48px;}
+.promo-card{border-radius:12px;overflow:hidden;position:relative;cursor:pointer;aspect-ratio:3/2;border:1px solid var(--dw-border);transition:all .25s;}
+.promo-card:hover{border-color:var(--dw-cyan);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,194,255,.12);}
+.promo-card-bg{background:var(--dw-surface);width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.promo-card-inner{position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to top,rgba(6,16,30,.85) 0%,transparent 55%);}
+.promo-card-title{color:var(--dw-text);font-size:1rem;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;}
+.promo-card-sub{color:var(--dw-muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;}
+.promo-badge{position:absolute;top:12px;right:12px;color:#fff;font-size:9px;font-weight:900;padding:4px 10px;border-radius:4px;letter-spacing:1px;text-transform:uppercase;}
+.promo-badge.sale{background:var(--dw-red);}
+.promo-badge.new{background:var(--dw-cyan);color:#000;}
+.promo-badge.loyalty{background:linear-gradient(135deg,#f0c040,#c8803a);color:#000;}
+
+/* PRODUCT GRID */
 .product-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
-.filter-btn{padding:7px 16px;border:1px solid var(--gray-6);border-radius:20px;background:transparent;font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:all .15s;}
-.filter-btn.active,.filter-btn:hover{background:var(--black);color:var(--white);border-color:var(--black);}
-.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.filter-btn{padding:7px 18px;border:1px solid var(--dw-border);border-radius:20px;background:transparent;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:var(--dw-muted);transition:all .2s;}
+.filter-btn.active,.filter-btn:hover{background:var(--grad-cyan);color:#fff;border-color:transparent;}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .product-card{cursor:pointer;}
-.product-img-wrap{position:relative;background:var(--gray-7);overflow:hidden;border-radius:var(--radius);aspect-ratio:3/4;margin-bottom:12px;}
-.product-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--gray-7);}
-.product-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;padding:14px;}
+.product-img-wrap{position:relative;background:var(--dw-surface);overflow:hidden;border-radius:10px;aspect-ratio:3/4;margin-bottom:14px;border:1px solid var(--dw-border);transition:all .25s;}
+.product-card:hover .product-img-wrap{border-color:var(--dw-cyan);box-shadow:0 8px 28px rgba(0,194,255,.12);}
+.product-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
+.product-overlay{position:absolute;inset:0;background:rgba(6,16,30,.55);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;padding:16px;}
 .product-card:hover .product-overlay{opacity:1;}
-.product-tag{position:absolute;top:10px;left:10px;background:var(--accent);color:var(--black);font-size:9px;font-weight:900;padding:3px 8px;letter-spacing:1px;text-transform:uppercase;}
-.product-tag.sale{background:var(--red);color:#fff;}
-.product-name{font-size:13px;font-weight:700;margin-bottom:3px;}
-.product-brand{font-size:11px;color:var(--gray-4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.product-tag{position:absolute;top:10px;left:10px;font-size:9px;font-weight:900;padding:3px 10px;letter-spacing:1px;text-transform:uppercase;border-radius:3px;}
+.product-tag.new{background:var(--grad-cyan);color:#fff;}
+.product-tag.sale{background:var(--dw-red);color:#fff;}
+.product-pts{position:absolute;bottom:10px;left:10px;background:rgba(240,192,64,.2);border:1px solid rgba(240,192,64,.4);color:var(--dw-gold);font-size:9px;font-weight:900;padding:3px 8px;border-radius:3px;letter-spacing:.5px;}
+.product-name{font-size:13px;font-weight:700;margin-bottom:3px;color:var(--dw-text);}
+.product-brand{font-size:10px;color:var(--dw-muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
 .product-price{font-size:14px;font-weight:900;}
-.product-price del{font-weight:400;color:var(--gray-4);margin-right:6px;font-size:12px;}
-.product-price .sale{color:var(--red);}
-.product-colors{display:flex;gap:4px;margin-top:6px;}
-.color-dot{width:12px;height:12px;border-radius:50%;border:1px solid var(--gray-5);}
+.product-price del{font-weight:400;color:var(--dw-muted);margin-right:6px;font-size:12px;}
+.product-price .sale{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.product-price .reg{background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.product-colors{display:flex;gap:5px;margin-top:7px;}
+.color-dot{width:11px;height:11px;border-radius:50%;border:1px solid rgba(255,255,255,.2);}
 
-/* ── PRODUCT DETAIL ── */
-.product-detail{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 0;}
-.product-detail-imgs{display:grid;grid-template-columns:1fr 3fr;gap:8px;}
-.product-detail-thumb{background:var(--gray-7);border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;cursor:pointer;}
-.product-detail-main{background:var(--gray-7);border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;}
-.product-detail-info{padding:24px 0;}
-.product-detail-brand{font-size:11px;color:var(--gray-4);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;}
-.product-detail-name{font-size:1.8rem;font-weight:900;margin-bottom:8px;line-height:1.2;}
-.product-detail-price{font-size:1.4rem;font-weight:900;margin-bottom:20px;}
-.product-detail-price del{font-size:1rem;color:var(--gray-4);font-weight:400;margin-right:8px;}
-.product-detail-price .sale{color:var(--red);}
-.product-rating{display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:12px;color:var(--gray-4);}
-.stars{color:var(--accent);letter-spacing:2px;font-size:13px;}
-.size-selector{margin-bottom:20px;}
-.size-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;display:flex;justify-content:space-between;}
-.size-label a{color:var(--accent);cursor:pointer;}
+/* PRODUCT DETAIL */
+.product-detail{display:grid;grid-template-columns:1fr 1fr;gap:52px;padding:52px 0;}
+.product-detail-imgs{display:grid;grid-template-columns:1fr 3fr;gap:10px;}
+.product-detail-thumb{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:8px;overflow:hidden;aspect-ratio:3/4;cursor:pointer;transition:border-color .2s;}.product-detail-thumb:hover{border-color:var(--dw-cyan);}
+.product-detail-main{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;overflow:hidden;aspect-ratio:3/4;}
+.product-detail-info{padding:12px 0;}
+.product-detail-brand{font-size:10px;color:var(--dw-muted);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:10px;}
+.product-detail-name{font-size:1.9rem;font-weight:900;margin-bottom:10px;line-height:1.2;color:var(--dw-text);}
+.product-detail-price{font-size:1.5rem;font-weight:900;margin-bottom:8px;}
+.product-detail-price del{font-size:1rem;color:var(--dw-muted);font-weight:400;margin-right:10px;}
+.points-earn-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.3);color:var(--dw-gold);font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:.5px;}
+.product-rating{display:flex;align-items:center;gap:10px;margin-bottom:22px;font-size:12px;color:var(--dw-muted);}
+.stars{color:var(--dw-gold);letter-spacing:2px;font-size:13px;}
+.size-selector{margin-bottom:22px;}
+.size-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;display:flex;justify-content:space-between;color:var(--dw-muted);}
+.size-label a{color:var(--dw-cyan);cursor:pointer;}
 .size-grid{display:flex;gap:8px;flex-wrap:wrap;}
-.size-btn{width:44px;height:44px;border:1px solid var(--gray-6);border-radius:var(--radius);background:transparent;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
-.size-btn:hover{border-color:var(--black);}
-.size-btn.active{background:var(--black);color:var(--white);border-color:var(--black);}
-.size-btn.sold{color:var(--gray-5);cursor:not-allowed;text-decoration:line-through;}
-.qty-selector{display:flex;align-items:center;gap:0;border:1px solid var(--gray-6);border-radius:var(--radius);overflow:hidden;width:fit-content;margin-bottom:20px;}
-.qty-btn{width:40px;height:40px;border:none;background:var(--gray-7);font-size:1.1rem;cursor:pointer;font-weight:700;}
-.qty-btn:hover{background:var(--gray-6);}
-.qty-val{width:50px;text-align:center;font-size:14px;font-weight:700;border:none;outline:none;height:40px;}
-.product-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-.accordion{border-top:1px solid var(--gray-6);}
-.accordion-item{border-bottom:1px solid var(--gray-6);}
-.accordion-header{padding:14px 0;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
-.accordion-body{font-size:13px;color:var(--gray-3);line-height:1.7;padding-bottom:14px;display:none;}
-.accordion-body.open{display:block;}
+.size-btn{width:46px;height:46px;border:1px solid var(--dw-border);border-radius:var(--radius);background:var(--dw-glass);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--dw-text);}
+.size-btn:hover{border-color:var(--dw-cyan);color:var(--dw-cyan);}
+.size-btn.active{background:var(--grad-cyan);color:#fff;border-color:transparent;}
+.size-btn.sold{color:var(--dw-border);cursor:not-allowed;text-decoration:line-through;}
+.qty-selector{display:flex;align-items:center;border:1px solid var(--dw-border);border-radius:var(--radius);overflow:hidden;width:fit-content;margin-bottom:22px;background:var(--dw-glass);}
+.qty-btn{width:42px;height:42px;border:none;background:transparent;font-size:1.1rem;cursor:pointer;font-weight:700;color:var(--dw-cyan);}.qty-btn:hover{background:rgba(0,194,255,.1);}
+.qty-val{width:52px;text-align:center;font-size:14px;font-weight:700;border:none;outline:none;height:42px;background:transparent;color:var(--dw-text);}
+.product-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:26px;}
+.accordion{border-top:1px solid var(--dw-border);}
+.accordion-item{border-bottom:1px solid var(--dw-border);}
+.accordion-header{padding:15px 0;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--dw-muted);transition:color .2s;}.accordion-header:hover{color:var(--dw-cyan);}
+.accordion-body{font-size:13px;color:var(--dw-muted);line-height:1.8;padding-bottom:16px;display:none;}.accordion-body.open{display:block;}
 
-/* ── CART ── */
-.cart-drawer{position:fixed;top:0;right:0;width:420px;height:100vh;background:var(--white);box-shadow:-4px 0 24px rgba(0,0,0,.15);z-index:500;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;}
+/* CART DRAWER */
+.cart-drawer{position:fixed;top:0;right:0;width:420px;height:100vh;background:var(--dw-surface);border-left:1px solid var(--dw-border);z-index:500;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column;}
 .cart-drawer.open{transform:translateX(0);}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:490;display:none;}
-.overlay.open{display:block;}
-.cart-header{padding:20px 24px;border-bottom:1px solid var(--gray-6);display:flex;align-items:center;justify-content:space-between;}
-.cart-header h3{font-size:13px;font-weight:900;letter-spacing:2px;text-transform:uppercase;}
-.close-btn{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--gray-4);}
-.close-btn:hover{color:var(--black);}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:490;display:none;backdrop-filter:blur(2px);}.overlay.open{display:block;}
+.cart-header{padding:22px 24px;border-bottom:1px solid var(--dw-border);display:flex;align-items:center;justify-content:space-between;}
+.cart-header h3{font-size:12px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.close-btn{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--dw-muted);transition:color .2s;}.close-btn:hover{color:var(--dw-cyan);}
 .cart-items{flex:1;overflow-y:auto;padding:20px 24px;}
-.cart-item{display:grid;grid-template-columns:80px 1fr auto;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--gray-6);}
+.cart-items::-webkit-scrollbar{width:4px;}.cart-items::-webkit-scrollbar-thumb{background:var(--dw-border2);border-radius:2px;}
+.cart-item{display:grid;grid-template-columns:80px 1fr auto;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--dw-border);}
 .cart-item:last-child{border:none;}
-.cart-item-img{background:var(--gray-7);border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
-.cart-item-name{font-size:13px;font-weight:700;margin-bottom:4px;}
-.cart-item-meta{font-size:11px;color:var(--gray-4);margin-bottom:8px;}
-.cart-item-price{font-size:14px;font-weight:900;}
-.cart-item-remove{background:none;border:none;color:var(--gray-4);cursor:pointer;font-size:12px;padding:2px;}
-.cart-item-remove:hover{color:var(--red);}
-.cart-qty-ctrl{display:flex;align-items:center;gap:8px;font-size:12px;margin-top:6px;}
-.cqc-btn{width:22px;height:22px;border:1px solid var(--gray-6);background:var(--white);border-radius:2px;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;}
-.cqc-btn:hover{border-color:var(--black);}
-.promo-input-wrap{padding:0 24px 16px;display:flex;gap:8px;}
-.promo-input{flex:1;border:1px solid var(--gray-6);border-radius:var(--radius);padding:10px 14px;font-size:13px;outline:none;}
-.promo-input:focus{border-color:var(--black);}
-.cart-footer{padding:20px 24px;border-top:1px solid var(--gray-6);}
+.cart-item-img{background:var(--dw-surface2);border:1px solid var(--dw-border);border-radius:8px;overflow:hidden;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+.cart-item-name{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--dw-text);}
+.cart-item-meta{font-size:11px;color:var(--dw-muted);margin-bottom:6px;}
+.cart-item-price{font-size:14px;font-weight:900;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.cart-item-pts{font-size:10px;color:var(--dw-gold);margin-top:3px;}
+.cart-item-remove{background:none;border:none;color:var(--dw-muted);cursor:pointer;font-size:12px;}.cart-item-remove:hover{color:var(--dw-red);}
+.cart-qty-ctrl{display:flex;align-items:center;gap:8px;font-size:12px;margin-top:7px;}
+.cqc-btn{width:22px;height:22px;border:1px solid var(--dw-border);background:var(--dw-glass);border-radius:3px;cursor:pointer;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--dw-cyan);}.cqc-btn:hover{border-color:var(--dw-cyan);}
+.promo-input-wrap{padding:0 24px 8px;display:flex;gap:8px;}
+.promo-input{flex:1;border:1px solid var(--dw-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;outline:none;background:var(--dw-glass);color:var(--dw-text);letter-spacing:1px;}.promo-input:focus{border-color:var(--dw-cyan);}
+.promo-input::placeholder{color:var(--dw-muted);}
+/* Points redemption in cart */
+.points-redeem-wrap{padding:0 24px 12px;}
+.points-redeem-box{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.25);border-radius:var(--radius);padding:12px 14px;}
+.points-redeem-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dw-gold);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.points-redeem-title span{font-size:11px;}
+.points-redeem-row{display:flex;gap:8px;align-items:center;}
+.points-redeem-input{flex:1;border:1px solid rgba(240,192,64,.3);border-radius:var(--radius);padding:8px 12px;font-size:12px;outline:none;background:rgba(240,192,64,.05);color:var(--dw-text);}.points-redeem-input:focus{border-color:var(--dw-gold);}
+.points-redeem-input::placeholder{color:var(--dw-muted);}
+.cart-footer{padding:16px 24px;border-top:1px solid var(--dw-border);}
 .cart-totals{margin-bottom:16px;}
-.cart-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;}
-.cart-row.total{font-size:15px;font-weight:900;border-top:1px solid var(--gray-6);padding-top:10px;margin-top:4px;}
-.cart-row.discount{color:var(--red);}
-.cart-empty{text-align:center;padding:60px 0;color:var(--gray-4);}
-.cart-empty .icon{font-size:3rem;margin-bottom:12px;}
+.cart-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;color:var(--dw-muted);}
+.cart-row .val{color:var(--dw-text);font-weight:700;}
+.cart-row.total{font-size:15px;font-weight:900;border-top:1px solid var(--dw-border);padding-top:10px;margin-top:4px;}
+.cart-row.total .label{color:var(--dw-text);}
+.cart-row.total .val{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.cart-row.discount{color:var(--dw-red);}.cart-row.discount .val{color:var(--dw-red);}
+.cart-row.pts-redeem{color:var(--dw-gold);}.cart-row.pts-redeem .val{color:var(--dw-gold);}
+.cart-pts-earn{background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.2);border-radius:var(--radius);padding:8px 12px;font-size:11px;color:var(--dw-gold);text-align:center;margin-bottom:12px;font-weight:600;}
+.cart-empty{text-align:center;padding:60px 0;color:var(--dw-muted);}
+.cart-empty .icon{font-size:3rem;margin-bottom:14px;display:block;}
 
-/* ── AUTH ── */
-.auth-page-wrap{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;background:var(--off-white);padding:40px 20px;}
-.auth-card{background:var(--white);border:1px solid var(--gray-6);border-radius:var(--radius);padding:48px;width:100%;max-width:440px;}
-.auth-logo{font-size:1.2rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;text-align:center;margin-bottom:28px;}
-.auth-logo span{color:var(--accent);}
-.auth-title{font-size:1.2rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;}
-.auth-sub{font-size:12px;color:var(--gray-4);margin-bottom:28px;}
+/* AUTH */
+.auth-page-wrap{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 30% 50%,rgba(0,194,255,.07) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(123,47,247,.07) 0%,transparent 50%);}
+.auth-card{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:16px;padding:48px;width:100%;max-width:440px;}
+.auth-logo{font-size:1.3rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;text-align:center;margin-bottom:28px;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.auth-title{font-size:1.2rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;color:var(--dw-text);}
+.auth-sub{font-size:12px;color:var(--dw-muted);margin-bottom:28px;}
 .form-group{margin-bottom:16px;}
-.form-label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-4);margin-bottom:6px;}
-.form-input{width:100%;border:1px solid var(--gray-6);border-radius:var(--radius);padding:12px 14px;font-size:13px;outline:none;transition:border .15s;background:var(--white);}
-.form-input:focus{border-color:var(--black);}
+.form-label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:7px;}
+.form-input{width:100%;border:1px solid var(--dw-border);border-radius:var(--radius);padding:12px 14px;font-size:13px;outline:none;transition:border .15s;background:var(--dw-glass);color:var(--dw-text);}
+.form-input:focus{border-color:var(--dw-cyan);box-shadow:0 0 0 3px rgba(0,194,255,.1);}
+.form-input::placeholder{color:var(--dw-muted);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-error{color:var(--red);font-size:11px;margin-top:5px;display:none;}
-.form-error.show{display:block;}
-.auth-switch{text-align:center;font-size:12px;color:var(--gray-4);margin-top:20px;}
-.auth-switch a{color:var(--black);font-weight:700;cursor:pointer;text-decoration:underline;}
-.divider{display:flex;align-items:center;gap:12px;margin:20px 0;font-size:11px;color:var(--gray-5);}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--gray-6);}
+.form-error{color:var(--dw-red);font-size:11px;margin-top:5px;display:none;}.form-error.show{display:block;}
+.form-success{color:var(--dw-green);font-size:11px;margin-top:5px;display:none;}.form-success.show{display:block;}
+.auth-switch{text-align:center;font-size:12px;color:var(--dw-muted);margin-top:20px;}
+.auth-switch a{color:var(--dw-cyan);font-weight:700;cursor:pointer;}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;font-size:11px;color:var(--dw-muted);}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--dw-border);}
+select.form-input option{background:var(--dw-surface);color:var(--dw-text);}
 
-/* ── CHECKOUT ── */
-.checkout-layout{display:grid;grid-template-columns:1fr 420px;gap:48px;padding:48px 0;}
-.checkout-steps{display:flex;gap:0;margin-bottom:32px;}
-.ck-step{flex:1;padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-4);border-bottom:2px solid var(--gray-6);text-align:center;}
-.ck-step.active{color:var(--black);border-bottom-color:var(--black);}
-.ck-step.done{color:var(--accent);border-bottom-color:var(--accent);}
-.checkout-section{background:var(--white);border:1px solid var(--gray-6);border-radius:var(--radius);padding:24px;margin-bottom:16px;}
-.checkout-section h3{font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--gray-6);}
-.order-card{background:var(--off-white);border-radius:var(--radius);padding:20px;position:sticky;top:80px;}
-.order-card h3{font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
-.order-item{display:flex;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--gray-6);}
+/* CHECKOUT */
+.checkout-layout{display:grid;grid-template-columns:1fr 400px;gap:40px;padding:40px 0;}
+.checkout-steps{display:flex;margin-bottom:28px;}
+.ck-step{flex:1;padding:12px 16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dw-muted);border-bottom:2px solid var(--dw-border);text-align:center;transition:all .2s;}
+.ck-step.active{color:var(--dw-cyan);border-bottom-color:var(--dw-cyan);}
+.ck-step.done{color:var(--dw-gold);border-bottom-color:var(--dw-gold);}
+.checkout-section{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:24px;margin-bottom:16px;}
+.checkout-section h3{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--dw-border);color:var(--dw-muted);}
+.order-card{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:20px;position:sticky;top:84px;}
+.order-card h3{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;color:var(--dw-muted);}
+.order-item{display:flex;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--dw-border);}
 .order-item:last-child{border:none;}
-.order-item-img{width:56px;height:72px;background:var(--gray-6);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
-.order-item-name{font-size:12px;font-weight:700;margin-bottom:3px;}
-.order-item-meta{font-size:11px;color:var(--gray-4);}
-.order-item-price{font-size:13px;font-weight:900;margin-left:auto;flex-shrink:0;}
+.order-item-img{width:56px;height:72px;background:var(--dw-surface2);border:1px solid var(--dw-border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.order-item-name{font-size:12px;font-weight:700;margin-bottom:3px;color:var(--dw-text);}
+.order-item-meta{font-size:11px;color:var(--dw-muted);}
+.order-item-price{font-size:13px;font-weight:900;margin-left:auto;flex-shrink:0;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .checkout-totals{margin-top:12px;}
-.ct-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;color:var(--gray-3);}
-.ct-row.total{font-size:15px;font-weight:900;color:var(--black);border-top:1px solid var(--gray-6);padding-top:10px;margin-top:4px;}
-.ct-row.discount{color:var(--red);}
-.card-vis{background:var(--black);border-radius:10px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden;}
-.card-vis::before{content:'';position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(200,169,110,.1);top:-60px;right:-40px;}
-.card-vis-chip{width:32px;height:24px;background:var(--accent);border-radius:3px;margin-bottom:16px;}
-.card-vis-num{color:rgba(255,255,255,.8);font-family:monospace;font-size:1rem;letter-spacing:3px;margin-bottom:14px;}
+.ct-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;color:var(--dw-muted);}
+.ct-row .v{color:var(--dw-text);}
+.ct-row.total{font-size:14px;font-weight:900;color:var(--dw-text);border-top:1px solid var(--dw-border);padding-top:10px;margin-top:4px;}
+.ct-row.total .v{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.ct-row.discount{color:var(--dw-red);}.ct-row.discount .v{color:var(--dw-red);}
+.ct-row.pts{color:var(--dw-gold);}.ct-row.pts .v{color:var(--dw-gold);}
+.card-vis{background:linear-gradient(135deg,var(--dw-surface2),#0d1a2d);border:1px solid var(--dw-border);border-radius:14px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden;}
+.card-vis::before{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(0,194,255,.06);top:-60px;right:-50px;}
+.card-vis-chip{width:34px;height:26px;background:var(--grad-gold);border-radius:4px;margin-bottom:18px;}
+.card-vis-num{color:rgba(255,255,255,.8);font-family:monospace;font-size:1rem;letter-spacing:3px;margin-bottom:16px;}
 .card-vis-bot{display:flex;justify-content:space-between;}
-.card-vis-label{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;}
+.card-vis-label{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;}
 .card-vis-val{font-size:12px;font-weight:700;color:#fff;}
 
-/* ── CONFIRMATION ── */
+/* CONFIRMATION */
 .confirm-page{max-width:600px;margin:0 auto;padding:60px 20px;text-align:center;}
-.confirm-icon{width:80px;height:80px;border-radius:50%;background:var(--green);color:#fff;font-size:2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-weight:900;}
-.confirm-page h2{font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
-.confirm-page > p{color:var(--gray-3);margin-bottom:32px;}
-.order-ref-box{background:var(--off-white);border-radius:var(--radius);padding:24px;margin-bottom:28px;border:1px solid var(--gray-6);}
-.order-ref-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray-4);margin-bottom:6px;}
-.order-ref-val{font-size:1.8rem;font-weight:900;letter-spacing:3px;color:var(--accent);font-family:monospace;}
+.confirm-icon{width:80px;height:80px;border-radius:50%;background:var(--dw-green);color:#fff;font-size:2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-weight:900;box-shadow:0 0 32px rgba(39,174,96,.4);}
+.confirm-page h2{font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.confirm-page>p{color:var(--dw-muted);margin-bottom:32px;}
+.order-ref-box{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:24px;margin-bottom:28px;}
+.order-ref-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:8px;}
+.order-ref-val{font-size:1.8rem;font-weight:900;letter-spacing:4px;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-family:monospace;}
+.confirm-pts-box{background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.3);border-radius:12px;padding:20px;margin-bottom:20px;}
+.confirm-pts-num{font-size:2rem;font-weight:900;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;text-align:left;}
-.confirm-cell{background:var(--white);border:1px solid var(--gray-6);border-radius:var(--radius);padding:14px;}
-.confirm-cell .label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-4);margin-bottom:4px;}
-.confirm-cell .val{font-size:13px;font-weight:700;}
+.confirm-cell{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:8px;padding:14px;}
+.confirm-cell .label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:5px;}
+.confirm-cell .val{font-size:13px;font-weight:700;color:var(--dw-text);}
 
-/* ── ACCOUNT / RETURNS ── */
-.account-layout{display:grid;grid-template-columns:240px 1fr;gap:32px;padding:48px 0;}
-.account-nav{position:sticky;top:80px;height:fit-content;}
-.account-nav-item{padding:12px 16px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:var(--radius);margin-bottom:4px;color:var(--gray-3);display:flex;align-items:center;gap:10px;}
-.account-nav-item:hover{background:var(--gray-7);color:var(--black);}
-.account-nav-item.active{background:var(--black);color:var(--white);}
-.account-panel{display:none;}
-.account-panel.active{display:block;}
-.account-panel h2{font-size:1.1rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
-.stat-card{background:var(--off-white);border-radius:var(--radius);padding:20px;border:1px solid var(--gray-6);}
-.stat-num{font-size:1.8rem;font-weight:900;color:var(--accent);margin-bottom:4px;}
-.stat-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-4);}
-.order-history-item{background:var(--white);border:1px solid var(--gray-6);border-radius:var(--radius);padding:20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:box-shadow .15s;}
-.order-history-item:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);}
+/* ═══════════════ LOYALTY CARD ═══════════════ */
+.loyalty-page{padding:48px 0;}
+/* Tier colours */
+.tier-bronze{--tier-color:#cd7f32;--tier-grad:linear-gradient(135deg,#cd7f32,#8b4513);--tier-bg:rgba(205,127,50,.1);--tier-border:rgba(205,127,50,.3);}
+.tier-silver{--tier-color:#9ca3af;--tier-grad:var(--grad-platinum);--tier-bg:rgba(156,163,175,.1);--tier-border:rgba(156,163,175,.3);}
+.tier-gold{--tier-color:#f0c040;--tier-grad:var(--grad-gold);--tier-bg:rgba(240,192,64,.1);--tier-border:rgba(240,192,64,.3);}
+.tier-platinum{--tier-color:#a78bfa;--tier-grad:var(--grad-diamond);--tier-bg:rgba(167,139,250,.1);--tier-border:rgba(167,139,250,.3);}
+
+/* Loyalty card visual */
+.loyalty-card-wrap{perspective:1000px;margin-bottom:36px;}
+.loyalty-card{width:100%;max-width:500px;aspect-ratio:1.586/1;border-radius:16px;padding:28px;position:relative;overflow:hidden;cursor:default;transition:transform .4s;}
+.loyalty-card:hover{transform:rotateY(3deg) rotateX(-2deg);}
+.loyalty-card-bg{position:absolute;inset:0;opacity:.15;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0,rgba(255,255,255,.05) 1px,transparent 1px,transparent 24px);}
+.loyalty-card-glow{position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;opacity:.2;}
+.loyalty-card-chip{width:38px;height:28px;border-radius:5px;margin-bottom:16px;}
+.loyalty-card-tier{font-size:9px;font-weight:900;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:4px;}
+.loyalty-card-brand{font-size:1rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.loyalty-card-number{font-family:monospace;font-size:1rem;letter-spacing:4px;opacity:.85;margin-bottom:16px;}
+.loyalty-card-bottom{display:flex;justify-content:space-between;align-items:flex-end;}
+.loyalty-card-pts{font-size:1.5rem;font-weight:900;}
+.loyalty-card-pts-label{font-size:9px;opacity:.6;letter-spacing:1px;text-transform:uppercase;}
+.loyalty-card-name{font-size:11px;font-weight:700;letter-spacing:1px;text-align:right;}
+.loyalty-card-member{font-size:9px;opacity:.6;letter-spacing:1px;text-transform:uppercase;text-align:right;}
+
+/* Tier progress */
+.tier-progress-wrap{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:24px;margin-bottom:24px;}
+.tier-progress-title{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:16px;}
+.tier-badges{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.tier-badge{padding:6px 16px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid transparent;transition:all .2s;}
+.tier-badge.active{box-shadow:0 0 16px rgba(0,0,0,.3);}
+.progress-bar-wrap{background:rgba(255,255,255,.06);border-radius:99px;height:6px;overflow:hidden;margin-bottom:8px;}
+.progress-bar{height:100%;border-radius:99px;transition:width .6s ease;}
+.progress-label{font-size:11px;color:var(--dw-muted);}
+.progress-label span{color:var(--dw-text);font-weight:700;}
+
+/* Points history */
+.pts-history-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--dw-border);}
+.pts-history-item:last-child{border:none;}
+.pts-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.pts-icon.earn{background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.3);}
+.pts-icon.redeem{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);}
+.pts-icon.transfer{background:rgba(0,194,255,.15);border:1px solid rgba(0,194,255,.3);}
+.pts-icon.receive{background:rgba(240,192,64,.15);border:1px solid rgba(240,192,64,.3);}
+.pts-icon.bonus{background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);}
+.pts-desc{flex:1;}
+.pts-desc-title{font-size:13px;font-weight:700;color:var(--dw-text);}
+.pts-desc-sub{font-size:11px;color:var(--dw-muted);}
+.pts-amount{font-size:14px;font-weight:900;}
+.pts-amount.positive{color:var(--dw-green);}
+.pts-amount.negative{color:var(--dw-red);}
+
+/* Rewards catalogue */
+.rewards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.reward-card{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:20px;text-align:center;transition:all .25s;cursor:pointer;}
+.reward-card:hover{border-color:var(--dw-gold);box-shadow:0 8px 24px rgba(240,192,64,.1);transform:translateY(-2px);}
+.reward-card.redeemed{border-color:var(--dw-green);opacity:.7;}
+.reward-icon{font-size:2.5rem;margin-bottom:12px;}
+.reward-name{font-size:13px;font-weight:700;color:var(--dw-text);margin-bottom:6px;}
+.reward-desc{font-size:11px;color:var(--dw-muted);margin-bottom:14px;line-height:1.5;}
+.reward-pts{font-size:1.1rem;font-weight:900;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;}
+.reward-pts span{font-size:11px;font-weight:400;color:var(--dw-muted);}
+
+/* Transfer form */
+.transfer-card{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:24px;max-width:480px;}
+.transfer-card h3{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--dw-border);}
+.transfer-preview{background:rgba(0,194,255,.06);border:1px solid rgba(0,194,255,.2);border-radius:var(--radius);padding:12px 14px;margin:14px 0;font-size:12px;color:var(--dw-text);display:none;}
+.transfer-preview.show{display:block;}
+.pts-balance-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.3);color:var(--dw-gold);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;margin-bottom:14px;}
+
+/* ACCOUNT */
+.account-layout{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:48px 0;}
+.account-nav{position:sticky;top:84px;height:fit-content;background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:12px;overflow:hidden;}
+.account-nav-item{padding:11px 14px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:8px;margin-bottom:3px;color:var(--dw-muted);display:flex;align-items:center;gap:10px;transition:all .15s;}
+.account-nav-item:hover{background:var(--dw-glass);color:var(--dw-text);}
+.account-nav-item.active{background:var(--grad-cyan);color:#fff!important;}
+.account-nav-item.loyalty-nav{color:var(--dw-gold)!important;}
+.account-nav-item.loyalty-nav.active{background:var(--grad-gold)!important;color:#000!important;}
+.account-panel{display:none;}.account-panel.active{display:block;}
+.account-panel h2{font-size:1.1rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.stat-card{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:10px;padding:18px;transition:border-color .2s;}.stat-card:hover{border-color:var(--dw-cyan);}
+.stat-card.gold-stat{border-color:rgba(240,192,64,.2);}.stat-card.gold-stat:hover{border-color:var(--dw-gold);}
+.stat-num{font-size:1.6rem;font-weight:900;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+.stat-num.gold{background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dw-muted);}
+.order-history-item{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:10px;padding:18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;}
+.order-history-item:hover{border-color:var(--dw-cyan);box-shadow:0 4px 16px rgba(0,194,255,.1);}
 .ohi-items{display:flex;gap:6px;flex:1;}
-.ohi-img{width:48px;height:60px;background:var(--gray-7);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.ohi-img{width:48px;height:60px;background:var(--dw-surface2);border:1px solid var(--dw-border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
 .ohi-info{flex:1;}
-.ohi-ref{font-size:12px;font-weight:900;margin-bottom:3px;letter-spacing:1px;}
-.ohi-meta{font-size:11px;color:var(--gray-4);}
-.ohi-total{font-size:14px;font-weight:900;margin-right:8px;}
-.status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
-.status-badge.delivered{background:#e8f5e9;color:#2e7d32;}
-.status-badge.processing{background:#fff3e0;color:#e65100;}
-.status-badge.returned{background:#fce4ec;color:#c62828;}
-.status-badge.shipped{background:#e3f2fd;color:#1565c0;}
-.return-item{background:var(--white);border:1px solid var(--gray-6);border-radius:var(--radius);padding:20px;margin-bottom:12px;}
+.ohi-ref{font-size:11px;font-weight:900;margin-bottom:3px;letter-spacing:1.5px;color:var(--dw-text);}
+.ohi-meta{font-size:10px;color:var(--dw-muted);}
+.ohi-total{font-size:14px;font-weight:900;margin-right:8px;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.status-badge.delivered{background:rgba(39,174,96,.15);color:#27ae60;border:1px solid rgba(39,174,96,.3);}
+.status-badge.processing{background:rgba(240,192,64,.12);color:#f0c040;border:1px solid rgba(240,192,64,.3);}
+.status-badge.returned{background:rgba(231,76,60,.12);color:#e74c3c;border:1px solid rgba(231,76,60,.3);}
+.status-badge.shipped{background:rgba(0,194,255,.12);color:#00c2ff;border:1px solid rgba(0,194,255,.3);}
+.return-item{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:10px;padding:20px;margin-bottom:12px;}
 .return-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.return-form{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-6);}
-.return-form.open{display:block;}
-.return-reason{width:100%;border:1px solid var(--gray-6);border-radius:var(--radius);padding:10px;font-size:13px;margin-bottom:10px;outline:none;}
-.return-reason:focus{border-color:var(--black);}
+.return-form{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--dw-border);}.return-form.open{display:block;}
+.return-reason{width:100%;border:1px solid var(--dw-border);border-radius:var(--radius);padding:10px 14px;font-size:12px;margin-bottom:10px;outline:none;background:var(--dw-glass);color:var(--dw-text);}
+.return-reason:focus{border-color:var(--dw-cyan);}
 
-/* ── WISHLIST ── */
-.wishlist-icon{position:absolute;top:10px;right:10px;background:var(--white);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;box-shadow:0 2px 8px rgba(0,0,0,.1);opacity:0;transition:opacity .2s;}
+/* WISHLIST */
+.wishlist-icon{position:absolute;top:10px;right:10px;background:rgba(6,16,30,.7);border:1px solid var(--dw-border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;opacity:0;transition:all .2s;}
 .product-card:hover .wishlist-icon{opacity:1;}
-.wishlist-icon.active{opacity:1;color:var(--red);}
+.wishlist-icon.active{opacity:1;color:var(--dw-red);border-color:rgba(231,76,60,.4);}
 
-/* ── SEARCH ── */
-.search-page{padding:32px 0;}
+/* SEARCH */
+.search-page{padding:36px 0;}
 .search-header{margin-bottom:28px;}
-.search-header h2{font-size:1.3rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;}
-.no-results{text-align:center;padding:60px 0;color:var(--gray-4);}
-.no-results .icon{font-size:3rem;margin-bottom:12px;}
+.search-header h2{font-size:1.3rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.no-results{text-align:center;padding:60px 0;color:var(--dw-muted);}
+.no-results .icon{font-size:3rem;margin-bottom:14px;display:block;}
 
-/* ── FOOTER ── */
-footer{background:var(--black);color:rgba(255,255,255,.5);padding:48px 0 24px;}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
-.footer-brand{font-size:1.2rem;font-weight:900;letter-spacing:3px;color:var(--white);text-transform:uppercase;margin-bottom:12px;}
-.footer-brand span{color:var(--accent);}
-.footer-text{font-size:12px;line-height:1.7;max-width:220px;}
-.footer-col h4{color:var(--white);font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
-.footer-col a{display:block;font-size:12px;margin-bottom:8px;cursor:pointer;transition:color .15s;}
-.footer-col a:hover{color:var(--accent);}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;display:flex;justify-content:space-between;font-size:11px;}
+/* OFFERS */
+.offers-banner{background:linear-gradient(135deg,rgba(231,76,60,.15),rgba(123,47,247,.1));border-bottom:1px solid rgba(231,76,60,.3);padding:48px;text-align:center;}
+.offers-banner-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;text-transform:uppercase;letter-spacing:-1px;color:var(--dw-text);}
+.offers-banner-sub{color:var(--dw-muted);margin-top:6px;}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--black);color:var(--white);padding:14px 24px;border-radius:var(--radius);font-size:12px;font-weight:700;letter-spacing:1px;box-shadow:0 8px 24px rgba(0,0,0,.3);z-index:9999;opacity:0;transition:all .3s;white-space:nowrap;}
+/* PROMO BANNER */
+.promo-banner{background:var(--dw-surface);border:1px solid var(--dw-border);border-radius:12px;padding:36px;text-align:center;margin-bottom:36px;position:relative;overflow:hidden;}
+.promo-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,194,255,.05) 0%,transparent 70%);}
+.promo-banner h3{font-size:1.3rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;}
+.promo-banner p{color:var(--dw-muted);margin-bottom:18px;position:relative;}
+.promo-code{display:inline-block;background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.4);color:var(--dw-gold);font-size:1.1rem;font-weight:900;padding:10px 24px;letter-spacing:5px;border-radius:var(--radius);font-family:monospace;position:relative;}
+
+/* FOOTER */
+footer{background:var(--dw-surface);border-top:1px solid var(--dw-border);color:var(--dw-muted);padding:52px 0 24px;position:relative;z-index:1;}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--dw-cyan),transparent);}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:40px;}
+.footer-brand{font-size:1.2rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;display:block;}
+.footer-text{font-size:12px;line-height:1.8;max-width:220px;}
+.footer-col h4{color:var(--dw-text);font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.footer-col a{display:block;font-size:12px;margin-bottom:9px;cursor:pointer;transition:color .15s;}.footer-col a:hover{color:var(--dw-cyan);}
+.footer-bottom{border-top:1px solid var(--dw-border);padding-top:20px;display:flex;justify-content:space-between;font-size:11px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--dw-surface);border:1px solid var(--dw-border);color:var(--dw-text);padding:14px 24px;border-radius:var(--radius);font-size:12px;font-weight:700;letter-spacing:1px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:9999;opacity:0;transition:all .3s;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
-.toast.gold{background:var(--accent);color:var(--black);}
+.toast.gold{border-color:rgba(240,192,64,.5);color:var(--dw-gold);}
+.toast.cyan{border-color:rgba(0,194,255,.5);color:var(--dw-cyan);}
+.toast.green{border-color:rgba(39,174,96,.5);color:var(--dw-green);}
 
-/* ── MISC ── */
-.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--gray-4);background:none;border:none;margin-bottom:20px;}
-.back-btn:hover{color:var(--black);}
-.tag-chip{display:inline-block;padding:4px 10px;background:var(--gray-7);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-3);margin:2px;}
-.input-row{display:flex;gap:8px;}
-select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%23888'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
-.promo-banner{background:linear-gradient(135deg,var(--black),var(--gray-2));border-radius:var(--radius);padding:32px;text-align:center;color:var(--white);margin-bottom:32px;}
-.promo-banner h3{font-size:1.4rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;}
-.promo-banner p{color:rgba(255,255,255,.6);margin-bottom:16px;}
-.promo-code{display:inline-block;background:var(--accent);color:var(--black);font-size:1rem;font-weight:900;padding:8px 20px;letter-spacing:4px;border-radius:var(--radius);font-family:monospace;}
+/* MISC */
+.back-btn{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:var(--dw-muted);background:none;border:none;margin-bottom:20px;transition:color .2s;}.back-btn:hover{color:var(--dw-cyan);}
+.info-box{background:rgba(0,194,255,.06);border:1px solid rgba(0,194,255,.2);border-radius:var(--radius);padding:12px 16px;font-size:12px;color:var(--dw-muted);line-height:1.6;margin-bottom:14px;}
+.info-box strong{color:var(--dw-cyan);}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--dw-border);margin-bottom:24px;}
+.tab-btn{padding:10px 20px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:none;border:none;color:var(--dw-muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
+.tab-btn.active{color:var(--dw-cyan);border-bottom-color:var(--dw-cyan);}
+.tab-panel{display:none;}.tab-panel.active{display:block;}
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">Free delivery on orders over $150 &nbsp;|&nbsp; Use code <span>DARWIN20</span> for 20% off &nbsp;|&nbsp; New arrivals every Friday</div>
+<div class="topbar">Free delivery over $150 &nbsp;✦&nbsp; <span>DARWIN20</span> — 20% off &nbsp;✦&nbsp; Earn 10 pts per $1 spent &nbsp;✦&nbsp; New arrivals every Friday</div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo" onclick="showPage('home')">DARWIN<span>IUM</span></div>
+    <div class="nav-logo" onclick="showPage('home')">
+      <span class="nav-logo-text">DARWIN<span style="opacity:.7">IUM</span></span>
+      <span class="nav-logo-sub">Fashion House</span>
+    </div>
     <div class="nav-links">
       <a onclick="showPage('home')">Home</a>
       <a onclick="filterAndShow('women')">Women</a>
       <a onclick="filterAndShow('men')">Men</a>
       <a onclick="filterAndShow('accessories')">Accessories</a>
-      <a onclick="showPage('offers')" style="color:var(--red)">Sale</a>
+      <a onclick="showPage('offers')" class="sale-link">Sale</a>
+      <a onclick="showPage('loyalty')" class="loyalty-link">✦ Rewards</a>
     </div>
     <div class="nav-actions">
       <div class="search-bar-wrap">
         <button class="nav-icon-btn" onclick="toggleSearch()">🔍</button>
-        <input class="search-bar" id="search-input" placeholder="Search products…" oninput="liveSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch()">
+        <input class="search-bar" id="search-input" placeholder="Search…" oninput="liveSearch(this.value)" onkeydown="if(event.key==='Enter')doSearch()">
       </div>
-      <button class="nav-icon-btn" onclick="toggleWishlistPage()" id="wish-nav-btn">♡ <span class="badge" id="wish-count" style="display:none">0</span></button>
+      <button class="nav-icon-btn" onclick="toggleWishlistPage()">♡ <span class="badge" id="wish-count" style="display:none">0</span></button>
       <button class="nav-icon-btn" onclick="showPage(state.user?'account':'login')" title="Account">👤</button>
       <button class="nav-icon-btn" onclick="openCart()">🛍 <span class="badge" id="cart-count">0</span></button>
     </div>
   </div>
 </nav>
 
-<!-- CART DRAWER -->
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cart-drawer">
   <div class="cart-header">
@@ -341,96 +452,96 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   </div>
   <div class="cart-items" id="cart-items-list"></div>
   <div class="promo-input-wrap">
-    <input class="promo-input" id="promo-code-input" placeholder="Promo code" style="text-transform:uppercase">
+    <input class="promo-input" id="promo-code-input" placeholder="PROMO CODE" style="text-transform:uppercase">
     <button class="btn btn-outline btn-sm" onclick="applyPromo()">Apply</button>
   </div>
+  <div class="points-redeem-wrap" id="points-redeem-wrap" style="display:none">
+    <div class="points-redeem-box">
+      <div class="points-redeem-title">✦ Redeem Points <span id="cart-pts-available"></span></div>
+      <div class="points-redeem-row">
+        <input class="points-redeem-input" id="pts-redeem-input" type="number" placeholder="Enter points (100 pts = $1)" min="0">
+        <button class="btn btn-outline-gold btn-sm" onclick="applyPointsRedeem()">Redeem</button>
+        <button class="btn btn-sm" style="background:transparent;border:1px solid var(--dw-border);color:var(--dw-muted)" onclick="clearPointsRedeem()">✕</button>
+      </div>
+    </div>
+  </div>
   <div class="cart-footer">
+    <div class="cart-pts-earn" id="cart-pts-earn" style="display:none"></div>
     <div class="cart-totals" id="cart-totals"></div>
-    <button class="btn btn-primary btn-full" onclick="closeCart();showPage('checkout')">Checkout</button>
+    <button class="btn btn-primary btn-full" onclick="closeCart();showPage('checkout')">Proceed to Checkout →</button>
     <button class="btn btn-outline btn-full" style="margin-top:8px" onclick="closeCart();showPage('shop')">Continue Shopping</button>
   </div>
 </div>
 
-<!-- ═══════════════ HOME ═══════════════ -->
+<!-- HOME -->
 <div id="page-home" class="page active">
   <div class="hero">
-    <div class="hero-bg"><div class="hero-bg-col"></div><div class="hero-bg-col" style="background:#111"></div></div>
-    <div class="hero-pattern"></div>
+    <div class="hero-bg-glow"></div>
+    <div class="hero-grid-lines"></div>
     <div class="hero-content">
-      <div class="hero-tag">SS25 Collection</div>
-      <h1>Wear Your <em>Evolution</em></h1>
-      <p>Curated fashion for those who define their own rules. Premium materials, timeless design.</p>
+      <div class="hero-tag">✦ SS25 Collection</div>
+      <h1>Wear Your<br><em>Evolution</em></h1>
+      <p>Curated fashion for those who define their own rules. Earn points with every purchase.</p>
       <div class="hero-btns">
-        <button class="btn btn-gold" onclick="showPage('shop')">Shop Now</button>
-        <button class="btn btn-outline-white" onclick="filterAndShow('new')">New Arrivals</button>
+        <button class="btn btn-primary" onclick="showPage('shop')">Shop Now →</button>
+        <button class="btn btn-gold" onclick="showPage('loyalty')">✦ Join Rewards</button>
       </div>
     </div>
-    <div class="hero-scroll">Scroll to Explore</div>
+    <div class="hero-accent-line"></div>
   </div>
-
   <div class="container section">
-    <!-- PROMO CARDS -->
     <div class="promo-grid">
       <div class="promo-card" onclick="filterAndShow('women')">
-        <div class="promo-card-bg" style="background:linear-gradient(135deg,#1a1a1a,#3a2e2e);display:flex;align-items:center;justify-content:center;font-size:4rem">👗</div>
+        <div class="promo-card-bg" style="font-size:4.5rem;background:linear-gradient(135deg,#0d1a2d,#1a1a3a)">👗</div>
         <div class="promo-card-inner"><div class="promo-card-title">Women's Edit</div><div class="promo-card-sub">New season pieces</div></div>
+        <div class="promo-badge new">New In</div>
       </div>
       <div class="promo-card" onclick="filterAndShow('men')">
-        <div class="promo-card-bg" style="background:linear-gradient(135deg,#1a2a2a,#1a1a2a);display:flex;align-items:center;justify-content:center;font-size:4rem">🧥</div>
+        <div class="promo-card-bg" style="font-size:4.5rem;background:linear-gradient(135deg,#0d1a2d,#0d2a2a)">🧥</div>
         <div class="promo-card-inner"><div class="promo-card-title">Men's Collection</div><div class="promo-card-sub">Refined essentials</div></div>
       </div>
-      <div class="promo-card" onclick="showPage('offers')">
-        <div class="promo-card-bg" style="background:linear-gradient(135deg,#2a1a1a,#1a1a1a);display:flex;align-items:center;justify-content:center;font-size:4rem">✨</div>
-        <div class="promo-card-inner"><div class="promo-card-title">Up to 50% Off</div><div class="promo-card-sub">End of season sale</div></div>
-        <div class="promo-badge">Sale</div>
+      <div class="promo-card" onclick="showPage('loyalty')">
+        <div class="promo-card-bg" style="font-size:4.5rem;background:linear-gradient(135deg,#1a1200,#1a0a1a)">✦</div>
+        <div class="promo-card-inner"><div class="promo-card-title">Darwinium Rewards</div><div class="promo-card-sub">Earn 10 pts per $1 spent</div></div>
+        <div class="promo-badge loyalty">Loyalty</div>
       </div>
     </div>
-
-    <!-- NEW ARRIVALS -->
-    <div class="section-header">
-      <div class="section-title">New Arrivals</div>
-      <div class="section-sub" onclick="filterAndShow('new')">View all →</div>
-    </div>
+    <div class="section-header"><div class="section-title">New Arrivals</div><div class="section-sub" onclick="filterAndShow('new')">View all →</div></div>
     <div class="product-grid" id="home-new-grid"></div>
   </div>
-
-  <div style="background:var(--off-white);padding:72px 0;">
+  <div style="background:var(--dw-surface);border-top:1px solid var(--dw-border);border-bottom:1px solid var(--dw-border);padding:72px 0;">
     <div class="container">
       <div class="promo-banner">
         <h3>Exclusive Members Offer</h3>
-        <p>Sign up to the Darwinium club and get 20% off your first order</p>
+        <p>Join Darwinium Rewards and get 20% off your first order + 500 welcome points</p>
         <div class="promo-code">DARWIN20</div>
-        <div style="margin-top:16px"><button class="btn btn-gold" onclick="showPage('register')">Join Now</button></div>
+        <div style="margin-top:20px;display:flex;gap:12px;justify-content:center">
+          <button class="btn btn-gold" onclick="showPage('register')">Join Now ✦</button>
+          <button class="btn btn-outline" onclick="showPage('loyalty')">Learn More</button>
+        </div>
       </div>
-      <div class="section-header">
-        <div class="section-title">Best Sellers</div>
-        <div class="section-sub" onclick="showPage('shop')">View all →</div>
-      </div>
+      <div class="section-header"><div class="section-title">Best Sellers</div><div class="section-sub" onclick="showPage('shop')">View all →</div></div>
       <div class="product-grid" id="home-best-grid"></div>
     </div>
   </div>
-
   <footer>
     <div class="container">
       <div class="footer-grid">
-        <div><div class="footer-brand">DARWIN<span>IUM</span></div><p class="footer-text">Premium fashion for those who dare to evolve. Quality materials, timeless design, conscious manufacturing.</p></div>
+        <div><span class="footer-brand">DARWINIUM</span><p class="footer-text">Premium fashion for those who dare to evolve. Earn points with every purchase.</p></div>
         <div class="footer-col"><h4>Shop</h4><a onclick="filterAndShow('women')">Women</a><a onclick="filterAndShow('men')">Men</a><a onclick="filterAndShow('accessories')">Accessories</a><a onclick="showPage('offers')">Sale</a></div>
-        <div class="footer-col"><h4>Account</h4><a onclick="showPage(state.user?'account':'login')">My Account</a><a onclick="showPage(state.user?'account':'login')">Orders</a><a onclick="showPage('returns')">Returns</a><a onclick="showPage('wishlist')">Wishlist</a></div>
+        <div class="footer-col"><h4>Rewards</h4><a onclick="showPage('loyalty')">✦ Darwinium Rewards</a><a onclick="showPage('loyalty')">How It Works</a><a onclick="showPage('loyalty')">Redeem Points</a><a onclick="showPage('loyalty')">Transfer Points</a></div>
         <div class="footer-col"><h4>Help</h4><a>Delivery Info</a><a>Size Guide</a><a>Contact Us</a><a>FAQs</a></div>
       </div>
-      <div class="footer-bottom"><span>© 2025 Darwinium Fashion Ltd</span><span>Secured by Darwinium</span></div>
+      <div class="footer-bottom"><span>© 2025 Darwinium Fashion Ltd</span><span>Secured by Darwinium ✦</span></div>
     </div>
   </footer>
 </div>
 
-<!-- ═══════════════ SHOP ═══════════════ -->
+<!-- SHOP -->
 <div id="page-shop" class="page">
   <div class="container section">
-    <div class="section-header">
-      <div class="section-title" id="shop-title">All Products</div>
-      <div style="font-size:12px;color:var(--gray-4)" id="shop-count"></div>
-    </div>
-    <div class="product-filters" id="shop-filters">
+    <div class="section-header"><div class="section-title" id="shop-title">All Products</div><div style="font-size:11px;color:var(--dw-muted)" id="shop-count"></div></div>
+    <div class="product-filters">
       <button class="filter-btn active" onclick="applyFilter('all',this)">All</button>
       <button class="filter-btn" onclick="applyFilter('women',this)">Women</button>
       <button class="filter-btn" onclick="applyFilter('men',this)">Men</button>
@@ -442,78 +553,75 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   </div>
 </div>
 
-<!-- ═══════════════ SEARCH RESULTS ═══════════════ -->
+<!-- SEARCH -->
 <div id="page-search" class="page">
   <div class="container search-page">
-    <button class="back-btn" onclick="history.back()">← Back</button>
-    <div class="search-header">
-      <h2>Search Results: "<span id="search-query"></span>"</h2>
-      <p style="color:var(--gray-4);font-size:12px;margin-top:4px" id="search-result-count"></p>
-    </div>
+    <button class="back-btn" onclick="showPage('shop')">← Back</button>
+    <div class="search-header"><h2>Results: "<span id="search-query"></span>"</h2><p style="color:var(--dw-muted);font-size:12px;margin-top:4px" id="search-result-count"></p></div>
     <div class="product-grid" id="search-grid"></div>
-    <div class="no-results" id="no-results" style="display:none"><div class="icon">🔍</div><p>No products found. Try a different search term.</p></div>
+    <div class="no-results" id="no-results" style="display:none"><span class="icon">🔍</span><p>No products found.</p></div>
   </div>
 </div>
 
-<!-- ═══════════════ OFFERS ═══════════════ -->
+<!-- OFFERS -->
 <div id="page-offers" class="page">
-  <div style="background:var(--red);color:#fff;padding:40px;text-align:center">
-    <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;opacity:.7;margin-bottom:8px">Limited Time</div>
-    <div style="font-size:3rem;font-weight:900;text-transform:uppercase;letter-spacing:-1px">End of Season Sale</div>
-    <div style="opacity:.8;margin-top:8px">Up to 50% off selected lines · Free delivery on all sale orders</div>
+  <div class="offers-banner">
+    <div style="font-size:10px;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:var(--dw-red);margin-bottom:8px">✦ Limited Time</div>
+    <div class="offers-banner-title">End of Season Sale</div>
+    <div class="offers-banner-sub">Up to 50% off · Free delivery · Earn double points on all sale items this week</div>
   </div>
   <div class="container section">
-    <div class="promo-banner" style="background:linear-gradient(135deg,#1a0a0a,#2a1010)">
-      <h3>Extra 10% Off</h3>
-      <p>Use code below at checkout for an additional 10% discount on sale items</p>
+    <div class="promo-banner">
+      <h3>Extra 10% Off Sale</h3>
+      <p>Use code below at checkout + earn 2× points on all sale purchases</p>
       <div class="promo-code">EXTRA10</div>
     </div>
     <div class="product-grid" id="offers-grid"></div>
   </div>
 </div>
 
-<!-- ═══════════════ PRODUCT DETAIL ═══════════════ -->
+<!-- PRODUCT DETAIL -->
 <div id="page-product" class="page">
   <div class="container">
-    <button class="back-btn" onclick="showPage(state.prevPage||'shop')" style="margin-top:24px">← Back</button>
+    <button class="back-btn" onclick="showPage(state.prevPage||'shop')" style="margin-top:28px">← Back</button>
     <div class="product-detail" id="product-detail-content"></div>
   </div>
 </div>
 
-<!-- ═══════════════ WISHLIST ═══════════════ -->
+<!-- WISHLIST -->
 <div id="page-wishlist" class="page">
   <div class="container section">
     <div class="section-header"><div class="section-title">My Wishlist</div></div>
     <div class="product-grid" id="wishlist-grid"></div>
-    <div id="wishlist-empty" style="display:none;text-align:center;padding:60px;color:var(--gray-4)"><div style="font-size:3rem;margin-bottom:12px">♡</div><p>Your wishlist is empty.</p><button class="btn btn-primary" style="margin-top:16px" onclick="showPage('shop')">Start Shopping</button></div>
+    <div id="wishlist-empty" style="display:none;text-align:center;padding:60px;color:var(--dw-muted)"><div style="font-size:3rem;margin-bottom:14px">♡</div><p>Your wishlist is empty.</p><button class="btn btn-primary" style="margin-top:18px" onclick="showPage('shop')">Start Shopping</button></div>
   </div>
 </div>
 
-<!-- ═══════════════ LOGIN ═══════════════ -->
+<!-- LOGIN -->
 <div id="page-login" class="page">
   <div class="auth-page-wrap">
     <div class="auth-card">
-      <div class="auth-logo">DARWIN<span>IUM</span></div>
+      <div class="auth-logo">DARWINIUM</div>
       <div class="auth-title">Sign In</div>
-      <div class="auth-sub">Welcome back. Sign in to your account.</div>
+      <div class="auth-sub">Welcome back. Sign in to access your rewards.</div>
       <div class="form-group"><label class="form-label">Email address</label><input class="form-input" id="login-email" type="email" placeholder="you@example.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" id="login-pass" type="password" placeholder="••••••••"></div>
-      <div class="form-error" id="login-err">Invalid email or password. Try demo@darwinium.com / password</div>
-      <button class="btn btn-primary btn-full" style="margin-top:4px" onclick="doLogin()">Sign In</button>
+      <div class="form-error" id="login-err">Invalid email or password · Demo: demo@darwinium.com / password</div>
+      <button class="btn btn-primary btn-full" style="margin-top:4px" onclick="doLogin()">Sign In →</button>
       <div class="divider">or</div>
       <button class="btn btn-outline btn-full" onclick="showPage('register')">Create an Account</button>
-      <div class="auth-switch">Demo: <strong>demo@darwinium.com</strong> / <strong>password</strong></div>
+      <div class="auth-switch" style="margin-top:14px">Demo: <strong>demo@darwinium.com</strong> / <strong>password</strong></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ REGISTER ═══════════════ -->
+<!-- REGISTER -->
 <div id="page-register" class="page">
   <div class="auth-page-wrap">
     <div class="auth-card">
-      <div class="auth-logo">DARWIN<span>IUM</span></div>
+      <div class="auth-logo">DARWINIUM</div>
       <div class="auth-title">Create Account</div>
-      <div class="auth-sub">Join the Darwinium community.</div>
+      <div class="auth-sub">Join and earn 500 welcome points instantly.</div>
       <div class="form-row">
         <div class="form-group"><label class="form-label">First name</label><input class="form-input" id="reg-first" placeholder="Jane"></div>
         <div class="form-group"><label class="form-label">Last name</label><input class="form-input" id="reg-last" placeholder="Doe"></div>
@@ -522,13 +630,13 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" id="reg-pass" type="password" placeholder="Minimum 8 characters"></div>
       <div class="form-group"><label class="form-label">Date of birth</label><input class="form-input" id="reg-dob" type="date"></div>
       <div class="form-error" id="reg-err">Please fill all fields correctly</div>
-      <button class="btn btn-primary btn-full" style="margin-top:4px" onclick="doRegister()">Create Account</button>
+      <button class="btn btn-primary btn-full" style="margin-top:4px" onclick="doRegister()">Create Account + Get 500 pts →</button>
       <div class="auth-switch">Already have an account? <a onclick="showPage('login')">Sign in</a></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ CHECKOUT ═══════════════ -->
+<!-- CHECKOUT -->
 <div id="page-checkout" class="page">
   <div class="container">
     <div style="padding:28px 0 0"><button class="back-btn" onclick="openCart()">← Back to Bag</button></div>
@@ -547,24 +655,18 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
               <div class="form-group"><label class="form-label">Last name</label><input class="form-input" id="del-last" placeholder="Doe"></div>
             </div>
             <div class="form-group"><label class="form-label">Address line 1</label><input class="form-input" id="del-addr1" placeholder="123 Fashion Street"></div>
-            <div class="form-group"><label class="form-label">Address line 2</label><input class="form-input" id="del-addr2" placeholder="Apartment, suite etc. (optional)"></div>
+            <div class="form-group"><label class="form-label">Address line 2</label><input class="form-input" id="del-addr2" placeholder="Optional"></div>
             <div class="form-row">
               <div class="form-group"><label class="form-label">City</label><input class="form-input" id="del-city" placeholder="London"></div>
               <div class="form-group"><label class="form-label">Postcode</label><input class="form-input" id="del-post" placeholder="SW1A 1AA"></div>
             </div>
-            <div class="form-group"><label class="form-label">Country</label>
-              <select class="form-input" id="del-country"><option>United Kingdom</option><option>United States</option><option>France</option><option>Germany</option><option>Italy</option><option>Spain</option></select>
-            </div>
-            <div class="form-group"><label class="form-label">Phone number</label><input class="form-input" id="del-phone" type="tel" placeholder="+44 7700 000000"></div>
+            <div class="form-group"><label class="form-label">Country</label><select class="form-input" id="del-country"><option>United Kingdom</option><option>United States</option><option>France</option><option>Germany</option><option>Italy</option></select></div>
+            <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="del-phone" type="tel" placeholder="+44 7700 000000"></div>
           </div>
-          <div class="checkout-section">
-            <h3>Delivery Method</h3>
-            <div id="delivery-options"></div>
-          </div>
+          <div class="checkout-section"><h3>Delivery Method</h3><div id="delivery-options"></div></div>
           <div class="form-error" id="del-err" style="margin-bottom:12px">Please complete all delivery fields</div>
           <button class="btn btn-primary" onclick="goCheckoutStep(2)">Continue to Payment →</button>
         </div>
-
         <div id="checkout-step-2" style="display:none">
           <div class="checkout-section">
             <h3>Payment Details</h3>
@@ -589,7 +691,6 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
             <button class="btn btn-primary" onclick="goCheckoutStep(3)">Review Order →</button>
           </div>
         </div>
-
         <div id="checkout-step-3" style="display:none">
           <div class="checkout-section" id="review-summary"></div>
           <div class="form-error" id="rev-err" style="margin-bottom:12px"></div>
@@ -599,24 +700,23 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
           </div>
         </div>
       </div>
-
-      <div>
-        <div class="order-card" id="checkout-order-card"></div>
-      </div>
+      <div><div class="order-card" id="checkout-order-card"></div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ CONFIRMATION ═══════════════ -->
+<!-- CONFIRMATION -->
 <div id="page-confirm" class="page">
   <div class="container">
     <div class="confirm-page">
       <div class="confirm-icon">✓</div>
       <h2>Order Confirmed!</h2>
-      <p>Thank you for your order. You'll receive a confirmation email shortly.</p>
-      <div class="order-ref-box">
-        <div class="order-ref-label">Order reference</div>
-        <div class="order-ref-val" id="order-ref-val">DW-XXXXXX</div>
+      <p>Thank you. You'll receive a confirmation email shortly.</p>
+      <div class="order-ref-box"><div class="order-ref-label">Order Reference</div><div class="order-ref-val" id="order-ref-val">DW-XXXXXX</div></div>
+      <div class="confirm-pts-box" id="confirm-pts-box" style="display:none">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:6px">✦ Points Earned</div>
+        <div class="confirm-pts-num" id="confirm-pts-num">+0</div>
+        <div style="font-size:11px;color:var(--dw-muted);margin-top:4px" id="confirm-pts-balance"></div>
       </div>
       <div class="confirm-grid" id="confirm-grid"></div>
       <button class="btn btn-primary" onclick="showPage('account')">View My Orders</button>
@@ -625,7 +725,117 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   </div>
 </div>
 
-<!-- ═══════════════ ACCOUNT ═══════════════ -->
+<!-- ═══ LOYALTY PAGE ═══ -->
+<div id="page-loyalty" class="page">
+  <div class="container loyalty-page">
+    <!-- Non-member landing -->
+    <div id="loyalty-guest" style="display:none;text-align:center;padding:60px 20px;max-width:600px;margin:0 auto">
+      <div style="font-size:4rem;margin-bottom:20px">✦</div>
+      <h2 style="font-size:1.8rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Darwinium Rewards</h2>
+      <p style="color:var(--dw-muted);margin-bottom:28px;line-height:1.8">Earn points on every purchase, unlock exclusive rewards, and climb to Platinum status. Join free and get 500 points instantly.</p>
+      <div class="rewards-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:36px">
+        <div class="reward-card"><div class="reward-icon">🛍</div><div class="reward-name">Earn 10 pts / $1</div><div class="reward-desc">Points on every purchase, including sale items</div></div>
+        <div class="reward-card"><div class="reward-icon">💸</div><div class="reward-name">Redeem Anytime</div><div class="reward-desc">100 pts = $1 off your next order, no minimum</div></div>
+        <div class="reward-card"><div class="reward-icon">🏆</div><div class="reward-name">4 Status Tiers</div><div class="reward-desc">Bronze → Silver → Gold → Platinum perks</div></div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <button class="btn btn-gold" onclick="showPage('register')">Join Free + Get 500 pts →</button>
+        <button class="btn btn-outline" onclick="showPage('login')">Sign In</button>
+      </div>
+    </div>
+    <!-- Member dashboard -->
+    <div id="loyalty-member" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:6px">✦ Darwinium Rewards</div>
+          <h2 style="font-size:1.5rem;font-weight:900;text-transform:uppercase;background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Your Rewards Dashboard</h2>
+        </div>
+        <button class="btn btn-outline-gold btn-sm" onclick="switchLoyaltyTab('transfer')">Transfer Points →</button>
+      </div>
+      <!-- Loyalty Card -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:32px">
+        <div>
+          <div class="loyalty-card-wrap">
+            <div class="loyalty-card" id="lc-card" style="background:linear-gradient(135deg,#1a0f00,#0d1a2d)">
+              <div class="loyalty-card-bg"></div>
+              <div class="loyalty-card-glow" id="lc-glow" style="background:#f0c040"></div>
+              <div class="loyalty-card-chip" id="lc-chip" style="background:var(--grad-gold)"></div>
+              <div class="loyalty-card-tier" id="lc-tier-label">BRONZE MEMBER</div>
+              <div class="loyalty-card-brand" style="background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent">DARWINIUM</div>
+              <div class="loyalty-card-number" id="lc-number">•••• •••• •••• 0001</div>
+              <div class="loyalty-card-bottom">
+                <div><div class="loyalty-card-pts-label">Points Balance</div><div class="loyalty-card-pts" id="lc-pts" style="background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent">0</div></div>
+                <div><div class="loyalty-card-name" id="lc-name">ALEX DARWIN</div><div class="loyalty-card-member">Member since 2025</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="tier-progress-wrap">
+            <div class="tier-progress-title">Tier Status</div>
+            <div class="tier-badges" id="tier-badges"></div>
+            <div class="progress-bar-wrap"><div class="progress-bar" id="tier-progress-bar"></div></div>
+            <div class="progress-label" id="tier-progress-label"></div>
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--dw-border)">
+              <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:10px">Your Tier Benefits</div>
+              <div id="tier-benefits"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Stats row -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px" id="loyalty-stats"></div>
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchLoyaltyTab('rewards',this)">Rewards Catalogue</button>
+        <button class="tab-btn" onclick="switchLoyaltyTab('history',this)">Points History</button>
+        <button class="tab-btn" onclick="switchLoyaltyTab('transfer',this)">Transfer Points</button>
+        <button class="tab-btn" onclick="switchLoyaltyTab('howto',this)">How It Works</button>
+      </div>
+      <div class="tab-panel active" id="ltab-rewards"><div class="rewards-grid" id="rewards-catalogue"></div></div>
+      <div class="tab-panel" id="ltab-history"><div id="pts-history-list"></div></div>
+      <div class="tab-panel" id="ltab-transfer">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+          <div>
+            <div class="transfer-card">
+              <h3>Send Points to a Friend</h3>
+              <div class="pts-balance-chip">✦ Available: <span id="transfer-balance">0</span> pts</div>
+              <div class="form-group"><label class="form-label">Recipient Email</label><input class="form-input" id="transfer-email" type="email" placeholder="friend@example.com" oninput="lookupTransferUser()"></div>
+              <div class="transfer-preview" id="transfer-preview"></div>
+              <div class="form-group"><label class="form-label">Points to Send</label><input class="form-input" id="transfer-pts" type="number" placeholder="e.g. 500" min="100"></div>
+              <div class="form-group"><label class="form-label">Message (optional)</label><input class="form-input" id="transfer-msg" placeholder="Happy birthday! 🎉"></div>
+              <div class="form-error" id="transfer-err">Please enter valid details</div>
+              <div class="form-success" id="transfer-ok">Points transferred successfully! ✦</div>
+              <button class="btn btn-gold btn-full" style="margin-top:8px" onclick="doTransferPoints()">Send Points ✦</button>
+            </div>
+          </div>
+          <div>
+            <div class="transfer-card">
+              <h3>Transfer Rules</h3>
+              <div class="info-box">
+                <strong>Minimum transfer:</strong> 100 points<br>
+                <strong>Maximum per day:</strong> 5,000 points<br>
+                <strong>Transfer fee:</strong> None — free always<br>
+                <strong>Processing:</strong> Instant<br>
+                <strong>Recipient:</strong> Must be a registered Darwinium member
+              </div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:12px">Recent Transfers</div>
+              <div id="recent-transfers"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-panel" id="ltab-howto">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          ${['Earn 10 pts per $1 spent on all purchases,Earn 5× pts on your birthday month,Double pts on sale events and flash promotions,Bonus 100 pts for every product review submitted,500 pts welcome bonus on sign-up'.split(',').map(t=>`<div class="info-box">✦ ${t}</div>`).join('')}
+          ${'100 pts = $1 discount on any order,Redeem during checkout — no minimum order,Points never expire while your account is active,Combine with promo codes for maximum savings'.split(',').map(t=>`<div class="info-box">💸 ${t}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT -->
 <div id="page-account" class="page">
   <div class="container">
     <div class="account-layout">
@@ -633,28 +843,26 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
         <div class="account-nav-item active" onclick="switchPanel('overview',this)">📊 Overview</div>
         <div class="account-nav-item" onclick="switchPanel('orders',this)">📦 My Orders</div>
         <div class="account-nav-item" onclick="switchPanel('returns',this)">↩ Returns</div>
+        <div class="account-nav-item loyalty-nav" onclick="showPage('loyalty')">✦ Rewards</div>
         <div class="account-nav-item" onclick="showPage('wishlist')">♡ Wishlist</div>
-        <div class="account-nav-item" onclick="switchPanel('details',this)">⚙ Account Details</div>
-        <div class="account-nav-item" style="margin-top:16px;color:var(--red)" onclick="doLogout()">⇤ Sign Out</div>
+        <div class="account-nav-item" onclick="switchPanel('details',this)">⚙ Settings</div>
+        <div class="account-nav-item" style="margin-top:12px;color:var(--dw-red)!important" onclick="doLogout()">⇤ Sign Out</div>
       </div>
       <div style="min-height:400px">
         <div class="account-panel active" id="panel-overview">
-          <h2>Good to see you, <span id="acc-name">there</span></h2>
+          <h2>Welcome back, <span id="acc-name">there</span></h2>
           <div class="stats-grid" id="acc-stats"></div>
-          <div style="font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;color:var(--gray-4)">Recent Orders</div>
+          <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;color:var(--dw-muted)">Recent Orders</div>
           <div id="acc-recent-orders"></div>
         </div>
-        <div class="account-panel" id="panel-orders">
-          <h2>My Orders</h2>
-          <div id="acc-all-orders"></div>
-        </div>
+        <div class="account-panel" id="panel-orders"><h2>My Orders</h2><div id="acc-all-orders"></div></div>
         <div class="account-panel" id="panel-returns">
           <h2>Returns & Refunds</h2>
-          <p style="color:var(--gray-4);font-size:13px;margin-bottom:20px">You can request a return within 30 days of delivery. Items must be unworn with tags attached.</p>
+          <p style="color:var(--dw-muted);font-size:13px;margin-bottom:20px">Return within 30 days. Items must be unworn with tags attached.</p>
           <div id="acc-returns-list"></div>
         </div>
         <div class="account-panel" id="panel-details">
-          <h2>Account Details</h2>
+          <h2>Account Settings</h2>
           <div class="checkout-section" style="max-width:480px">
             <h3>Personal Information</h3>
             <div class="form-row">
@@ -662,7 +870,7 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
               <div class="form-group"><label class="form-label">Last name</label><input class="form-input" id="det-last"></div>
             </div>
             <div class="form-group"><label class="form-label">Email address</label><input class="form-input" id="det-email" type="email"></div>
-            <div class="form-group"><label class="form-label">Phone number</label><input class="form-input" id="det-phone" placeholder="+44 7700 000000"></div>
+            <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="det-phone" placeholder="+44 7700 000000"></div>
             <button class="btn btn-primary btn-sm" onclick="saveDetails()">Save Changes</button>
           </div>
         </div>
@@ -671,206 +879,137 @@ select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csv
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-/* ─── DATA ─────────────────────────────────────────── */
-const PRODUCTS = [
-  {id:1,name:"Oversized Blazer",brand:"Darwinium Studio",cat:"women",tags:["new","women"],price:289,img:"🧥",colors:["#1a1a1a","#8b7355","#f5f5f5"],sizes:["XS","S","M","L","XL"],desc:"A refined oversized blazer crafted from premium wool-blend fabric. Featuring a relaxed silhouette with subtle structure.",rating:4.8,reviews:124},
-  {id:2,name:"Silk Slip Dress",brand:"Darwinium Luxe",cat:"women",tags:["new","women","bestseller"],price:195,img:"👗",colors:["#1a1a1a","#c8a96e","#8b4513"],sizes:["XS","S","M","L"],desc:"Pure silk slip dress with adjustable straps and a fluid drape. A wardrobe essential.",rating:4.9,reviews:87},
-  {id:3,name:"Wide Leg Trousers",brand:"Darwinium Studio",cat:"women",tags:["women","sale"],price:165,originalPrice:220,img:"👖",colors:["#1a1a1a","#f5f0e8","#6b7280"],sizes:["XS","S","M","L","XL"],desc:"Tailored wide-leg trousers in a breathable crepe fabric. Effortlessly elegant.",rating:4.6,reviews:63},
-  {id:4,name:"Structured Tote",brand:"Darwinium Leather",cat:"accessories",tags:["new","accessories","bestseller"],price:345,img:"👜",colors:["#1a1a1a","#8b7355","#c8a96e"],sizes:["One Size"],desc:"Hand-stitched full-grain leather tote with brass hardware. Spacious interior with suede lining.",rating:4.9,reviews:201},
-  {id:5,name:"Technical Parka",brand:"Darwinium Sport",cat:"men",tags:["new","men"],price:420,img:"🧥",colors:["#1a1a1a","#3d3d3d","#2d3748"],sizes:["S","M","L","XL","XXL"],desc:"Waterproof technical parka with taped seams and a removable hood liner.",rating:4.7,reviews:55},
-  {id:6,name:"Merino Crew Neck",brand:"Darwinium Essentials",cat:"men",tags:["men","bestseller"],price:145,img:"👕",colors:["#1a1a1a","#c8a96e","#6b7280","#f5f5f5"],sizes:["S","M","L","XL","XXL"],desc:"Fine-gauge merino wool crewneck. Soft against the skin, naturally temperature-regulating.",rating:4.8,reviews:312},
-  {id:7,name:"Leather Belt",brand:"Darwinium Leather",cat:"accessories",tags:["accessories","sale"],price:75,originalPrice:120,img:"⌚",colors:["#1a1a1a","#8b7355"],sizes:["S","M","L"],desc:"Full-grain leather belt with a solid brass buckle. Handcrafted in Italy.",rating:4.5,reviews:89},
-  {id:8,name:"Tailored Jogger",brand:"Darwinium Sport",cat:"men",tags:["men","sale"],price:115,originalPrice:165,img:"👖",colors:["#1a1a1a","#6b7280","#3d3d3d"],sizes:["S","M","L","XL"],desc:"Elevated jogger in a structured ponte fabric. Smart enough for the office, comfortable enough for everything else.",rating:4.4,reviews:147},
-  {id:9,name:"Cashmere Scarf",brand:"Darwinium Luxe",cat:"accessories",tags:["new","accessories"],price:195,img:"🧣",colors:["#c8a96e","#1a1a1a","#8b4513","#f5f5f5"],sizes:["One Size"],desc:"Pure Grade-A cashmere scarf, woven in Scotland. Incredibly soft and naturally warm.",rating:4.9,reviews:78},
-  {id:10,name:"Leather Chelsea Boot",brand:"Darwinium Leather",cat:"women",tags:["women","bestseller"],price:385,img:"👢",colors:["#1a1a1a","#8b4513"],sizes:["36","37","38","39","40","41"],desc:"Classic Chelsea boot in full-grain leather with elastic side panels and a stacked heel.",rating:4.8,reviews:165},
-  {id:11,name:"Linen Shirt",brand:"Darwinium Essentials",cat:"men",tags:["men","new"],price:135,img:"👔",colors:["#f5f0e8","#1a1a1a","#6b7280"],sizes:["S","M","L","XL","XXL"],desc:"Relaxed-fit linen shirt in a crisp, breathable fabric. Perfect for warm weather.",rating:4.6,reviews:92},
-  {id:12,name:"Mini Crossbody Bag",brand:"Darwinium Leather",cat:"accessories",tags:["accessories","sale","new"],price:195,originalPrice:280,img:"👛",colors:["#1a1a1a","#c8a96e","#8b4513"],sizes:["One Size"],desc:"Compact crossbody bag in smooth calf leather. Gold-tone hardware and a detachable chain strap.",rating:4.7,reviews:134},
+/* ═══ DATA ═══ */
+const PRODUCTS=[
+  {id:1,name:"Oversized Blazer",brand:"Darwinium Studio",cat:"women",tags:["new","women"],price:289,img:"🧥",colors:["#1a1a1a","#8b7355","#f5f5f5"],sizes:["XS","S","M","L","XL"],desc:"A refined oversized blazer crafted from premium wool-blend fabric.",rating:4.8,reviews:124},
+  {id:2,name:"Silk Slip Dress",brand:"Darwinium Luxe",cat:"women",tags:["new","women","bestseller"],price:195,img:"👗",colors:["#1a1a1a","#c8a96e","#8b4513"],sizes:["XS","S","M","L"],desc:"Pure silk slip dress with adjustable straps and a fluid drape.",rating:4.9,reviews:87},
+  {id:3,name:"Wide Leg Trousers",brand:"Darwinium Studio",cat:"women",tags:["women","sale"],price:165,originalPrice:220,img:"👖",colors:["#1a1a1a","#f5f0e8","#6b7280"],sizes:["XS","S","M","L","XL"],desc:"Tailored wide-leg trousers in a breathable crepe fabric.",rating:4.6,reviews:63},
+  {id:4,name:"Structured Tote",brand:"Darwinium Leather",cat:"accessories",tags:["new","accessories","bestseller"],price:345,img:"👜",colors:["#1a1a1a","#8b7355","#c8a96e"],sizes:["One Size"],desc:"Hand-stitched full-grain leather tote with brass hardware.",rating:4.9,reviews:201},
+  {id:5,name:"Technical Parka",brand:"Darwinium Sport",cat:"men",tags:["new","men"],price:420,img:"🧥",colors:["#1a1a1a","#3d3d3d","#2d3748"],sizes:["S","M","L","XL","XXL"],desc:"Waterproof technical parka with taped seams.",rating:4.7,reviews:55},
+  {id:6,name:"Merino Crew Neck",brand:"Darwinium Essentials",cat:"men",tags:["men","bestseller"],price:145,img:"👕",colors:["#1a1a1a","#c8a96e","#6b7280","#f5f5f5"],sizes:["S","M","L","XL","XXL"],desc:"Fine-gauge merino wool crewneck.",rating:4.8,reviews:312},
+  {id:7,name:"Leather Belt",brand:"Darwinium Leather",cat:"accessories",tags:["accessories","sale"],price:75,originalPrice:120,img:"⌚",colors:["#1a1a1a","#8b7355"],sizes:["S","M","L"],desc:"Full-grain leather belt with solid brass buckle.",rating:4.5,reviews:89},
+  {id:8,name:"Tailored Jogger",brand:"Darwinium Sport",cat:"men",tags:["men","sale"],price:115,originalPrice:165,img:"👖",colors:["#1a1a1a","#6b7280","#3d3d3d"],sizes:["S","M","L","XL"],desc:"Elevated jogger in structured ponte fabric.",rating:4.4,reviews:147},
+  {id:9,name:"Cashmere Scarf",brand:"Darwinium Luxe",cat:"accessories",tags:["new","accessories"],price:195,img:"🧣",colors:["#c8a96e","#1a1a1a","#8b4513","#f5f5f5"],sizes:["One Size"],desc:"Pure Grade-A cashmere scarf, woven in Scotland.",rating:4.9,reviews:78},
+  {id:10,name:"Leather Chelsea Boot",brand:"Darwinium Leather",cat:"women",tags:["women","bestseller"],price:385,img:"👢",colors:["#1a1a1a","#8b4513"],sizes:["36","37","38","39","40","41"],desc:"Classic Chelsea boot in full-grain leather.",rating:4.8,reviews:165},
+  {id:11,name:"Linen Shirt",brand:"Darwinium Essentials",cat:"men",tags:["men","new"],price:135,img:"👔",colors:["#f5f0e8","#1a1a1a","#6b7280"],sizes:["S","M","L","XL","XXL"],desc:"Relaxed-fit linen shirt in crisp breathable fabric.",rating:4.6,reviews:92},
+  {id:12,name:"Mini Crossbody Bag",brand:"Darwinium Leather",cat:"accessories",tags:["accessories","sale","new"],price:195,originalPrice:280,img:"👛",colors:["#1a1a1a","#c8a96e","#8b4513"],sizes:["One Size"],desc:"Compact crossbody bag in smooth calf leather.",rating:4.7,reviews:134},
 ];
 
-const PROMOS = {
-  DARWIN20:{discount:20,type:'percent',label:'20% off'},
-  EXTRA10:{discount:10,type:'percent',label:'Extra 10% off'},
-  FLAT30:{discount:30,type:'fixed',label:'$30 off'}
-};
+const PROMOS={DARWIN20:{discount:20,type:'percent',label:'20% off'},EXTRA10:{discount:10,type:'percent',label:'Extra 10% off'},FLAT30:{discount:30,type:'fixed',label:'$30 off'}};
+const DELIVERY_OPTIONS=[{id:'standard',label:'Standard Delivery',desc:'3-5 business days',price:0,freeAbove:150},{id:'express',label:'Express Delivery',desc:'Next business day',price:9.95},{id:'nominated',label:'Nominated Day',desc:'Choose your date',price:6.95}];
 
-const DELIVERY_OPTIONS = [
-  {id:'standard',label:'Standard Delivery',desc:'3-5 business days',price:0,freeAbove:150},
-  {id:'express',label:'Express Delivery',desc:'Next business day (order before 3pm)',price:9.95},
-  {id:'nominated',label:'Nominated Day',desc:'Choose your delivery date',price:6.95},
+/* ═══ LOYALTY CONFIG ═══ */
+const TIERS=[
+  {name:'Bronze',min:0,max:2999,color:'#cd7f32',grad:'linear-gradient(135deg,#cd7f32,#8b4513)',bg:'rgba(205,127,50,.1)',border:'rgba(205,127,50,.3)',benefits:['10 pts per $1 spent','Birthday double points','Free standard delivery over $150']},
+  {name:'Silver',min:3000,max:7999,color:'#9ca3af',grad:'linear-gradient(135deg,#e0e0e0,#9ca3af)',bg:'rgba(156,163,175,.1)',border:'rgba(156,163,175,.3)',benefits:['12 pts per $1 spent','Birthday triple points','Free standard delivery always','Early sale access']},
+  {name:'Gold',min:8000,max:14999,color:'#f0c040',grad:'linear-gradient(135deg,#f0c040,#c8803a)',bg:'rgba(240,192,64,.1)',border:'rgba(240,192,64,.3)',benefits:['15 pts per $1 spent','Birthday 4× points','Free express delivery','Dedicated customer line','Exclusive Gold collections']},
+  {name:'Platinum',min:15000,max:Infinity,color:'#a78bfa',grad:'linear-gradient(135deg,#a78bfa,#60a5fa,#34d399)',bg:'rgba(167,139,250,.1)',border:'rgba(167,139,250,.3)',benefits:['20 pts per $1 spent','Birthday 5× points','Free nominated delivery','Personal stylist access','Platinum lounge access','Annual gift worth $100']},
 ];
 
-/* ─── STATE ────────────────────────────────────────── */
-let state = {
-  user: null,
-  cart: [],
-  wishlist: [],
-  orders: [],
-  appliedPromo: null,
-  selectedDelivery: 'standard',
-  checkoutStep: 1,
-  currentProduct: null,
-  shopFilter: 'all',
-  prevPage: 'shop',
-  searchOpen: false,
-};
+const REWARDS_CATALOGUE=[
+  {id:'r1',name:'$5 Off Voucher',icon:'🎟',desc:'$5 discount on your next order',pts:500,type:'voucher'},
+  {id:'r2',name:'$10 Off Voucher',icon:'🎫',desc:'$10 discount on your next order',pts:1000,type:'voucher'},
+  {id:'r3',name:'Free Delivery Pass',icon:'📦',desc:'Free delivery on your next 3 orders',pts:750,type:'delivery'},
+  {id:'r4',name:'$25 Off Voucher',icon:'💎',desc:'$25 discount on orders over $100',pts:2500,type:'voucher'},
+  {id:'r5',name:'Exclusive Tote Bag',icon:'👜',desc:'Limited edition Darwinium canvas tote',pts:3000,type:'product'},
+  {id:'r6',name:'$50 Off Voucher',icon:'🏆',desc:'$50 discount on any purchase',pts:5000,type:'voucher'},
+  {id:'r7',name:'VIP Event Invite',icon:'🌟',desc:'Invitation to our seasonal launch event',pts:8000,type:'experience'},
+  {id:'r8',name:'Personal Styling Session',icon:'✨',desc:'1-hour session with a Darwinium stylist',pts:10000,type:'experience'},
+  {id:'r9',name:'$100 Gift Card',icon:'🎁',desc:'$100 Darwinium gift card',pts:10000,type:'voucher'},
+];
 
-/* ─── USERS ────────────────────────────────────────── */
-let users = [{
+/* ═══ STATE ═══ */
+let state={user:null,cart:[],wishlist:[],orders:[],appliedPromo:null,redeemedPts:0,selectedDelivery:'standard',checkoutStep:1,currentProduct:null,shopFilter:'all',prevPage:'shop',searchOpen:false,loyaltyTab:'rewards'};
+const PTS_PER_DOLLAR=10; // 10 pts per $1
+const PTS_TO_DOLLAR=100; // 100 pts = $1
+
+let users=[{
   id:1,first:'Alex',last:'Darwin',email:'demo@darwinium.com',password:'password',dob:'1990-01-15',phone:'+44 7700 900000',
+  memberNumber:'0001',joinedYear:2025,
+  points:4750,lifetimePoints:8250,
+  pointsHistory:[
+    {type:'earn',desc:'Order DW-100001',sub:'12 Mar 2025',amount:435*PTS_PER_DOLLAR,date:'2025-03-12'},
+    {type:'earn',desc:'Order DW-100002',sub:'28 Feb 2025',amount:195*PTS_PER_DOLLAR,date:'2025-02-28'},
+    {type:'bonus',desc:'Welcome Bonus',sub:'New member reward',amount:500,date:'2025-01-15'},
+    {type:'redeem',desc:'Redeemed for $5 voucher',sub:'Order DW-099998',amount:-500,date:'2025-01-20'},
+    {type:'receive',desc:'Received from Sarah M.',sub:'Transfer received',amount:200,date:'2025-02-05'},
+    {type:'transfer',desc:'Sent to james@example.com',sub:'Birthday gift',amount:-300,date:'2025-02-10'},
+  ],
+  redeemedRewards:[],
+  transfers:[
+    {to:'james@example.com',pts:300,msg:'Birthday gift',date:'10 Feb 2025'},
+  ],
   orders:[
-    {ref:'DW-100001',date:'12 Mar 2025',total:435,status:'delivered',items:[{...PRODUCTS[0],qty:1,size:'M'},{...PRODUCTS[6],qty:1,size:'M'}],returnRequested:false},
-    {ref:'DW-100002',date:'28 Feb 2025',total:195,status:'shipped',items:[{...PRODUCTS[1],qty:1,size:'S'}],returnRequested:false},
+    {ref:'DW-100001',date:'12 Mar 2025',total:435,status:'delivered',items:[{...PRODUCTS[0],qty:1,size:'M'},{...PRODUCTS[6],qty:1,size:'M'}],returnRequested:false,ptsEarned:4350},
+    {ref:'DW-100002',date:'28 Feb 2025',total:195,status:'shipped',items:[{...PRODUCTS[1],qty:1,size:'S'}],returnRequested:false,ptsEarned:1950},
   ]
 }];
 
-/* ─── HELPERS ──────────────────────────────────────── */
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
-  const el = document.getElementById('page-'+p);
-  if(el) el.classList.add('active');
-  window.scrollTo(0,0);
-  if(p==='shop') renderShop(state.shopFilter);
-  if(p==='home') renderHomeGrids();
-  if(p==='offers') renderOffers();
-  if(p==='account') renderAccount();
-  if(p==='wishlist') renderWishlist();
-}
+/* ═══ HELPERS ═══ */
+function fp(p){return'$'+p.toFixed(2);}
+function fpts(n){return n.toLocaleString()+' pts';}
+function showToast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+(type||'');void t.offsetWidth;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function getTier(pts){return TIERS.slice().reverse().find(t=>pts>=t.min)||TIERS[0];}
+function getPtsRate(pts){return getTier(pts).name==='Bronze'?10:getTier(pts).name==='Silver'?12:getTier(pts).name==='Gold'?15:20;}
+function calcEarnedPts(amount){return state.user?Math.floor(amount*getPtsRate(state.user.lifetimePoints)):Math.floor(amount*PTS_PER_DOLLAR);}
 
-function showToast(msg, type='') {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className='toast '+(type==='gold'?'gold':'');
-  void t.offsetWidth;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
-}
-
-function formatPrice(p) { return '$'+p.toFixed(2); }
-
-/* ─── PRODUCT CARD ─────────────────────────────────── */
-function productCard(p, extraBtn='') {
-  const isSale = p.originalPrice && p.originalPrice > p.price;
-  const isNew = p.tags.includes('new');
-  const isWished = state.wishlist.includes(p.id);
-  return `
-  <div class="product-card" onclick="openProduct(${p.id})">
+/* ═══ PRODUCT CARDS ═══ */
+function productCard(p){
+  const isSale=p.originalPrice&&p.originalPrice>p.price,isNew=p.tags.includes('new'),isWished=state.wishlist.includes(p.id);
+  const earnPts=Math.floor(p.price*PTS_PER_DOLLAR);
+  return`<div class="product-card" onclick="openProduct(${p.id})">
     <div class="product-img-wrap">
       <div class="product-img-placeholder">${p.img}</div>
-      ${isSale?`<div class="product-tag sale">Sale</div>`:isNew?`<div class="product-tag">New</div>`:''}
-      <div class="product-overlay">
-        <button class="btn btn-gold btn-sm" style="width:100%" onclick="event.stopPropagation();quickAdd(${p.id})">Quick Add</button>
-      </div>
+      ${isSale?`<div class="product-tag sale">Sale</div>`:isNew?`<div class="product-tag new">New</div>`:''}
+      <div class="product-pts">+${earnPts} pts</div>
+      <div class="product-overlay"><button class="btn btn-gold btn-sm" style="width:100%" onclick="event.stopPropagation();quickAdd(${p.id})">Quick Add</button></div>
       <button class="wishlist-icon ${isWished?'active':''}" onclick="event.stopPropagation();toggleWishlist(${p.id},this)">${isWished?'♥':'♡'}</button>
     </div>
     <div class="product-brand">${p.brand}</div>
     <div class="product-name">${p.name}</div>
-    <div class="product-price">
-      ${isSale?`<del>${formatPrice(p.originalPrice)}</del><span class="sale">${formatPrice(p.price)}</span>`:formatPrice(p.price)}
-    </div>
+    <div class="product-price">${isSale?`<del>${fp(p.originalPrice)}</del><span class="sale">${fp(p.price)}</span>`:`<span class="reg">${fp(p.price)}</span>`}</div>
     <div class="product-colors">${p.colors.map(c=>`<div class="color-dot" style="background:${c}"></div>`).join('')}</div>
   </div>`;
 }
-
-function renderHomeGrids() {
-  const newProds = PRODUCTS.filter(p=>p.tags.includes('new')).slice(0,4);
-  const best = PRODUCTS.filter(p=>p.tags.includes('bestseller')).slice(0,4);
-  document.getElementById('home-new-grid').innerHTML = newProds.map(p=>productCard(p)).join('');
-  document.getElementById('home-best-grid').innerHTML = best.map(p=>productCard(p)).join('');
+function renderHomeGrids(){
+  document.getElementById('home-new-grid').innerHTML=PRODUCTS.filter(p=>p.tags.includes('new')).slice(0,4).map(productCard).join('');
+  document.getElementById('home-best-grid').innerHTML=PRODUCTS.filter(p=>p.tags.includes('bestseller')).slice(0,4).map(productCard).join('');
 }
-
-/* ─── SHOP ─────────────────────────────────────────── */
-function renderShop(filter='all') {
-  state.shopFilter = filter;
-  const filtered = filter==='all' ? PRODUCTS : PRODUCTS.filter(p=>p.tags.includes(filter)||p.cat===filter);
-  document.getElementById('shop-title').textContent = filter==='all'?'All Products': filter.charAt(0).toUpperCase()+filter.slice(1);
-  document.getElementById('shop-count').textContent = `${filtered.length} products`;
-  document.getElementById('shop-grid').innerHTML = filtered.map(p=>productCard(p)).join('');
+function renderShop(f='all'){
+  state.shopFilter=f;const filtered=f==='all'?PRODUCTS:PRODUCTS.filter(p=>p.tags.includes(f)||p.cat===f);
+  document.getElementById('shop-title').textContent=f==='all'?'All Products':f.charAt(0).toUpperCase()+f.slice(1);
+  document.getElementById('shop-count').textContent=`${filtered.length} products`;
+  document.getElementById('shop-grid').innerHTML=filtered.map(productCard).join('');
 }
+function applyFilter(f,el){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderShop(f);}
+function filterAndShow(cat){showPage('shop');const btns=[...document.querySelectorAll('.filter-btn')];btns.forEach(b=>b.classList.remove('active'));const t=btns.find(b=>b.textContent.toLowerCase()===cat.toLowerCase());if(t)t.classList.add('active');renderShop(cat);}
+function renderOffers(){document.getElementById('offers-grid').innerHTML=PRODUCTS.filter(p=>p.tags.includes('sale')||p.originalPrice).map(productCard).join('');}
+function toggleSearch(){const bar=document.getElementById('search-input');state.searchOpen=!state.searchOpen;bar.classList.toggle('open',state.searchOpen);if(state.searchOpen)bar.focus();}
+function liveSearch(q){if(q.length>1)doSearch(q);}
+function doSearch(q){const query=q||document.getElementById('search-input').value.trim();if(!query)return;const r=PRODUCTS.filter(p=>p.name.toLowerCase().includes(query.toLowerCase())||p.brand.toLowerCase().includes(query.toLowerCase())||p.cat.includes(query.toLowerCase()));document.getElementById('search-query').textContent=query;document.getElementById('search-result-count').textContent=`${r.length} result${r.length!==1?'s':''} found`;document.getElementById('search-grid').innerHTML=r.map(productCard).join('');document.getElementById('no-results').style.display=r.length?'none':'block';document.getElementById('search-grid').style.display=r.length?'grid':'none';showPage('search');}
 
-function applyFilter(f, el) {
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  renderShop(f);
-}
-
-function filterAndShow(cat) {
-  showPage('shop');
-  const btns = document.querySelectorAll('.filter-btn');
-  btns.forEach(b=>b.classList.remove('active'));
-  const target = [...btns].find(b=>b.textContent.toLowerCase()===cat.toLowerCase());
-  if(target) target.classList.add('active');
-  renderShop(cat);
-}
-
-/* ─── OFFERS ───────────────────────────────────────── */
-function renderOffers() {
-  const sale = PRODUCTS.filter(p=>p.tags.includes('sale')||p.originalPrice);
-  document.getElementById('offers-grid').innerHTML = sale.map(p=>productCard(p)).join('');
-}
-
-/* ─── SEARCH ───────────────────────────────────────── */
-function toggleSearch() {
-  const bar = document.getElementById('search-input');
-  state.searchOpen = !state.searchOpen;
-  bar.classList.toggle('open', state.searchOpen);
-  if(state.searchOpen) bar.focus();
-}
-
-function liveSearch(q) {
-  if(q.length > 1) doSearch(q);
-}
-
-function doSearch(q) {
-  const query = q || document.getElementById('search-input').value.trim();
-  if(!query) return;
-  const results = PRODUCTS.filter(p=>
-    p.name.toLowerCase().includes(query.toLowerCase()) ||
-    p.brand.toLowerCase().includes(query.toLowerCase()) ||
-    p.cat.toLowerCase().includes(query.toLowerCase()) ||
-    p.tags.some(t=>t.includes(query.toLowerCase()))
-  );
-  document.getElementById('search-query').textContent = query;
-  document.getElementById('search-result-count').textContent = `${results.length} result${results.length!==1?'s':''} found`;
-  document.getElementById('search-grid').innerHTML = results.map(p=>productCard(p)).join('');
-  document.getElementById('no-results').style.display = results.length?'none':'block';
-  document.getElementById('search-grid').style.display = results.length?'grid':'none';
-  showPage('search');
-}
-
-/* ─── PRODUCT DETAIL ───────────────────────────────── */
-function openProduct(id) {
-  state.prevPage = document.querySelector('.page.active')?.id.replace('page-','') || 'shop';
-  const p = PRODUCTS.find(x=>x.id===id);
-  state.currentProduct = {...p, selectedSize: null, qty: 1};
-  renderProductDetail(p);
-  showPage('product');
-}
-
-function renderProductDetail(p) {
-  const isSale = p.originalPrice && p.originalPrice > p.price;
-  const stars = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5-Math.round(p.rating));
-  document.getElementById('product-detail-content').innerHTML = `
+/* ═══ PRODUCT DETAIL ═══ */
+function openProduct(id){state.prevPage=document.querySelector('.page.active')?.id.replace('page-','')||'shop';const p=PRODUCTS.find(x=>x.id===id);state.currentProduct={...p,selectedSize:null,qty:1};renderProductDetail(p);showPage('product');}
+function renderProductDetail(p){
+  const isSale=p.originalPrice&&p.originalPrice>p.price,stars='★'.repeat(Math.round(p.rating))+'☆'.repeat(5-Math.round(p.rating));
+  const earnPts=calcEarnedPts(p.price);
+  document.getElementById('product-detail-content').innerHTML=`
   <div class="product-detail-imgs">
-    <div style="display:flex;flex-direction:column;gap:8px">
-      ${[p.img,p.img,p.img].map(e=>`<div class="product-detail-thumb"><div class="product-img-placeholder" style="font-size:1.8rem">${e}</div></div>`).join('')}
-    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">${[p.img,p.img,p.img].map(e=>`<div class="product-detail-thumb"><div class="product-img-placeholder" style="font-size:1.8rem">${e}</div></div>`).join('')}</div>
     <div class="product-detail-main"><div class="product-img-placeholder" style="font-size:6rem">${p.img}</div></div>
   </div>
   <div class="product-detail-info">
     <div class="product-detail-brand">${p.brand}</div>
     <h1 class="product-detail-name">${p.name}</h1>
-    <div class="product-detail-price">
-      ${isSale?`<del>${formatPrice(p.originalPrice)}</del> <span class="sale">${formatPrice(p.price)}</span>`:formatPrice(p.price)}
-    </div>
+    <div class="product-detail-price">${isSale?`<del>${fp(p.originalPrice)}</del> <span class="sale">${fp(p.price)}</span>`:`<span style="background:var(--grad-cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${fp(p.price)}</span>`}</div>
+    <div class="points-earn-badge">✦ Earn ${earnPts} points with this purchase</div>
     <div class="product-rating"><span class="stars">${stars}</span><span>${p.rating} (${p.reviews} reviews)</span></div>
     <div class="size-selector">
       <div class="size-label"><span>Size</span><a>Size Guide</a></div>
-      <div class="size-grid">
-        ${p.sizes.map((s,i)=>`<button class="size-btn ${i===1?'sold':''}" onclick="selectSize('${s}',this)" ${i===1?'disabled':''}>${s}</button>`).join('')}
-      </div>
+      <div class="size-grid">${p.sizes.map((s,i)=>`<button class="size-btn ${i===1?'sold':''}" onclick="selectSize('${s}',this)" ${i===1?'disabled':''}>${s}</button>`).join('')}</div>
     </div>
     <div class="qty-selector">
       <button class="qty-btn" onclick="changeQty(-1)">−</button>
@@ -878,434 +1017,281 @@ function renderProductDetail(p) {
       <button class="qty-btn" onclick="changeQty(1)">+</button>
     </div>
     <div class="product-actions">
-      <button class="btn btn-primary btn-full" onclick="addToCartFromDetail()">Add to Bag</button>
+      <button class="btn btn-primary btn-full" onclick="addToCartFromDetail()">Add to Bag →</button>
       <button class="btn btn-outline btn-full" onclick="toggleWishlist(${p.id},null)">♡ Add to Wishlist</button>
     </div>
     <div class="accordion">
-      ${[['Description',p.desc],['Materials','100% natural fibres. Please see care label for full composition details.'],['Delivery & Returns','Free standard delivery on orders over $150. Free returns within 30 days.']].map(([h,b])=>`
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion(this)">${h}<span>+</span></div>
-        <div class="accordion-body">${b}</div>
-      </div>`).join('')}
+      ${[['Description',p.desc],['Materials','100% natural fibres. See care label for composition.'],['Delivery & Returns','Free standard delivery over $150. Free returns within 30 days.'],['Earn Points',`Earn ${earnPts} Darwinium points when you purchase this item. Points are credited to your account within 24 hours of delivery.`]].map(([h,b])=>`<div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">${h}<span>+</span></div><div class="accordion-body">${b}</div></div>`).join('')}
     </div>
   </div>`;
 }
+function selectSize(s,el){document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');state.currentProduct.selectedSize=s;}
+function changeQty(d){state.currentProduct.qty=Math.max(1,(state.currentProduct.qty||1)+d);document.getElementById('pd-qty').textContent=state.currentProduct.qty;}
+function toggleAccordion(el){const body=el.nextElementSibling,open=body.classList.contains('open');body.classList.toggle('open',!open);el.querySelector('span').textContent=open?'+':'−';}
 
-function selectSize(s, el) {
-  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  state.currentProduct.selectedSize = s;
+/* ═══ CART ═══ */
+function openCart(){document.getElementById('cart-drawer').classList.add('open');document.getElementById('overlay').classList.add('open');renderCart();}
+function closeCart(){document.getElementById('cart-drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
+function addToCart(id,size,qty=1){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const ex=state.cart.find(i=>i.id===id&&i.size===size);if(ex)ex.qty+=qty;else state.cart.push({...p,size,qty});updateCartBadge();renderCart();}
+function quickAdd(id){const p=PRODUCTS.find(x=>x.id===id);addToCart(id,p.sizes[0],1);openCart();showToast(`${p.name} added ✦`,'cyan');}
+function addToCartFromDetail(){const cp=state.currentProduct;if(!cp.selectedSize&&cp.sizes.length>1){showToast('Please select a size');return;}addToCart(cp.id,cp.selectedSize||cp.sizes[0],cp.qty);openCart();showToast(`${cp.name} added ✦`,'cyan');}
+function removeFromCart(id,size){state.cart=state.cart.filter(i=>!(i.id===id&&i.size===size));state.redeemedPts=0;updateCartBadge();renderCart();}
+function updateCartQty(id,size,d){const item=state.cart.find(i=>i.id===id&&i.size===size);if(item)item.qty=Math.max(1,item.qty+d);renderCart();}
+function updateCartBadge(){document.getElementById('cart-count').textContent=state.cart.reduce((s,i)=>s+i.qty,0);}
+function cartSubtotal(){return state.cart.reduce((s,i)=>s+i.price*i.qty,0);}
+function promoDiscount(){if(!state.appliedPromo)return 0;const p=PROMOS[state.appliedPromo];if(!p)return 0;return p.type==='percent'?cartSubtotal()*p.discount/100:Math.min(p.discount,cartSubtotal());}
+function ptsDiscount(){return state.redeemedPts>0?state.redeemedPts/PTS_TO_DOLLAR:0;}
+function deliveryCost(){const opt=DELIVERY_OPTIONS.find(o=>o.id===state.selectedDelivery);if(!opt)return 0;if(opt.freeAbove&&cartSubtotal()>=opt.freeAbove)return 0;return opt.price||0;}
+function orderTotal(){return Math.max(0,cartSubtotal()-promoDiscount()-ptsDiscount()+deliveryCost());}
+function cartEarnPts(){return calcEarnedPts(orderTotal());}
+
+function applyPromo(){const code=document.getElementById('promo-code-input').value.trim().toUpperCase();if(PROMOS[code]){state.appliedPromo=code;showToast(`Promo applied: ${PROMOS[code].label} ✦`,'gold');renderCart();}else showToast('Invalid promo code');}
+function applyPointsRedeem(){
+  if(!state.user){showToast('Sign in to redeem points');return;}
+  const inp=parseInt(document.getElementById('pts-redeem-input').value)||0;
+  const maxRedeem=Math.min(state.user.points,Math.floor(cartSubtotal()*PTS_TO_DOLLAR));
+  if(inp<100){showToast('Minimum redemption is 100 pts');return;}
+  if(inp>maxRedeem){showToast(`Max redeemable: ${maxRedeem} pts`);return;}
+  state.redeemedPts=inp;showToast(`${inp} pts redeemed — saving ${fp(inp/PTS_TO_DOLLAR)}! ✦`,'gold');renderCart();
+}
+function clearPointsRedeem(){state.redeemedPts=0;document.getElementById('pts-redeem-input').value='';renderCart();}
+
+function renderCart(){
+  const list=document.getElementById('cart-items-list');updateCartBadge();
+  document.getElementById('cart-item-count').textContent=state.cart.reduce((s,i)=>s+i.qty,0);
+  const ptsWrap=document.getElementById('points-redeem-wrap');
+  if(!state.cart.length){list.innerHTML=`<div class="cart-empty"><span class="icon">🛍</span><p>Your bag is empty</p><button class="btn btn-primary btn-sm" style="margin-top:18px" onclick="closeCart();showPage('shop')">Start Shopping</button></div>`;document.getElementById('cart-totals').innerHTML='';document.getElementById('cart-pts-earn').style.display='none';ptsWrap.style.display='none';return;}
+  const earnPts=cartEarnPts();
+  list.innerHTML=state.cart.map(i=>{const itemPts=calcEarnedPts(i.price*i.qty);return`<div class="cart-item"><div class="cart-item-img">${i.img}</div><div><div class="cart-item-name">${i.name}</div><div class="cart-item-meta">${i.brand} · Size: ${i.size}</div><div class="cart-item-price">${fp(i.price)}</div><div class="cart-item-pts">+${itemPts} pts</div><div class="cart-qty-ctrl"><button class="cqc-btn" onclick="updateCartQty(${i.id},'${i.size}',-1)">−</button><span>${i.qty}</span><button class="cqc-btn" onclick="updateCartQty(${i.id},'${i.size}',1)">+</button></div></div><button class="cart-item-remove" onclick="removeFromCart(${i.id},'${i.size}')">✕</button></div>`;}).join('');
+  // Points redeem section
+  if(state.user&&state.user.points>0){ptsWrap.style.display='block';document.getElementById('cart-pts-available').textContent=`(${state.user.points.toLocaleString()} pts available)`;}else ptsWrap.style.display='none';
+  // Earn indicator
+  const earnEl=document.getElementById('cart-pts-earn');earnEl.style.display='block';earnEl.textContent=`✦ You'll earn ${earnPts.toLocaleString()} points with this order`;
+  const disc=promoDiscount(),pDisc=ptsDiscount(),del=deliveryCost();
+  document.getElementById('cart-totals').innerHTML=`
+    <div class="cart-row"><span class="label">Subtotal</span><span class="val">${fp(cartSubtotal())}</span></div>
+    ${disc?`<div class="cart-row discount"><span class="label">Promo (${state.appliedPromo})</span><span class="val">−${fp(disc)}</span></div>`:''}
+    ${pDisc?`<div class="cart-row pts-redeem"><span class="label">Points (${state.redeemedPts.toLocaleString()} pts)</span><span class="val">−${fp(pDisc)}</span></div>`:''}
+    <div class="cart-row"><span class="label">Delivery</span><span class="val">${del?fp(del):'Free'}</span></div>
+    <div class="cart-row total"><span class="label">Total</span><span class="val">${fp(orderTotal())}</span></div>`;
 }
 
-function changeQty(d) {
-  state.currentProduct.qty = Math.max(1, (state.currentProduct.qty||1)+d);
-  document.getElementById('pd-qty').textContent = state.currentProduct.qty;
+/* ═══ WISHLIST ═══ */
+function toggleWishlist(id,btnEl){const idx=state.wishlist.indexOf(id);if(idx>=0){state.wishlist.splice(idx,1);if(btnEl){btnEl.textContent='♡';btnEl.classList.remove('active');}showToast('Removed from wishlist');}else{state.wishlist.push(id);if(btnEl){btnEl.textContent='♥';btnEl.classList.add('active');}showToast('Added to wishlist ♥','gold');}const wc=document.getElementById('wish-count');wc.textContent=state.wishlist.length;wc.style.display=state.wishlist.length?'flex':'none';}
+function renderWishlist(){const grid=document.getElementById('wishlist-grid'),empty=document.getElementById('wishlist-empty');if(!state.wishlist.length){grid.innerHTML='';empty.style.display='block';return;}empty.style.display='none';grid.innerHTML=PRODUCTS.filter(p=>state.wishlist.includes(p.id)).map(productCard).join('');}
+function toggleWishlistPage(){showPage('wishlist');}
+
+/* ═══ AUTH ═══ */
+function doLogin(){const email=document.getElementById('login-email').value.trim(),pass=document.getElementById('login-pass').value,user=users.find(u=>u.email===email&&u.password===pass);if(!user){document.getElementById('login-err').classList.add('show');return;}document.getElementById('login-err').classList.remove('show');state.user=user;renderCart();showToast(`Welcome back, ${user.first}! ✦`,'cyan');showPage('account');}
+function doRegister(){const first=document.getElementById('reg-first').value.trim(),last=document.getElementById('reg-last').value.trim(),email=document.getElementById('reg-email').value.trim(),pass=document.getElementById('reg-pass').value,dob=document.getElementById('reg-dob').value,err=document.getElementById('reg-err');if(!first||!last||!email||pass.length<8||!dob){err.classList.add('show');return;}if(users.find(u=>u.email===email)){err.textContent='Email already registered';err.classList.add('show');return;}err.classList.remove('show');
+const num=String(users.length+1).padStart(4,'0');
+const user={id:Date.now(),first,last,email,password:pass,dob,phone:'',memberNumber:num,joinedYear:new Date().getFullYear(),points:500,lifetimePoints:500,pointsHistory:[{type:'bonus',desc:'Welcome Bonus',sub:'New member reward',amount:500,date:new Date().toISOString().slice(0,10)}],redeemedRewards:[],transfers:[],orders:[]};
+users.push(user);state.user=user;renderCart();showToast(`Welcome to Darwinium, ${first}! +500 pts ✦`,'gold');showPage('account');}
+function doLogout(){state.user=null;state.redeemedPts=0;renderCart();showPage('home');showToast('Signed out successfully');}
+
+/* ═══ LOYALTY ═══ */
+function renderLoyaltyPage(){
+  const guest=document.getElementById('loyalty-guest'),member=document.getElementById('loyalty-member');
+  if(!state.user){guest.style.display='block';member.style.display='none';return;}
+  guest.style.display='none';member.style.display='block';
+  const u=state.user,tier=getTier(u.lifetimePoints),nextTier=TIERS[TIERS.indexOf(tier)+1];
+  // Card
+  document.getElementById('lc-pts').textContent=u.points.toLocaleString();
+  document.getElementById('lc-name').textContent=`${u.first.toUpperCase()} ${u.last.toUpperCase()}`;
+  document.getElementById('lc-number').textContent=`•••• •••• •••• ${u.memberNumber}`;
+  document.getElementById('lc-tier-label').textContent=`${tier.name.toUpperCase()} MEMBER`;
+  document.getElementById('lc-card').style.background=`linear-gradient(135deg,${tier.color}22,#06101e,#0d1a2d)`;
+  document.getElementById('lc-glow').style.background=tier.color;
+  document.getElementById('lc-chip').style.background=tier.grad;
+  document.getElementById('lc-pts').style.background=tier.grad;
+  // Tier badges
+  document.getElementById('tier-badges').innerHTML=TIERS.map(t=>`<span class="tier-badge ${t.name===tier.name?'active':''}" style="background:${t.name===tier.name?t.grad:'transparent'};color:${t.name===tier.name?'#000':t.color};border-color:${t.border}">${t.name}</span>`).join('');
+  // Progress
+  const bar=document.getElementById('tier-progress-bar');
+  if(nextTier){const pct=Math.min(100,((u.lifetimePoints-tier.min)/(nextTier.min-tier.min))*100);bar.style.width=pct+'%';bar.style.background=tier.grad;document.getElementById('tier-progress-label').innerHTML=`<span>${u.lifetimePoints.toLocaleString()}</span> / ${nextTier.min.toLocaleString()} pts to reach <span>${nextTier.name}</span>`;}else{bar.style.width='100%';bar.style.background=tier.grad;document.getElementById('tier-progress-label').innerHTML=`<span>Platinum status achieved! Maximum tier. ✦</span>`;}
+  // Benefits
+  document.getElementById('tier-benefits').innerHTML=tier.benefits.map(b=>`<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dw-muted);margin-bottom:8px"><span style="color:${tier.color}">✦</span>${b}</div>`).join('');
+  // Stats
+  document.getElementById('loyalty-stats').innerHTML=`
+    <div class="stat-card gold-stat"><div class="stat-num gold">${u.points.toLocaleString()}</div><div class="stat-label">Points Balance</div></div>
+    <div class="stat-card gold-stat"><div class="stat-num gold">${u.lifetimePoints.toLocaleString()}</div><div class="stat-label">Lifetime Points</div></div>
+    <div class="stat-card gold-stat"><div class="stat-num gold">${fp(u.points/PTS_TO_DOLLAR)}</div><div class="stat-label">Redeemable Value</div></div>
+    <div class="stat-card gold-stat"><div class="stat-num gold">${tier.name}</div><div class="stat-label">Current Tier</div></div>`;
+  // Rewards catalogue
+  document.getElementById('rewards-catalogue').innerHTML=REWARDS_CATALOGUE.map(r=>{const redeemed=u.redeemedRewards.includes(r.id),canAfford=u.points>=r.pts;return`<div class="reward-card ${redeemed?'redeemed':''}" onclick="${canAfford&&!redeemed?`redeemReward('${r.id}')`:''}" style="${canAfford&&!redeemed?'':'opacity:.6'}">
+    <div class="reward-icon">${r.icon}</div>
+    <div class="reward-name">${r.name}</div>
+    <div class="reward-desc">${r.desc}</div>
+    <div class="reward-pts">${r.pts.toLocaleString()} <span>points</span></div>
+    ${redeemed?`<span class="status-badge delivered">Redeemed</span>`:canAfford?`<button class="btn btn-gold btn-sm" onclick="event.stopPropagation();redeemReward('${r.id}')">Redeem ✦</button>`:`<span style="font-size:11px;color:var(--dw-muted)">Need ${(r.pts-u.points).toLocaleString()} more pts</span>`}
+  </div>`;}).join('');
+  // History
+  renderPtsHistory();
+  // Transfer
+  document.getElementById('transfer-balance').textContent=u.points.toLocaleString();
+  renderRecentTransfers();
 }
 
-function toggleAccordion(el) {
-  const body = el.nextElementSibling;
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open',!isOpen);
-  el.querySelector('span').textContent = isOpen ? '+' : '−';
+function redeemReward(id){
+  const r=REWARDS_CATALOGUE.find(x=>x.id===id),u=state.user;
+  if(!r||!u||u.points<r.pts)return;
+  u.points-=r.pts;u.redeemedRewards.push(id);
+  u.pointsHistory.unshift({type:'redeem',desc:`Redeemed: ${r.name}`,sub:'Rewards catalogue',amount:-r.pts,date:new Date().toISOString().slice(0,10)});
+  showToast(`${r.name} redeemed! ✦`,'gold');
+  renderLoyaltyPage();
 }
 
-/* ─── CART ─────────────────────────────────────────── */
-function openCart() {
-  document.getElementById('cart-drawer').classList.add('open');
-  document.getElementById('overlay').classList.add('open');
-  renderCart();
+function renderPtsHistory(){
+  const u=state.user;if(!u)return;
+  const icons={earn:'🛍',redeem:'💸',transfer:'➡',receive:'⬅',bonus:'🎁'};
+  document.getElementById('pts-history-list').innerHTML=u.pointsHistory.length?u.pointsHistory.map(h=>`
+  <div class="pts-history-item">
+    <div class="pts-icon ${h.type}">${icons[h.type]||'✦'}</div>
+    <div class="pts-desc"><div class="pts-desc-title">${h.desc}</div><div class="pts-desc-sub">${h.sub} · ${h.date}</div></div>
+    <div class="pts-amount ${h.amount>0?'positive':'negative'}">${h.amount>0?'+':''}${h.amount.toLocaleString()} pts</div>
+  </div>`).join(''):'<p style="color:var(--dw-muted);font-size:13px;padding:20px 0">No points history yet.</p>';
 }
 
-function closeCart() {
-  document.getElementById('cart-drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
+function lookupTransferUser(){
+  const email=document.getElementById('transfer-email').value.trim();
+  const prev=document.getElementById('transfer-preview');
+  const found=users.find(u=>u.email===email&&u.email!==state.user?.email);
+  if(found&&email.includes('@')){prev.className='transfer-preview show';prev.innerHTML=`<span style="color:var(--dw-green)">✓</span> Sending to <strong>${found.first} ${found.last}</strong> · ${found.email}`;}
+  else if(email.length>4){prev.className='transfer-preview show';prev.style.background='rgba(231,76,60,.06)';prev.style.borderColor='rgba(231,76,60,.2)';prev.innerHTML=`<span style="color:var(--dw-red)">✗</span> No Darwinium member found with this email`;}
+  else prev.className='transfer-preview';
 }
 
-function addToCart(productId, size, qty=1) {
-  const p = PRODUCTS.find(x=>x.id===productId);
-  if(!p) return;
-  const existing = state.cart.find(i=>i.id===productId&&i.size===size);
-  if(existing) existing.qty += qty;
-  else state.cart.push({...p, size, qty});
-  updateCartBadge();
-  renderCart();
+function doTransferPoints(){
+  const err=document.getElementById('transfer-err'),ok=document.getElementById('transfer-ok');
+  err.classList.remove('show');ok.classList.remove('show');
+  const u=state.user;if(!u)return;
+  const toEmail=document.getElementById('transfer-email').value.trim();
+  const pts=parseInt(document.getElementById('transfer-pts').value)||0;
+  const msg=document.getElementById('transfer-msg').value.trim();
+  const recipient=users.find(x=>x.email===toEmail&&x.email!==u.email);
+  if(!recipient){err.textContent='Recipient not found';err.classList.add('show');return;}
+  if(pts<100){err.textContent='Minimum transfer is 100 points';err.classList.add('show');return;}
+  if(pts>u.points){err.textContent='Insufficient points balance';err.classList.add('show');return;}
+  if(pts>5000){err.textContent='Maximum transfer is 5,000 points per day';err.classList.add('show');return;}
+  // Execute transfer
+  u.points-=pts;
+  u.pointsHistory.unshift({type:'transfer',desc:`Sent to ${recipient.first} ${recipient.last}`,sub:msg||'Points transfer',amount:-pts,date:new Date().toISOString().slice(0,10)});
+  u.transfers.push({to:toEmail,pts,msg:msg||'',date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})});
+  // Credit recipient
+  recipient.points=(recipient.points||0)+pts;
+  recipient.pointsHistory=recipient.pointsHistory||[];
+  recipient.pointsHistory.unshift({type:'receive',desc:`Received from ${u.first} ${u.last}`,sub:msg||'Points transfer',amount:pts,date:new Date().toISOString().slice(0,10)});
+  document.getElementById('transfer-email').value='';document.getElementById('transfer-pts').value='';document.getElementById('transfer-msg').value='';document.getElementById('transfer-preview').className='transfer-preview';
+  ok.classList.add('show');showToast(`${pts.toLocaleString()} pts sent to ${recipient.first}! ✦`,'green');
+  renderLoyaltyPage();
 }
 
-function quickAdd(id) {
-  const p = PRODUCTS.find(x=>x.id===id);
-  addToCart(id, p.sizes[0], 1);
-  openCart();
-  showToast(`${p.name} added to bag 🛍`, 'gold');
+function renderRecentTransfers(){
+  const u=state.user;if(!u)return;
+  const el=document.getElementById('recent-transfers');
+  el.innerHTML=u.transfers.length?u.transfers.slice(0,5).map(t=>`<div class="pts-history-item" style="padding:10px 0"><div class="pts-icon transfer">➡</div><div class="pts-desc"><div class="pts-desc-title">${t.to}</div><div class="pts-desc-sub">${t.msg||'No message'} · ${t.date}</div></div><div class="pts-amount negative">−${t.pts.toLocaleString()} pts</div></div>`).join(''):'<p style="color:var(--dw-muted);font-size:12px">No transfers yet.</p>';
 }
 
-function addToCartFromDetail() {
-  const cp = state.currentProduct;
-  if(!cp.selectedSize && cp.sizes.length > 1) { showToast('Please select a size'); return; }
-  addToCart(cp.id, cp.selectedSize || cp.sizes[0], cp.qty);
-  openCart();
-  showToast(`${cp.name} added to bag 🛍`, 'gold');
+function switchLoyaltyTab(tab,el){
+  state.loyaltyTab=tab;
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ltab-'+tab)?.classList.add('active');
+  if(el)el.classList.add('active');
+  else{const tabs=[...document.querySelectorAll('.tab-btn')];const match=tabs.find(t=>t.textContent.toLowerCase().includes(tab));if(match)match.classList.add('active');}
 }
 
-function removeFromCart(id, size) {
-  state.cart = state.cart.filter(i=>!(i.id===id&&i.size===size));
-  updateCartBadge();
-  renderCart();
-}
-
-function updateCartQty(id, size, d) {
-  const item = state.cart.find(i=>i.id===id&&i.size===size);
-  if(item) { item.qty = Math.max(1, item.qty+d); }
-  renderCart();
-}
-
-function updateCartBadge() {
-  const total = state.cart.reduce((s,i)=>s+i.qty,0);
-  document.getElementById('cart-count').textContent = total;
-}
-
-function cartSubtotal() { return state.cart.reduce((s,i)=>s+i.price*i.qty,0); }
-
-function promoDiscount() {
-  if(!state.appliedPromo) return 0;
-  const p = PROMOS[state.appliedPromo];
-  if(!p) return 0;
-  return p.type==='percent' ? cartSubtotal()*p.discount/100 : Math.min(p.discount, cartSubtotal());
-}
-
-function deliveryCost() {
-  const opt = DELIVERY_OPTIONS.find(o=>o.id===state.selectedDelivery);
-  if(!opt) return 0;
-  if(opt.freeAbove && cartSubtotal() >= opt.freeAbove) return 0;
-  return opt.price || 0;
-}
-
-function orderTotal() { return cartSubtotal() - promoDiscount() + deliveryCost(); }
-
-function renderCart() {
-  const list = document.getElementById('cart-items-list');
-  const sub = cartSubtotal();
-  updateCartBadge();
-  document.getElementById('cart-item-count').textContent = state.cart.reduce((s,i)=>s+i.qty,0);
-
-  if(!state.cart.length) {
-    list.innerHTML = `<div class="cart-empty"><div class="icon">🛍</div><p>Your bag is empty</p><button class="btn btn-primary btn-sm" style="margin-top:16px" onclick="closeCart();showPage('shop')">Start Shopping</button></div>`;
-    document.getElementById('cart-totals').innerHTML='';
-    return;
-  }
-
-  list.innerHTML = state.cart.map(i=>`
-  <div class="cart-item">
-    <div class="cart-item-img">${i.img}</div>
-    <div>
-      <div class="cart-item-name">${i.name}</div>
-      <div class="cart-item-meta">${i.brand} · Size: ${i.size}</div>
-      <div class="cart-item-price">${formatPrice(i.price)}</div>
-      <div class="cart-qty-ctrl">
-        <button class="cqc-btn" onclick="updateCartQty(${i.id},'${i.size}',-1)">−</button>
-        <span>${i.qty}</span>
-        <button class="cqc-btn" onclick="updateCartQty(${i.id},'${i.size}',1)">+</button>
-      </div>
-    </div>
-    <button class="cart-item-remove" onclick="removeFromCart(${i.id},'${i.size}')">✕</button>
-  </div>`).join('');
-
-  const disc = promoDiscount();
-  const del = deliveryCost();
-  document.getElementById('cart-totals').innerHTML = `
-    <div class="cart-row"><span>Subtotal</span><span>${formatPrice(sub)}</span></div>
-    ${disc?`<div class="cart-row discount"><span>Promo (${state.appliedPromo})</span><span>−${formatPrice(disc)}</span></div>`:''}
-    <div class="cart-row"><span>Delivery</span><span>${del?formatPrice(del):'Free'}</span></div>
-    <div class="cart-row total"><span>Total</span><span>${formatPrice(orderTotal())}</span></div>
-  `;
-}
-
-function applyPromo() {
-  const code = document.getElementById('promo-code-input').value.trim().toUpperCase();
-  if(PROMOS[code]) {
-    state.appliedPromo = code;
-    showToast(`Promo applied: ${PROMOS[code].label}!`, 'gold');
-    renderCart();
-  } else {
-    showToast('Invalid promo code');
-  }
-}
-
-/* ─── WISHLIST ─────────────────────────────────────── */
-function toggleWishlist(id, btnEl) {
-  const idx = state.wishlist.indexOf(id);
-  if(idx>=0) {
-    state.wishlist.splice(idx,1);
-    if(btnEl){ btnEl.textContent='♡'; btnEl.classList.remove('active'); }
-    showToast('Removed from wishlist');
-  } else {
-    state.wishlist.push(id);
-    if(btnEl){ btnEl.textContent='♥'; btnEl.classList.add('active'); }
-    showToast('Added to wishlist ♥', 'gold');
-  }
-  const wc = document.getElementById('wish-count');
-  wc.textContent = state.wishlist.length;
-  wc.style.display = state.wishlist.length?'flex':'none';
-}
-
-function renderWishlist() {
-  const grid = document.getElementById('wishlist-grid');
-  const empty = document.getElementById('wishlist-empty');
-  if(!state.wishlist.length) { grid.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display='none';
-  const prods = PRODUCTS.filter(p=>state.wishlist.includes(p.id));
-  grid.innerHTML = prods.map(p=>productCard(p)).join('');
-}
-
-function toggleWishlistPage() { showPage('wishlist'); }
-
-/* ─── AUTH ─────────────────────────────────────────── */
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  const user = users.find(u=>u.email===email&&u.password===pass);
-  if(!user) { document.getElementById('login-err').classList.add('show'); return; }
-  document.getElementById('login-err').classList.remove('show');
-  state.user = user;
-  showToast(`Welcome back, ${user.first}! 👋`,'gold');
-  showPage('account');
-}
-
-function doRegister() {
-  const first=document.getElementById('reg-first').value.trim();
-  const last=document.getElementById('reg-last').value.trim();
-  const email=document.getElementById('reg-email').value.trim();
-  const pass=document.getElementById('reg-pass').value;
-  const dob=document.getElementById('reg-dob').value;
-  const err = document.getElementById('reg-err');
-  if(!first||!last||!email||pass.length<8||!dob){err.classList.add('show');return;}
-  if(users.find(u=>u.email===email)){err.textContent='Email already registered';err.classList.add('show');return;}
-  err.classList.remove('show');
-  const user={id:Date.now(),first,last,email,password:pass,dob,phone:'',orders:[]};
-  users.push(user);
-  state.user=user;
-  showToast(`Welcome to Darwinium, ${first}! 🎉`,'gold');
-  showPage('account');
-}
-
-function doLogout() {
-  state.user=null;
-  showPage('home');
-  showToast('Signed out successfully');
-}
-
-/* ─── CHECKOUT ─────────────────────────────────────── */
-function renderDeliveryOptions() {
-  const sub = cartSubtotal();
-  document.getElementById('delivery-options').innerHTML = DELIVERY_OPTIONS.map(o=>`
-  <label style="display:flex;align-items:center;gap:14px;padding:14px;border:2px solid ${state.selectedDelivery===o.id?'var(--black)':'var(--gray-6)'};border-radius:var(--radius);cursor:pointer;margin-bottom:8px" onclick="selectDelivery('${o.id}')">
-    <input type="radio" name="delivery" ${state.selectedDelivery===o.id?'checked':''} style="accent-color:var(--black)">
-    <div style="flex:1"><div style="font-size:13px;font-weight:700">${o.label}</div><div style="font-size:11px;color:var(--gray-4)">${o.desc}</div></div>
-    <div style="font-size:13px;font-weight:900">${(o.freeAbove&&sub>=o.freeAbove)||o.price===0?'<span style="color:var(--green)">Free</span>':formatPrice(o.price)}</div>
-  </label>`).join('');
-}
-
-function selectDelivery(id) { state.selectedDelivery=id; renderDeliveryOptions(); renderCheckoutOrderCard(); }
-
-function renderCheckoutOrderCard() {
-  const disc=promoDiscount(), del=deliveryCost();
-  document.getElementById('checkout-order-card').innerHTML=`
-  <h3>Your Order (${state.cart.reduce((s,i)=>s+i.qty,0)} items)</h3>
-  ${state.cart.map(i=>`
-  <div class="order-item">
-    <div class="order-item-img">${i.img}</div>
-    <div><div class="order-item-name">${i.name}</div><div class="order-item-meta">Size: ${i.size} · Qty: ${i.qty}</div></div>
-    <div class="order-item-price">${formatPrice(i.price*i.qty)}</div>
-  </div>`).join('')}
+/* ═══ CHECKOUT ═══ */
+function renderDeliveryOptions(){const sub=cartSubtotal();document.getElementById('delivery-options').innerHTML=DELIVERY_OPTIONS.map(o=>`<label style="display:flex;align-items:center;gap:14px;padding:14px;border:1.5px solid ${state.selectedDelivery===o.id?'var(--dw-cyan)':'var(--dw-border)'};border-radius:var(--radius);cursor:pointer;margin-bottom:8px" onclick="selectDelivery('${o.id}')"><input type="radio" name="delivery" ${state.selectedDelivery===o.id?'checked':''} style="accent-color:var(--dw-cyan)"><div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--dw-text)">${o.label}</div><div style="font-size:11px;color:var(--dw-muted)">${o.desc}</div></div><div style="font-size:13px;font-weight:900">${(o.freeAbove&&sub>=o.freeAbove)||o.price===0?`<span style="color:var(--dw-green)">Free</span>`:fp(o.price)}</div></label>`).join('');}
+function selectDelivery(id){state.selectedDelivery=id;renderDeliveryOptions();renderCheckoutOrderCard();}
+function renderCheckoutOrderCard(){
+  const disc=promoDiscount(),pDisc=ptsDiscount(),del=deliveryCost(),earnPts=cartEarnPts();
+  document.getElementById('checkout-order-card').innerHTML=`<h3>Your Order (${state.cart.reduce((s,i)=>s+i.qty,0)} items)</h3>
+  ${state.cart.map(i=>`<div class="order-item"><div class="order-item-img">${i.img}</div><div><div class="order-item-name">${i.name}</div><div class="order-item-meta">Size: ${i.size} · Qty: ${i.qty}</div></div><div class="order-item-price">${fp(i.price*i.qty)}</div></div>`).join('')}
   <div class="checkout-totals">
-    <div class="ct-row"><span>Subtotal</span><span>${formatPrice(cartSubtotal())}</span></div>
-    ${disc?`<div class="ct-row discount"><span>Discount</span><span>−${formatPrice(disc)}</span></div>`:''}
-    <div class="ct-row"><span>Delivery</span><span>${del?formatPrice(del):'Free'}</span></div>
-    <div class="ct-row total"><span>Total</span><span>${formatPrice(orderTotal())}</span></div>
+    <div class="ct-row"><span>Subtotal</span><span class="v">${fp(cartSubtotal())}</span></div>
+    ${disc?`<div class="ct-row discount"><span>Promo</span><span class="v">−${fp(disc)}</span></div>`:''}
+    ${pDisc?`<div class="ct-row pts"><span>Points (${state.redeemedPts.toLocaleString()} pts)</span><span class="v">−${fp(pDisc)}</span></div>`:''}
+    <div class="ct-row"><span>Delivery</span><span class="v">${del?fp(del):'Free'}</span></div>
+    <div class="ct-row total"><span>Total</span><span class="v">${fp(orderTotal())}</span></div>
+    ${state.user?`<div style="margin-top:10px;background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.2);border-radius:var(--radius);padding:8px 12px;font-size:11px;color:var(--dw-gold);text-align:center">✦ You'll earn ${earnPts.toLocaleString()} points</div>`:''}
   </div>`;
 }
-
-function goCheckoutStep(n) {
-  if(n===2){
-    const fields=['del-first','del-last','del-addr1','del-city','del-post','del-phone'];
-    const filled = fields.every(f=>document.getElementById(f)?.value.trim());
-    if(!filled){document.getElementById('del-err').classList.add('show');return;}
-    document.getElementById('del-err').classList.remove('show');
-  }
-  if(n===3){
-    const num=document.getElementById('pay-num')?.value.replace(/\s/g,'');
-    const exp=document.getElementById('pay-exp')?.value;
-    const cvv=document.getElementById('pay-cvv')?.value;
-    const name=document.getElementById('pay-name')?.value.trim();
-    if(!name||!num||num.length<16||!exp||exp.length<5||!cvv||cvv.length<3){document.getElementById('pay-err').classList.add('show');return;}
-    document.getElementById('pay-err').classList.remove('show');
-    // Render review
-    const addr=`${document.getElementById('del-first').value} ${document.getElementById('del-last').value}, ${document.getElementById('del-addr1').value}, ${document.getElementById('del-city').value}, ${document.getElementById('del-post').value}`;
-    const optLabel=DELIVERY_OPTIONS.find(o=>o.id===state.selectedDelivery)?.label;
-    document.getElementById('review-summary').innerHTML=`
-    <h3>Review Your Order</h3>
-    <div style="margin-bottom:14px"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-4);margin-bottom:4px">Delivering to</div><div style="font-size:13px">${addr}</div></div>
-    <div style="margin-bottom:14px"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-4);margin-bottom:4px">Delivery method</div><div style="font-size:13px">${optLabel}</div></div>
-    <div><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-4);margin-bottom:4px">Payment</div><div style="font-size:13px">Card ending in ${num.slice(-4)}</div></div>
-    `;
-  }
+function goCheckoutStep(n){
+  if(n===2){const fields=['del-first','del-last','del-addr1','del-city','del-post','del-phone'];if(!fields.every(f=>document.getElementById(f)?.value.trim())){document.getElementById('del-err').classList.add('show');return;}document.getElementById('del-err').classList.remove('show');}
+  if(n===3){const num=document.getElementById('pay-num')?.value.replace(/\s/g,''),exp=document.getElementById('pay-exp')?.value,cvv=document.getElementById('pay-cvv')?.value,name=document.getElementById('pay-name')?.value.trim();if(!name||!num||num.length<16||!exp||exp.length<5||!cvv||cvv.length<3){document.getElementById('pay-err').classList.add('show');return;}document.getElementById('pay-err').classList.remove('show');const addr=`${document.getElementById('del-first').value} ${document.getElementById('del-last').value}, ${document.getElementById('del-addr1').value}, ${document.getElementById('del-city').value}`;const optLabel=DELIVERY_OPTIONS.find(o=>o.id===state.selectedDelivery)?.label;const earnPts=cartEarnPts();document.getElementById('review-summary').innerHTML=`<h3>Review Your Order</h3><div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:5px">Delivering to</div><div style="font-size:13px;color:var(--dw-text)">${addr}</div></div><div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:5px">Delivery</div><div style="font-size:13px;color:var(--dw-text)">${optLabel}</div></div><div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:5px">Payment</div><div style="font-size:13px;color:var(--dw-text)">Card ending in ${num.slice(-4)}</div></div>${state.user?`<div style="background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.2);border-radius:var(--radius);padding:12px;margin-top:12px;font-size:12px;color:var(--dw-gold)">✦ You'll earn <strong>${earnPts.toLocaleString()} points</strong> on this order</div>`:''}`;}
   state.checkoutStep=n;
-  [1,2,3].forEach(i=>{
-    const s=document.getElementById(`checkout-step-${i}`);
-    if(s) s.style.display=i===n?'block':'none';
-    const cs=document.getElementById(`ck${i}`);
-    if(cs) cs.className='ck-step'+(i<n?' done':i===n?' active':'');
-  });
+  [1,2,3].forEach(i=>{const s=document.getElementById(`checkout-step-${i}`);if(s)s.style.display=i===n?'block':'none';const cs=document.getElementById(`ck${i}`);if(cs)cs.className='ck-step'+(i<n?' done':i===n?' active':'');});
 }
 
-function placeOrder() {
+function placeOrder(){
   if(!state.cart.length){document.getElementById('rev-err').textContent='Your cart is empty';document.getElementById('rev-err').classList.add('show');return;}
   const ref='DW-'+Math.random().toString(36).substring(2,8).toUpperCase();
-  const order={ref,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),total:orderTotal(),status:'processing',items:state.cart.map(i=>({...i})),returnRequested:false};
-  if(state.user) state.user.orders.unshift(order);
+  const earned=cartEarnPts();
+  const order={ref,date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),total:orderTotal(),status:'processing',items:state.cart.map(i=>({...i})),returnRequested:false,ptsEarned:earned};
+  if(state.user){
+    state.user.orders.unshift(order);
+    state.user.points=Math.max(0,state.user.points-state.redeemedPts)+earned;
+    state.user.lifetimePoints=(state.user.lifetimePoints||0)+earned;
+    state.user.pointsHistory.unshift({type:'earn',desc:`Order ${ref}`,sub:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),amount:earned,date:new Date().toISOString().slice(0,10)});
+    if(state.redeemedPts>0)state.user.pointsHistory.unshift({type:'redeem',desc:`Points redeemed on ${ref}`,sub:'Checkout redemption',amount:-state.redeemedPts,date:new Date().toISOString().slice(0,10)});
+  }
   state.orders.unshift(order);
   document.getElementById('order-ref-val').textContent=ref;
+  // Points earned display
+  const ptsBox=document.getElementById('confirm-pts-box');
+  if(state.user){ptsBox.style.display='block';document.getElementById('confirm-pts-num').textContent=`+${earned.toLocaleString()} pts`;document.getElementById('confirm-pts-balance').textContent=`New balance: ${state.user.points.toLocaleString()} points · ${fp(state.user.points/PTS_TO_DOLLAR)} redeemable`;}
   document.getElementById('confirm-grid').innerHTML=`
-  <div class="confirm-cell"><div class="label">Order total</div><div class="val">${formatPrice(order.total)}</div></div>
+  <div class="confirm-cell"><div class="label">Order total</div><div class="val">${fp(order.total)}</div></div>
   <div class="confirm-cell"><div class="label">Delivery</div><div class="val">${DELIVERY_OPTIONS.find(o=>o.id===state.selectedDelivery)?.label}</div></div>
-  <div class="confirm-cell"><div class="label">Items</div><div class="val">${state.cart.reduce((s,i)=>s+i.qty,0)} item${state.cart.reduce((s,i)=>s+i.qty,0)!==1?'s':''}</div></div>
-  <div class="confirm-cell"><div class="label">Status</div><div class="val"><span class="status-badge processing">Processing</span></div></div>
-  `;
-  state.cart=[];
-  state.appliedPromo=null;
-  updateCartBadge();
-  showPage('confirm');
-  showToast('Order placed! 🎉','gold');
+  <div class="confirm-cell"><div class="label">Items</div><div class="val">${state.cart.reduce((s,i)=>s+i.qty,0)} items</div></div>
+  <div class="confirm-cell"><div class="label">Status</div><div class="val"><span class="status-badge processing">Processing</span></div></div>`;
+  state.cart=[];state.appliedPromo=null;state.redeemedPts=0;updateCartBadge();renderCart();
+  showPage('confirm');showToast(`Order placed! +${earned.toLocaleString()} pts earned ✦`,'gold');
 }
 
 function fmtCard(el){let v=el.value.replace(/\D/g,'').substring(0,16);el.value=v.replace(/(.{4})/g,'$1 ').trim();}
 function fmtExp(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2,4);el.value=v;}
-function updateCardVis(){
-  document.getElementById('cv-num').textContent=(document.getElementById('pay-num')?.value||'•••• •••• •••• ••••');
-  document.getElementById('cv-name').textContent=(document.getElementById('pay-name')?.value||'YOUR NAME').toUpperCase();
-  document.getElementById('cv-exp').textContent=document.getElementById('pay-exp')?.value||'MM/YY';
-}
+function updateCardVis(){document.getElementById('cv-num').textContent=document.getElementById('pay-num')?.value||'•••• •••• •••• ••••';document.getElementById('cv-name').textContent=(document.getElementById('pay-name')?.value||'YOUR NAME').toUpperCase();document.getElementById('cv-exp').textContent=document.getElementById('pay-exp')?.value||'MM/YY';}
 
-/* ─── ACCOUNT ──────────────────────────────────────── */
-function renderAccount() {
+/* ═══ ACCOUNT ═══ */
+function renderAccount(){
   if(!state.user){showPage('login');return;}
   const u=state.user;
   document.getElementById('acc-name').textContent=u.first;
-  document.getElementById('det-first').value=u.first;
-  document.getElementById('det-last').value=u.last;
-  document.getElementById('det-email').value=u.email;
-  document.getElementById('det-phone').value=u.phone||'';
-
+  document.getElementById('det-first').value=u.first;document.getElementById('det-last').value=u.last;document.getElementById('det-email').value=u.email;document.getElementById('det-phone').value=u.phone||'';
   const allOrders=[...u.orders,...state.orders.filter(o=>!u.orders.find(uo=>uo.ref===o.ref))];
+  const tier=getTier(u.lifetimePoints);
   document.getElementById('acc-stats').innerHTML=`
-  <div class="stat-card"><div class="stat-num">${allOrders.length}</div><div class="stat-label">Total Orders</div></div>
-  <div class="stat-card"><div class="stat-num">${formatPrice(allOrders.reduce((s,o)=>s+o.total,0))}</div><div class="stat-label">Total Spent</div></div>
-  <div class="stat-card"><div class="stat-num">${state.wishlist.length}</div><div class="stat-label">Wishlist Items</div></div>
-  `;
-
-  const orderHTML = (orders, limit) => orders.slice(0,limit||orders.length).map(o=>`
-  <div class="order-history-item" onclick="switchPanel('orders',null)">
-    <div class="ohi-items">${o.items.slice(0,3).map(i=>`<div class="ohi-img">${i.img}</div>`).join('')}</div>
-    <div class="ohi-info"><div class="ohi-ref">${o.ref}</div><div class="ohi-meta">${o.date} · ${o.items.length} item${o.items.length!==1?'s':''}</div></div>
-    <div class="ohi-total">${formatPrice(o.total)}</div>
-    <span class="status-badge ${o.status}">${o.status}</span>
-  </div>`).join('');
-
-  document.getElementById('acc-recent-orders').innerHTML = orderHTML(allOrders, 3) || '<p style="color:var(--gray-4);font-size:13px">No orders yet.</p>';
-  document.getElementById('acc-all-orders').innerHTML = orderHTML(allOrders) || '<p style="color:var(--gray-4);font-size:13px">No orders yet.</p>';
-
-  // Returns
-  const returnable = allOrders.filter(o=>o.status==='delivered');
-  document.getElementById('acc-returns-list').innerHTML = returnable.length ? returnable.map(o=>`
-  <div class="return-item">
-    <div class="return-item-header">
-      <div><div style="font-size:12px;font-weight:900;letter-spacing:1px">${o.ref}</div><div style="font-size:11px;color:var(--gray-4)">${o.date}</div></div>
-      <div style="display:flex;gap:8px;align-items:center">
-        ${o.returnRequested?`<span class="status-badge returned">Return Requested</span>`:`<button class="btn btn-sm btn-outline" onclick="toggleReturnForm('${o.ref}')">Request Return</button>`}
-      </div>
-    </div>
-    <div style="display:flex;gap:8px">${o.items.slice(0,3).map(i=>`<div class="ohi-img">${i.img}</div>`).join('')}</div>
-    <div class="return-form" id="rf-${o.ref}">
-      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray-4);margin-bottom:8px">Select items to return</div>
-      ${o.items.map((item,idx)=>`<label style="display:flex;gap:10px;align-items:center;margin-bottom:8px;font-size:13px"><input type="checkbox" id="ri-${o.ref}-${idx}"> ${item.img} ${item.name} — Size ${item.size}</label>`).join('')}
-      <select class="return-reason" id="reason-${o.ref}">
-        <option value="">Select reason…</option>
-        <option>Doesn't fit</option><option>Not as described</option><option>Changed my mind</option><option>Faulty item</option><option>Wrong item received</option>
-      </select>
-      <button class="btn btn-primary btn-sm" onclick="submitReturn('${o.ref}')">Submit Return Request</button>
-    </div>
-  </div>`).join('') : '<p style="color:var(--gray-4);font-size:13px">No eligible orders for return.</p>';
+    <div class="stat-card"><div class="stat-num">${allOrders.length}</div><div class="stat-label">Orders</div></div>
+    <div class="stat-card"><div class="stat-num">${fp(allOrders.reduce((s,o)=>s+o.total,0))}</div><div class="stat-label">Total Spent</div></div>
+    <div class="stat-card gold-stat"><div class="stat-num gold">${u.points.toLocaleString()}</div><div class="stat-label">Points Balance</div></div>
+    <div class="stat-card gold-stat"><div class="stat-num gold" style="font-size:1rem">${tier.name}</div><div class="stat-label">Loyalty Tier</div></div>`;
+  const oHtml=(orders,limit)=>orders.slice(0,limit||orders.length).map(o=>`<div class="order-history-item"><div class="ohi-items">${o.items.slice(0,3).map(i=>`<div class="ohi-img">${i.img}</div>`).join('')}</div><div class="ohi-info"><div class="ohi-ref">${o.ref}</div><div class="ohi-meta">${o.date} · ${o.items.length} item${o.items.length!==1?'s':''}${o.ptsEarned?` · +${o.ptsEarned.toLocaleString()} pts`:''}</div></div><div class="ohi-total">${fp(o.total)}</div><span class="status-badge ${o.status}">${o.status}</span></div>`).join('');
+  document.getElementById('acc-recent-orders').innerHTML=oHtml(allOrders,3)||'<p style="color:var(--dw-muted);font-size:13px">No orders yet.</p>';
+  document.getElementById('acc-all-orders').innerHTML=oHtml(allOrders)||'<p style="color:var(--dw-muted);font-size:13px">No orders yet.</p>';
+  const returnable=allOrders.filter(o=>o.status==='delivered');
+  document.getElementById('acc-returns-list').innerHTML=returnable.length?returnable.map(o=>`<div class="return-item"><div class="return-item-header"><div><div style="font-size:12px;font-weight:900;letter-spacing:1px;color:var(--dw-text)">${o.ref}</div><div style="font-size:11px;color:var(--dw-muted)">${o.date}</div></div><div>${o.returnRequested?`<span class="status-badge returned">Return Requested</span>`:`<button class="btn btn-sm btn-outline" onclick="toggleReturnForm('${o.ref}')">Request Return</button>`}</div></div><div style="display:flex;gap:8px">${o.items.slice(0,3).map(i=>`<div class="ohi-img">${i.img}</div>`).join('')}</div><div class="return-form" id="rf-${o.ref}"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dw-muted);margin-bottom:10px">Select items</div>${o.items.map((item,idx)=>`<label style="display:flex;gap:10px;align-items:center;margin-bottom:10px;font-size:13px;color:var(--dw-text)"><input type="checkbox" id="ri-${o.ref}-${idx}" style="accent-color:var(--dw-cyan)"> ${item.img} ${item.name} — Size ${item.size}</label>`).join('')}<select class="return-reason" id="reason-${o.ref}"><option value="">Select reason…</option><option>Doesn't fit</option><option>Not as described</option><option>Changed my mind</option><option>Faulty item</option><option>Wrong item received</option></select><button class="btn btn-primary btn-sm" onclick="submitReturn('${o.ref}')">Submit Return</button></div></div>`).join(''):'<p style="color:var(--dw-muted);font-size:13px">No eligible orders for return.</p>';
 }
+function toggleReturnForm(ref){document.getElementById('rf-'+ref)?.classList.toggle('open');}
+function submitReturn(ref){const reason=document.getElementById('reason-'+ref)?.value;if(!reason){showToast('Please select a return reason');return;}const order=[...(state.user?.orders||[]),...state.orders].find(o=>o.ref===ref);if(order)order.returnRequested=true;showToast('Return request submitted ✦','cyan');renderAccount();switchPanel('returns',null);}
+function switchPanel(name,el){document.querySelectorAll('.account-panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+name)?.classList.add('active');document.querySelectorAll('.account-nav-item').forEach(n=>n.classList.remove('active'));if(el)el.classList.add('active');else{const items=[...document.querySelectorAll('.account-nav-item')];const match=items.find(i=>i.textContent.toLowerCase().includes(name));if(match)match.classList.add('active');}}
+function saveDetails(){if(state.user){state.user.first=document.getElementById('det-first').value.trim()||state.user.first;state.user.last=document.getElementById('det-last').value.trim()||state.user.last;state.user.email=document.getElementById('det-email').value.trim()||state.user.email;state.user.phone=document.getElementById('det-phone').value.trim();}showToast('Details saved ✦','gold');}
 
-function toggleReturnForm(ref) {
-  const form=document.getElementById('rf-'+ref);
-  form.classList.toggle('open');
-}
+/* ═══ SHOW PAGE ═══ */
+window.showPage=function(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('page-'+p);if(el)el.classList.add('active');window.scrollTo(0,0);
+  if(p==='shop')renderShop(state.shopFilter);
+  if(p==='home')renderHomeGrids();
+  if(p==='offers')renderOffers();
+  if(p==='account')renderAccount();
+  if(p==='wishlist')renderWishlist();
+  if(p==='loyalty')renderLoyaltyPage();
+  if(p==='checkout'){if(!state.user){showToast('Please sign in to checkout');window.showPage('login');return;}if(!state.cart.length){showToast('Your bag is empty');return;}renderDeliveryOptions();renderCheckoutOrderCard();goCheckoutStep(1);}
+};
 
-function submitReturn(ref) {
-  const reason=document.getElementById('reason-'+ref)?.value;
-  if(!reason){showToast('Please select a return reason');return;}
-  const u=state.user;
-  const order=[...(u?.orders||[]),...state.orders].find(o=>o.ref===ref);
-  if(order) order.returnRequested=true;
-  showToast('Return request submitted ✓','gold');
-  renderAccount();
-  switchPanel('returns',null);
-}
-
-function switchPanel(name, el) {
-  document.querySelectorAll('.account-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+name)?.classList.add('active');
-  document.querySelectorAll('.account-nav-item').forEach(n=>n.classList.remove('active'));
-  if(el) el.classList.add('active');
-  else {
-    const items=[...document.querySelectorAll('.account-nav-item')];
-    const match=items.find(i=>i.textContent.toLowerCase().includes(name));
-    if(match) match.classList.add('active');
-  }
-}
-
-function saveDetails() {
-  if(state.user){
-    state.user.first=document.getElementById('det-first').value.trim()||state.user.first;
-    state.user.last=document.getElementById('det-last').value.trim()||state.user.last;
-    state.user.email=document.getElementById('det-email').value.trim()||state.user.email;
-    state.user.phone=document.getElementById('det-phone').value.trim();
-  }
-  showToast('Account details saved ✓','gold');
-}
-
-/* ─── INIT ─────────────────────────────────────────── */
-(function(){
-  renderHomeGrids();
-  renderCart();
-  // Set today as min date for checkout
-  const today = new Date().toISOString().split('T')[0];
-
-  // Checkout delivery init
-  const origShowPage = showPage;
-  const checkoutInit = () => { renderDeliveryOptions(); renderCheckoutOrderCard(); };
-  document.getElementById('page-checkout')?.addEventListener('transitionend', checkoutInit);
-
-  // Override showPage to also init checkout
-  window.showPage = function(p) {
-    document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
-    const el=document.getElementById('page-'+p);
-    if(el) el.classList.add('active');
-    window.scrollTo(0,0);
-    if(p==='shop') renderShop(state.shopFilter);
-    if(p==='home') renderHomeGrids();
-    if(p==='offers') renderOffers();
-    if(p==='account') renderAccount();
-    if(p==='wishlist') renderWishlist();
-    if(p==='checkout'){
-      if(!state.user){showToast('Please sign in to checkout');showPage('login');return;}
-      if(!state.cart.length){showToast('Your cart is empty');return;}
-      renderDeliveryOptions();
-      renderCheckoutOrderCard();
-      goCheckoutStep(1);
-    }
-  };
-})();
+(function(){renderHomeGrids();renderCart();})();
 </script>
 </body>
 </html>
