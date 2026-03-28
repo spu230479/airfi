@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darwinium Sports — Bet Smarter</title>
+<style>
+:root {
+  --bg: #0a0b12;
+  --surface: #12141f;
+  --surface2: #1a1d2e;
+  --surface3: #22263a;
+  --accent: #6c3bff;
+  --accent2: #9b6dff;
+  --green: #00d97e;
+  --red: #ff4d6d;
+  --amber: #ffb800;
+  --text: #e8eaf6;
+  --muted: #7b82a8;
+  --border: #2a2f4a;
+  --radius: 12px;
+  --glow: 0 0 24px rgba(108,59,255,0.3);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 64px;
+  background: rgba(10,11,18,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
+.nav-logo svg { width: 32px; height: 32px; }
+.logo-text span { color: var(--accent2); }
+.nav-links { display: flex; gap: 24px; align-items: center; }
+.nav-links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+.balance-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 0.85rem; font-weight: 700; color: var(--green); display: none; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: all .2s; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: var(--glow); }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent2); }
+.btn-green { background: var(--green); color: #000; font-weight: 700; }
+.btn-green:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-red { background: var(--red); color: #fff; }
+.btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+.btn-lg { padding: 14px 32px; font-size: 1rem; border-radius: 10px; }
+.btn-full { width: 100%; }
+
+/* HERO */
+#page-home { padding-top: 64px; }
+.hero {
+  position: relative; min-height: 90vh;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, rgba(108,59,255,0.18) 0%, transparent 70%),
+              radial-gradient(ellipse at 80% 80%, rgba(0,217,126,0.08) 0%, transparent 50%),
+              var(--bg);
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.06;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.hero-content { position: relative; max-width: 780px; padding: 0 24px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(108,59,255,0.15); border: 1px solid rgba(108,59,255,0.4); border-radius: 20px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; color: var(--accent2); margin-bottom: 28px; }
+.hero-badge::before { content: '●'; color: var(--green); font-size: 0.6rem; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; }
+.hero h1 .grad { background: linear-gradient(135deg, #fff 30%, var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { font-size: 1.1rem; color: var(--muted); line-height: 1.7; margin-bottom: 36px; max-width: 540px; margin-left: auto; margin-right: auto; }
+.hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 40px; justify-content: center; margin-top: 60px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-val { font-size: 1.8rem; font-weight: 900; color: var(--accent2); }
+.stat-lbl { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+/* PROMOS */
+.section { padding: 80px 32px; max-width: 1200px; margin: 0 auto; }
+.section-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+.section-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 40px; }
+.promos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.promo-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 28px; position: relative; overflow: hidden; transition: transform .2s, border-color .2s;
+}
+.promo-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.promo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.promo-card.purple::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.promo-card.green::before { background: linear-gradient(90deg, var(--green), #00b8d9); }
+.promo-card.amber::before { background: linear-gradient(90deg, var(--amber), #ff6b35); }
+.promo-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 16px; }
+.promo-icon.purple { background: rgba(108,59,255,0.15); }
+.promo-icon.green { background: rgba(0,217,126,0.12); }
+.promo-icon.amber { background: rgba(255,184,0,0.12); }
+.promo-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+.promo-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.promo-badge { display: inline-block; background: rgba(108,59,255,0.2); border: 1px solid rgba(108,59,255,0.4); border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 700; color: var(--accent2); }
+.promo-badge.green { background: rgba(0,217,126,0.12); border-color: rgba(0,217,126,0.3); color: var(--green); }
+.promo-badge.amber { background: rgba(255,184,0,0.12); border-color: rgba(255,184,0,0.3); color: var(--amber); }
+
+/* SPORTS GRID */
+.sports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+.sport-pill {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 18px 12px; text-align: center; cursor: pointer; transition: all .2s;
+}
+.sport-pill:hover, .sport-pill.active { border-color: var(--accent); background: rgba(108,59,255,0.1); color: var(--accent2); }
+.sport-pill .emoji { font-size: 1.8rem; display: block; margin-bottom: 8px; }
+.sport-pill span { font-size: 0.8rem; font-weight: 600; }
+
+/* LIVE ODDS TICKER */
+.ticker-wrap { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 10px 0; overflow: hidden; white-space: nowrap; }
+.ticker-inner { display: inline-flex; gap: 0; animation: ticker 35s linear infinite; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.tick-item { display: inline-flex; align-items: center; gap: 10px; padding: 0 28px; font-size: 0.82rem; }
+.tick-team { font-weight: 600; }
+.tick-odds { color: var(--green); font-weight: 700; }
+.tick-sep { color: var(--border); }
+
+/* FOOTER */
+footer { background: var(--surface); border-top: 1px solid var(--border); padding: 40px 32px; text-align: center; }
+footer p { color: var(--muted); font-size: 0.78rem; line-height: 1.8; max-width: 700px; margin: 0 auto; }
+.footer-logo { font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  width: 100%; max-width: 440px; padding: 36px;
+  transform: translateY(20px); transition: transform .25s;
+  max-height: 90vh; overflow-y: auto;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.modal-header h2 { font-size: 1.4rem; font-weight: 800; }
+.modal-close { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1rem; transition: all .2s; }
+.modal-close:hover { border-color: var(--accent); color: var(--text); }
+.form-group { margin-bottom: 18px; }
+.form-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.form-input {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 14px; color: var(--text); font-size: 0.95rem; font-family: inherit;
+  transition: border-color .2s;
+}
+.form-input:focus { outline: none; border-color: var(--accent); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modal-switch { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--muted); }
+.modal-switch a { color: var(--accent2); font-weight: 600; cursor: pointer; }
+.modal-switch a:hover { text-decoration: underline; }
+.form-check { display: flex; align-items: flex-start; gap: 10px; font-size: 0.83rem; color: var(--muted); }
+.form-check input { margin-top: 2px; accent-color: var(--accent); }
+.promo-input { display: flex; gap: 8px; }
+.promo-input .form-input { flex: 1; }
+
+/* TOAST */
+.toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; flex-direction: column; gap: 10px; }
+.toast {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 18px; font-size: 0.88rem; font-weight: 500;
+  display: flex; align-items: center; gap: 10px; min-width: 260px;
+  animation: slideIn .3s ease;
+}
+@keyframes slideIn { from{transform:translateX(100px);opacity:0} to{transform:translateX(0);opacity:1} }
+.toast.success { border-color: var(--green); }
+.toast.error { border-color: var(--red); }
+.toast.info { border-color: var(--accent); }
+.toast-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.toast.success .toast-dot { background: var(--green); }
+.toast.error .toast-dot { background: var(--red); }
+.toast.info .toast-dot { background: var(--accent2); }
+
+/* DASHBOARD */
+#page-dashboard { display: none; padding-top: 64px; }
+.dash-layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 64px); }
+.sidebar {
+  background: var(--surface); border-right: 1px solid var(--border);
+  padding: 24px 16px; display: flex; flex-direction: column; gap: 6px; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto;
+}
+.sidebar-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 16px 12px 8px; }
+.sidebar-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px;
+  font-size: 0.88rem; font-weight: 500; cursor: pointer; transition: all .15s; color: var(--muted);
+}
+.sidebar-item:hover { background: var(--surface2); color: var(--text); }
+.sidebar-item.active { background: rgba(108,59,255,0.15); color: var(--accent2); border: 1px solid rgba(108,59,255,0.25); }
+.sidebar-item .ico { font-size: 1rem; width: 20px; text-align: center; }
+.sidebar-item .badge { margin-left: auto; background: var(--accent); color: #fff; border-radius: 10px; padding: 2px 7px; font-size: 0.7rem; font-weight: 700; }
+
+.main-panel { padding: 32px; overflow-y: auto; }
+.panel { display: none; }
+.panel.active { display: block; }
+.panel-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 6px; }
+.panel-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 28px; }
+
+/* OVERVIEW CARDS */
+.overview-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.ov-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.ov-card-label { font-size: 0.78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.ov-card-val { font-size: 1.8rem; font-weight: 900; }
+.ov-card-val.green { color: var(--green); }
+.ov-card-val.accent { color: var(--accent2); }
+.ov-card-val.amber { color: var(--amber); }
+.ov-card-change { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+/* BET BUILDER */
+.bet-layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+.matches-list { display: flex; flex-direction: column; gap: 12px; }
+.match-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; transition: border-color .2s;
+}
+.match-card:hover { border-color: var(--border); }
+.match-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.match-league { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.match-time { font-size: 0.75rem; color: var(--amber); font-weight: 600; }
+.match-teams { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.team-name { font-size: 0.95rem; font-weight: 700; }
+.vs { font-size: 0.75rem; color: var(--muted); }
+.odds-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.odds-btn {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 8px; text-align: center; cursor: pointer; transition: all .15s;
+}
+.odds-btn:hover { border-color: var(--accent); }
+.odds-btn.selected { background: rgba(108,59,255,0.2); border-color: var(--accent); }
+.odds-btn .outcome { font-size: 0.72rem; color: var(--muted); display: block; margin-bottom: 4px; }
+.odds-btn .price { font-size: 1rem; font-weight: 800; color: var(--text); }
+.odds-btn.selected .price { color: var(--accent2); }
+
+/* BET SLIP */
+.betslip { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; position: sticky; top: 96px; }
+.betslip-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.betslip-header h3 { font-size: 1rem; font-weight: 800; }
+.betslip-count { background: var(--accent); color: #fff; border-radius: 10px; padding: 2px 8px; font-size: 0.75rem; font-weight: 700; }
+.betslip-empty { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 30px 0; }
+.slip-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; position: relative; }
+.slip-item-remove { position: absolute; top: 8px; right: 8px; background: none; border: none; color: var(--muted); font-size: 0.9rem; cursor: pointer; }
+.slip-item-match { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+.slip-item-pick { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+.slip-item-odds { font-size: 0.88rem; color: var(--accent2); font-weight: 700; }
+.stake-row { margin-top: 16px; }
+.stake-label { font-size: 0.78rem; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+.stake-input-wrap { display: flex; align-items: center; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.stake-input-wrap span { padding: 0 12px; color: var(--muted); font-weight: 700; }
+.stake-input { flex: 1; background: none; border: none; color: var(--text); font-size: 1.1rem; font-weight: 700; padding: 12px 0; font-family: inherit; outline: none; }
+.quick-stakes { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.quick-stake { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all .15s; }
+.quick-stake:hover { border-color: var(--accent); color: var(--accent2); }
+.payout-row { display: flex; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--border); margin-top: 14px; }
+.payout-label { font-size: 0.82rem; color: var(--muted); }
+.payout-val { font-size: 1rem; font-weight: 800; color: var(--green); }
+
+/* WALLET */
+.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.wallet-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.wallet-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.payment-methods { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.pay-method { display: flex; align-items: center; gap: 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: all .15s; }
+.pay-method:hover, .pay-method.selected { border-color: var(--accent); }
+.pay-icon { font-size: 1.3rem; }
+.pay-label { font-size: 0.88rem; font-weight: 600; }
+.pay-sub { font-size: 0.75rem; color: var(--muted); }
+.amount-presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.amount-preset { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 7px 14px; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all .15s; }
+.amount-preset:hover { border-color: var(--accent); color: var(--accent2); }
+.tx-list { display: flex; flex-direction: column; gap: 10px; }
+.tx-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.tx-item:last-child { border-bottom: none; }
+.tx-label { font-size: 0.85rem; font-weight: 600; }
+.tx-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+.tx-amount { font-weight: 700; font-size: 0.9rem; }
+.tx-amount.credit { color: var(--green); }
+.tx-amount.debit { color: var(--red); }
+.tx-status { font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+.tx-status.complete { background: rgba(0,217,126,0.12); color: var(--green); }
+.tx-status.pending { background: rgba(255,184,0,0.12); color: var(--amber); }
+
+/* PROFILE */
+.profile-grid { display: grid; grid-template-columns: 280px 1fr; gap: 24px; }
+.profile-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; text-align: center; }
+.avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin: 0 auto 16px; color: #fff; }
+.profile-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+.profile-email { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
+.kyc-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,217,126,0.1); border: 1px solid rgba(0,217,126,0.3); border-radius: 6px; padding: 5px 12px; font-size: 0.78rem; font-weight: 700; color: var(--green); margin-bottom: 20px; }
+.tier-bar { background: var(--surface2); border-radius: 8px; padding: 14px; margin-top: 16px; text-align: left; }
+.tier-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
+.tier-track { background: var(--surface3); border-radius: 4px; height: 6px; overflow: hidden; margin-bottom: 6px; }
+.tier-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 4px; transition: width 1s ease; }
+.tier-info { display: flex; justify-content: space-between; font-size: 0.75rem; }
+.tier-name { color: var(--accent2); font-weight: 700; }
+.tier-pts { color: var(--muted); }
+.profile-details { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.profile-details h3 { font-size: 1rem; font-weight: 800; margin-bottom: 20px; }
+.settings-section { margin-bottom: 28px; }
+.settings-section h4 { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.toggle-row:last-child { border-bottom: none; }
+.toggle-row-label { font-size: 0.88rem; font-weight: 500; }
+.toggle-row-sub { font-size: 0.75rem; color: var(--muted); }
+.toggle { width: 42px; height: 24px; background: var(--surface3); border-radius: 12px; position: relative; cursor: pointer; transition: background .2s; flex-shrink: 0; }
+.toggle.on { background: var(--accent); }
+.toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: left .2s; }
+.toggle.on::after { left: 21px; }
+
+/* BET HISTORY */
+.history-table { width: 100%; border-collapse: collapse; }
+.history-table th { text-align: left; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.history-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.history-table tr:hover td { background: var(--surface2); }
+.bet-status { padding: 3px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: 700; }
+.bet-status.won { background: rgba(0,217,126,0.12); color: var(--green); }
+.bet-status.lost { background: rgba(255,77,109,0.12); color: var(--red); }
+.bet-status.pending { background: rgba(255,184,0,0.12); color: var(--amber); }
+.bet-status.void { background: rgba(123,130,168,0.12); color: var(--muted); }
+
+/* RESPONSIBLE GAMBLING BANNER */
+.rg-banner { background: rgba(255,184,0,0.06); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 0.82rem; color: var(--muted); }
+.rg-banner .ico { font-size: 1.1rem; }
+
+/* CHIPS */
+.chip { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+.chip-live { background: rgba(255,77,109,0.15); color: var(--red); animation: pulse 2s infinite; }
+.chip-upcoming { background: rgba(108,59,255,0.15); color: var(--accent2); }
+
+/* TABS */
+.tabs { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 4px; margin-bottom: 24px; width: fit-content; }
+.tab { padding: 8px 18px; border-radius: 7px; font-size: 0.85rem; font-weight: 600; cursor: pointer; color: var(--muted); transition: all .2s; }
+.tab.active { background: var(--accent); color: #fff; }
+
+@media (max-width: 900px) {
+  .dash-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .bet-layout { grid-template-columns: 1fr; }
+  .wallet-grid { grid-template-columns: 1fr; }
+  .profile-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">
+    <svg viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" stroke="#6c3bff" stroke-width="2"/>
+      <path d="M8 22 L16 8 L24 22" stroke="#9b6dff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10.5 18 H21.5" stroke="#6c3bff" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="16" cy="22" r="2" fill="#00d97e"/>
+    </svg>
+    <span class="logo-text">DARWINIUM <span>SPORTS</span></span>
+  </div>
+  <div class="nav-links" id="nav-public">
+    <a href="#" onclick="scrollToSection('promos')">Promotions</a>
+    <a href="#" onclick="scrollToSection('sports')">Sports</a>
+    <a href="#">Live</a>
+    <a href="#">Racing</a>
+  </div>
+  <div class="nav-actions" id="nav-auth-actions">
+    <div class="balance-chip" id="balance-chip">$0.00</div>
+    <button class="btn btn-outline" id="btn-login" onclick="openModal('login')">Log In</button>
+    <button class="btn btn-primary" id="btn-signup" onclick="openModal('register')">Sign Up Free</button>
+    <button class="btn btn-outline" id="btn-logout" style="display:none" onclick="logout()">Log Out</button>
+    <button class="btn btn-primary" id="btn-dashboard" style="display:none" onclick="showPage('dashboard')">Dashboard</button>
+  </div>
+</nav>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Welcome back</h2>
+      <button class="modal-close" onclick="closeModal('login')">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email address</label>
+      <input class="form-input" type="email" id="login-email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" id="login-password" placeholder="••••••••">
+    </div>
+    <div style="text-align:right;margin-bottom:20px"><a style="font-size:0.82rem;color:var(--accent2);cursor:pointer">Forgot password?</a></div>
+    <button class="btn btn-primary btn-full btn-lg" onclick="doLogin()">Log In to Account</button>
+    <div class="modal-switch">No account? <a onclick="switchModal('login','register')">Create one free →</a></div>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="modal-register">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Create your account</h2>
+      <button class="modal-close" onclick="closeModal('register')">✕</button>
+    </div>
+    <div class="rg-banner"><span class="ico">⚠️</span>Must be 18+ to register. Gamble responsibly.</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input class="form-input" id="reg-first" placeholder="John">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name</label>
+        <input class="form-input" id="reg-last" placeholder="Smith">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email address</label>
+      <input class="form-input" type="email" id="reg-email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input class="form-input" id="reg-username" placeholder="Choose a username">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Date of Birth</label>
+        <input class="form-input" type="date" id="reg-dob">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Country</label>
+        <select class="form-input" id="reg-country">
+          <option>United Kingdom</option>
+          <option>Ireland</option>
+          <option>Australia</option>
+          <option>Canada</option>
+          <option>New Zealand</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input class="form-input" type="password" id="reg-password" placeholder="Min 8 characters">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Promo Code (Optional)</label>
+      <div class="promo-input">
+        <input class="form-input" id="reg-promo" placeholder="Enter code">
+        <button class="btn btn-outline btn-sm" onclick="applyPromo()">Apply</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-check">
+        <input type="checkbox" id="reg-terms">
+        I confirm I am 18+ years old and agree to the <a style="color:var(--accent2)"> Terms & Conditions</a> and <a style="color:var(--accent2)">Privacy Policy</a>.
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="form-check">
+        <input type="checkbox" id="reg-marketing">
+        I'd like to receive promotions and offers via email.
+      </label>
+    </div>
+    <button class="btn btn-primary btn-full btn-lg" onclick="doRegister()">Create Account & Claim Bonus</button>
+    <div class="modal-switch">Already have an account? <a onclick="switchModal('register','login')">Log in →</a></div>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div id="page-home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🔴 LIVE NOW — 47 events in play</div>
+      <h1><span class="grad">Bet Smarter.<br>Win Bigger.</span></h1>
+      <p>Powered by Darwinium's intelligent fraud detection — your bets are protected and your winnings paid fast. Industry-leading odds across 30+ sports.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary btn-lg" onclick="openModal('register')">🎁 Claim £50 Welcome Bonus</button>
+        <button class="btn btn-outline btn-lg" onclick="openModal('login')">Log In to Bet</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-val">£2.4M+</div><div class="stat-lbl">Paid out this week</div></div>
+        <div class="stat"><div class="stat-val">30+</div><div class="stat-lbl">Sports covered</div></div>
+        <div class="stat"><div class="stat-val">98.1%</div><div class="stat-lbl">Payout rate</div></div>
+        <div class="stat"><div class="stat-val">4.2s</div><div class="stat-lbl">Avg withdrawal</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker-inner" id="ticker"></div>
+  </div>
+
+  <!-- Promotions -->
+  <div class="section" id="promos">
+    <div class="section-title">🎁 Current Promotions</div>
+    <div class="section-sub">New member offers and ongoing rewards for loyal players.</div>
+    <div class="promos-grid">
+      <div class="promo-card purple">
+        <div class="promo-icon purple">🎯</div>
+        <h3>Welcome Bonus</h3>
+        <p>Deposit £10 and we'll match it with a free £50 bet credit. No wagering requirements on first bet.</p>
+        <span class="promo-badge">BET £10 GET £50</span>
+      </div>
+      <div class="promo-card green">
+        <div class="promo-icon green">⚡</div>
+        <h3>Acca Boost</h3>
+        <p>Build a 5-fold or more accumulator and receive up to 50% extra on your winnings automatically.</p>
+        <span class="promo-badge green">UP TO +50%</span>
+      </div>
+      <div class="promo-card amber">
+        <div class="promo-icon amber">🏆</div>
+        <h3>Early Payout</h3>
+        <p>If your team goes 2 goals ahead in football, we'll pay out your bet as a winner early — win or lose.</p>
+        <span class="promo-badge amber">2-GOAL LEAD</span>
+      </div>
+      <div class="promo-card green">
+        <div class="promo-icon green">🔄</div>
+        <h3>Same Game Multi</h3>
+        <p>Combine multiple markets from the same match into one bet. Boosted odds on selected events daily.</p>
+        <span class="promo-badge green">BOOSTED ODDS</span>
+      </div>
+      <div class="promo-card purple">
+        <div class="promo-icon purple">🎰</div>
+        <h3>Free Bet Friday</h3>
+        <p>Place 3 bets of £10+ between Monday–Thursday and receive a £10 free bet every Friday.</p>
+        <span class="promo-badge">£10 FREE</span>
+      </div>
+      <div class="promo-card amber">
+        <div class="promo-icon amber">👑</div>
+        <h3>VIP Loyalty Rewards</h3>
+        <p>Earn points on every bet. Climb from Bronze to Diamond tier and unlock exclusive cashback &amp; boosts.</p>
+        <span class="promo-badge amber">4 TIERS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sports -->
+  <div class="section" id="sports" style="background:var(--surface);padding:60px 32px">
+    <div style="max-width:1200px;margin:0 auto">
+      <div class="section-title">🏅 Browse Sports</div>
+      <div class="section-sub">From Premier League to the NBA — all your favourite sports in one place.</div>
+      <div class="sports-grid">
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">⚽</span><span>Football</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏀</span><span>Basketball</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🎾</span><span>Tennis</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏈</span><span>American Football</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏏</span><span>Cricket</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏉</span><span>Rugby</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏒</span><span>Ice Hockey</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">⛳</span><span>Golf</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🥊</span><span>Boxing / MMA</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏎️</span><span>Motorsport</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🎱</span><span>Snooker</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏇</span><span>Horse Racing</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🐕</span><span>Greyhounds</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏊</span><span>Swimming</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🎮</span><span>Esports</span></div>
+        <div class="sport-pill" onclick="requireAuth()"><span class="emoji">🏐</span><span>Volleyball</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">DARWINIUM <span style="color:var(--accent2)">SPORTS</span></div>
+    <p>Darwinium Sports is operated under a valid gaming licence. Gambling is only permitted for persons 18 years of age and over. Please gamble responsibly. If you feel you may have a gambling problem, please visit <a style="color:var(--accent2)">BeGambleAware.org</a> or call <strong>0808 8020 133</strong> (free, 24/7).<br><br>
+    © 2026 Darwinium Sports Ltd. Registered in England & Wales. All rights reserved. | Responsible Gambling | Privacy Policy | Terms & Conditions | Cookie Policy</p>
+  </footer>
+</div>
+
+<!-- DASHBOARD PAGE -->
+<div id="page-dashboard">
+  <div class="dash-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Main</div>
+      <div class="sidebar-item active" onclick="showPanel('overview',this)"><span class="ico">📊</span> Overview</div>
+      <div class="sidebar-item" onclick="showPanel('betting',this)"><span class="ico">🎯</span> Place Bets <span class="badge" id="slip-badge" style="display:none">0</span></div>
+      <div class="sidebar-item" onclick="showPanel('live',this)"><span class="ico">🔴</span> Live Betting</div>
+      <div class="sidebar-item" onclick="showPanel('history',this)"><span class="ico">📋</span> Bet History</div>
+      <div class="sidebar-label">Account</div>
+      <div class="sidebar-item" onclick="showPanel('wallet',this)"><span class="ico">💳</span> Deposit / Withdraw</div>
+      <div class="sidebar-item" onclick="showPanel('profile',this)"><span class="ico">👤</span> Profile</div>
+      <div class="sidebar-item" onclick="showPanel('promos-dash',this)"><span class="ico">🎁</span> My Promotions</div>
+      <div class="sidebar-label">Support</div>
+      <div class="sidebar-item" onclick="toast('Live chat coming soon!','info')"><span class="ico">💬</span> Live Chat</div>
+      <div class="sidebar-item" onclick="logout()"><span class="ico">🚪</span> Log Out</div>
+    </aside>
+
+    <!-- Main panel area -->
+    <div class="main-panel">
+
+      <!-- OVERVIEW -->
+      <div class="panel active" id="panel-overview">
+        <div class="panel-title" id="welcome-msg">Welcome back!</div>
+        <div class="panel-sub">Here's your account summary.</div>
+        <div class="rg-banner"><span class="ico">🛡️</span>Darwinium's security layer is active on your account. All activity is monitored for your protection.</div>
+        <div class="overview-cards">
+          <div class="ov-card">
+            <div class="ov-card-label">Available Balance</div>
+            <div class="ov-card-val green" id="ov-balance">£0.00</div>
+            <div class="ov-card-change">Ready to bet</div>
+          </div>
+          <div class="ov-card">
+            <div class="ov-card-label">Open Bets</div>
+            <div class="ov-card-val accent" id="ov-openbets">0</div>
+            <div class="ov-card-change">Pending settlement</div>
+          </div>
+          <div class="ov-card">
+            <div class="ov-card-label">Total Wagered</div>
+            <div class="ov-card-val" id="ov-wagered">£0.00</div>
+            <div class="ov-card-change">All time</div>
+          </div>
+          <div class="ov-card">
+            <div class="ov-card-label">Loyalty Points</div>
+            <div class="ov-card-val amber" id="ov-points">0</div>
+            <div class="ov-card-change" id="ov-tier">Bronze Tier</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+            <div style="font-size:0.88rem;font-weight:800;margin-bottom:14px">🎁 Active Bonuses</div>
+            <div id="active-bonuses">
+              <div style="background:rgba(108,59,255,0.08);border:1px solid rgba(108,59,255,0.2);border-radius:8px;padding:12px;margin-bottom:8px">
+                <div style="font-size:0.85rem;font-weight:700">Welcome Bonus</div>
+                <div style="font-size:0.75rem;color:var(--muted);margin-top:3px">£50 free bet credit — expires in 7 days</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+            <div style="font-size:0.88rem;font-weight:800;margin-bottom:14px">⚡ Quick Actions</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <button class="btn btn-primary" onclick="showPanel('betting',null)">Place a Bet</button>
+              <button class="btn btn-green" onclick="showPanel('wallet',null);switchWalletTab('deposit')">Deposit Funds</button>
+              <button class="btn btn-outline" onclick="showPanel('history',null)">View Bet History</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BETTING -->
+      <div class="panel" id="panel-betting">
+        <div class="panel-title">Place Bets</div>
+        <div class="panel-sub">Select your markets and add them to your bet slip.</div>
+        <div class="tabs">
+          <div class="tab active" onclick="filterSport('all',this)">All Sports</div>
+          <div class="tab" onclick="filterSport('football',this)">⚽ Football</div>
+          <div class="tab" onclick="filterSport('basketball',this)">🏀 Basketball</div>
+          <div class="tab" onclick="filterSport('tennis',this)">🎾 Tennis</div>
+        </div>
+        <div class="bet-layout">
+          <div class="matches-list" id="matches-list"></div>
+          <div class="betslip">
+            <div class="betslip-header">
+              <h3>Bet Slip</h3>
+              <span class="betslip-count" id="slip-count">0</span>
+            </div>
+            <div id="betslip-body"><div class="betslip-empty">Select odds to add to your slip</div></div>
+            <div id="betslip-stake" style="display:none">
+              <div class="stake-row">
+                <div class="stake-label">Your Stake (£)</div>
+                <div class="stake-input-wrap"><span>£</span><input class="stake-input" id="stake-amount" type="number" value="10" min="0.50" step="0.50" oninput="updatePayout()"></div>
+                <div class="quick-stakes">
+                  <div class="quick-stake" onclick="setStake(5)">£5</div>
+                  <div class="quick-stake" onclick="setStake(10)">£10</div>
+                  <div class="quick-stake" onclick="setStake(25)">£25</div>
+                  <div class="quick-stake" onclick="setStake(50)">£50</div>
+                  <div class="quick-stake" onclick="setStake(100)">£100</div>
+                </div>
+              </div>
+              <div class="payout-row">
+                <span class="payout-label">Est. Payout</span>
+                <span class="payout-val" id="est-payout">£0.00</span>
+              </div>
+              <button class="btn btn-green btn-full btn-lg" onclick="placeBet()">Place Bet</button>
+              <button class="btn btn-outline btn-full btn-sm" style="margin-top:8px" onclick="clearSlip()">Clear Slip</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVE BETTING -->
+      <div class="panel" id="panel-live">
+        <div class="panel-title">🔴 Live Betting</div>
+        <div class="panel-sub">Bet on events happening right now. Odds update in real-time.</div>
+        <div class="matches-list" id="live-matches-list" style="max-width:760px"></div>
+      </div>
+
+      <!-- BET HISTORY -->
+      <div class="panel" id="panel-history">
+        <div class="panel-title">Bet History</div>
+        <div class="panel-sub">Your full betting record.</div>
+        <div style="overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Event</th><th>Selection</th><th>Odds</th><th>Stake</th><th>Return</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody">
+              <tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">No bets placed yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- WALLET -->
+      <div class="panel" id="panel-wallet">
+        <div class="panel-title">Wallet</div>
+        <div class="panel-sub">Manage your funds securely.</div>
+        <div class="tabs" id="wallet-tabs">
+          <div class="tab active" onclick="switchWalletTab('deposit',this)">💳 Deposit</div>
+          <div class="tab" onclick="switchWalletTab('withdraw',this)">🏦 Withdraw</div>
+          <div class="tab" onclick="switchWalletTab('transactions',this)">📄 Transactions</div>
+        </div>
+        <!-- Deposit -->
+        <div id="wallet-deposit">
+          <div class="wallet-grid">
+            <div class="wallet-card">
+              <h3>💳 Payment Method</h3>
+              <div class="payment-methods">
+                <div class="pay-method selected" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">💳</span>
+                  <div><div class="pay-label">Debit / Credit Card</div><div class="pay-sub">Visa, Mastercard — instant</div></div>
+                </div>
+                <div class="pay-method" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">🏦</span>
+                  <div><div class="pay-label">Bank Transfer</div><div class="pay-sub">1–2 business days</div></div>
+                </div>
+                <div class="pay-method" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">⚡</span>
+                  <div><div class="pay-label">PayPal</div><div class="pay-sub">Instant</div></div>
+                </div>
+                <div class="pay-method" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">🔶</span>
+                  <div><div class="pay-label">Skrill / Neteller</div><div class="pay-sub">Instant</div></div>
+                </div>
+                <div class="pay-method" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">₿</span>
+                  <div><div class="pay-label">Cryptocurrency</div><div class="pay-sub">BTC, ETH, USDC</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="wallet-card">
+              <h3>💰 Deposit Amount</h3>
+              <div class="amount-presets">
+                <div class="amount-preset" onclick="setDepositAmt(10)">£10</div>
+                <div class="amount-preset" onclick="setDepositAmt(25)">£25</div>
+                <div class="amount-preset" onclick="setDepositAmt(50)">£50</div>
+                <div class="amount-preset" onclick="setDepositAmt(100)">£100</div>
+                <div class="amount-preset" onclick="setDepositAmt(250)">£250</div>
+                <div class="amount-preset" onclick="setDepositAmt(500)">£500</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Amount</label>
+                <div class="stake-input-wrap"><span>£</span><input class="stake-input" id="deposit-amount" type="number" value="50" min="10"></div>
+              </div>
+              <div id="card-fields">
+                <div class="form-group">
+                  <label class="form-label">Card Number</label>
+                  <input class="form-input" id="card-num" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+                </div>
+                <div class="form-row">
+                  <div class="form-group"><label class="form-label">Expiry</label><input class="form-input" placeholder="MM/YY" maxlength="5" id="card-exp" oninput="formatExpiry(this)"></div>
+                  <div class="form-group"><label class="form-label">CVV</label><input class="form-input" placeholder="123" maxlength="3" type="password" id="card-cvv"></div>
+                </div>
+              </div>
+              <button class="btn btn-green btn-full btn-lg" onclick="doDeposit()">Deposit Funds Securely 🔒</button>
+              <p style="font-size:0.75rem;color:var(--muted);text-align:center;margin-top:10px">🛡️ Protected by Darwinium Fraud Detection</p>
+            </div>
+          </div>
+        </div>
+        <!-- Withdraw -->
+        <div id="wallet-withdraw" style="display:none">
+          <div class="wallet-grid">
+            <div class="wallet-card">
+              <h3>🏦 Withdraw To</h3>
+              <div class="payment-methods">
+                <div class="pay-method selected" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">🏦</span>
+                  <div><div class="pay-label">Bank Account</div><div class="pay-sub">1–3 business days</div></div>
+                </div>
+                <div class="pay-method" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">⚡</span>
+                  <div><div class="pay-label">PayPal</div><div class="pay-sub">Within 24 hours</div></div>
+                </div>
+                <div class="pay-method" onclick="selectPayMethod(this)">
+                  <span class="pay-icon">💳</span>
+                  <div><div class="pay-label">Original Card</div><div class="pay-sub">3–5 business days</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="wallet-card">
+              <h3>💸 Withdrawal Amount</h3>
+              <div style="margin-bottom:16px;padding:14px;background:var(--surface2);border-radius:8px;font-size:0.85rem">
+                Available: <strong style="color:var(--green)" id="withdraw-avail">£0.00</strong>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Amount</label>
+                <div class="stake-input-wrap"><span>£</span><input class="stake-input" id="withdraw-amount" type="number" value="50" min="10"></div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Account Holder Name</label>
+                <input class="form-input" id="withdraw-name" placeholder="Full name as on account">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sort Code</label>
+                <input class="form-input" id="withdraw-sort" placeholder="00-00-00">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Account Number</label>
+                <input class="form-input" id="withdraw-acc" placeholder="12345678">
+              </div>
+              <button class="btn btn-primary btn-full btn-lg" onclick="doWithdraw()">Request Withdrawal</button>
+            </div>
+          </div>
+        </div>
+        <!-- Transactions -->
+        <div id="wallet-transactions" style="display:none">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+            <div class="tx-list" id="tx-list">
+              <div style="text-align:center;color:var(--muted);padding:32px">No transactions yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROFILE -->
+      <div class="panel" id="panel-profile">
+        <div class="panel-title">My Profile</div>
+        <div class="panel-sub">Manage your personal details and account preferences.</div>
+        <div class="profile-grid">
+          <div>
+            <div class="profile-card" style="margin-bottom:16px">
+              <div class="avatar" id="profile-avatar">?</div>
+              <div class="profile-name" id="profile-name-disp">—</div>
+              <div class="profile-email" id="profile-email-disp">—</div>
+              <div class="kyc-badge">✔ Identity Verified</div>
+              <div class="tier-bar">
+                <div class="tier-label">Loyalty Tier</div>
+                <div class="tier-track"><div class="tier-fill" id="tier-fill" style="width:15%"></div></div>
+                <div class="tier-info"><span class="tier-name" id="tier-name">Bronze</span><span class="tier-pts" id="tier-pts-disp">0 / 500 pts</span></div>
+              </div>
+            </div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+              <div style="font-size:0.85rem;font-weight:800;margin-bottom:14px">🔒 Responsible Gambling</div>
+              <div style="font-size:0.82rem;color:var(--muted);margin-bottom:12px">Set limits to keep your play safe.</div>
+              <div class="form-group"><label class="form-label">Daily Deposit Limit</label><div class="stake-input-wrap"><span>£</span><input class="stake-input" id="daily-limit" type="number" placeholder="No limit" min="1"></div></div>
+              <div class="form-group"><label class="form-label">Session Time Limit (hours)</label><input class="form-input" type="number" id="session-limit" placeholder="No limit" min="1"></div>
+              <button class="btn btn-primary btn-full" style="margin-top:4px" onclick="saveLimits()">Save Limits</button>
+              <button class="btn btn-red btn-full" style="margin-top:8px" onclick="selfExclude()">Self-Exclude Account</button>
+            </div>
+          </div>
+          <div class="profile-details">
+            <h3>Account Details</h3>
+            <div class="settings-section">
+              <h4>Personal Information</h4>
+              <div class="form-row">
+                <div class="form-group"><label class="form-label">First Name</label><input class="form-input" id="pf-first"></div>
+                <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" id="pf-last"></div>
+              </div>
+              <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="pf-email" type="email"></div>
+              <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="pf-phone" placeholder="+44 7700 000000"></div>
+              <div class="form-group"><label class="form-label">Address Line 1</label><input class="form-input" id="pf-addr1" placeholder="123 Example Street"></div>
+              <div class="form-row">
+                <div class="form-group"><label class="form-label">City</label><input class="form-input" id="pf-city" placeholder="London"></div>
+                <div class="form-group"><label class="form-label">Postcode</label><input class="form-input" id="pf-postcode" placeholder="SW1A 1AA"></div>
+              </div>
+              <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+            </div>
+            <div class="settings-section">
+              <h4>Change Password</h4>
+              <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+              <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+              <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" type="password" placeholder="••••••••"></div>
+              <button class="btn btn-outline" onclick="toast('Password updated successfully','success')">Update Password</button>
+            </div>
+            <div class="settings-section">
+              <h4>Notification Preferences</h4>
+              <div class="toggle-row">
+                <div><div class="toggle-row-label">Bet Settlement Alerts</div><div class="toggle-row-sub">Get notified when bets settle</div></div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+              </div>
+              <div class="toggle-row">
+                <div><div class="toggle-row-label">Promotional Emails</div><div class="toggle-row-sub">Offers and bonus alerts</div></div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+              </div>
+              <div class="toggle-row">
+                <div><div class="toggle-row-label">Deposit Confirmations</div><div class="toggle-row-sub">Receipt for each deposit</div></div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+              </div>
+              <div class="toggle-row">
+                <div><div class="toggle-row-label">Live Bet Notifications</div><div class="toggle-row-sub">Real-time in-play alerts</div></div>
+                <div class="toggle" onclick="this.classList.toggle('on')"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROMOS DASH -->
+      <div class="panel" id="panel-promos-dash">
+        <div class="panel-title">My Promotions</div>
+        <div class="panel-sub">Available bonuses and rewards.</div>
+        <div class="promos-grid">
+          <div class="promo-card purple">
+            <div class="promo-icon purple">🎯</div>
+            <h3>Welcome Bonus</h3>
+            <p>Your £50 free bet credit is ready to use. Valid for 7 days from registration.</p>
+            <span class="promo-badge">ACTIVE — £50 FREE BET</span>
+          </div>
+          <div class="promo-card green">
+            <div class="promo-icon green">⚡</div>
+            <h3>Acca Boost</h3>
+            <p>Add 5+ selections and get up to +50% on your winning accumulator automatically.</p>
+            <span class="promo-badge green">AUTO-APPLIED</span>
+          </div>
+          <div class="promo-card amber">
+            <div class="promo-icon amber">🏆</div>
+            <h3>Early Payout</h3>
+            <p>Active on all football matches. No opt-in required.</p>
+            <span class="promo-badge amber">ALWAYS ON</span>
+          </div>
+          <div class="promo-card purple" style="opacity:0.5">
+            <div class="promo-icon purple">🎰</div>
+            <h3>Free Bet Friday</h3>
+            <p>Place 3 × £10 bets Mon–Thu to unlock. You've placed 1 of 3.</p>
+            <span class="promo-badge">1/3 COMPLETE</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end main-panel -->
+  </div><!-- end dash-layout -->
+</div><!-- end page-dashboard -->
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ——— STATE ———
+let user = null;
+let balance = 0;
+let betSlip = [];
+let betsHistory = [];
+let transactions = [];
+let loyaltyPoints = 0;
+let totalWagered = 0;
+
+// ——— MATCHES DATA ———
+const MATCHES = [
+  { id:1, sport:'football', league:'Premier League', time:'KO 15:00', home:'Arsenal', away:'Chelsea', odds:{ h:2.10, d:3.40, a:3.60 }, live:false },
+  { id:2, sport:'football', league:'Premier League', time:'KO 17:30', home:'Man City', away:'Liverpool', odds:{ h:1.85, d:3.60, a:4.20 }, live:false },
+  { id:3, sport:'football', league:'Champions League', time:'KO 20:00', home:'Real Madrid', away:'Bayern Munich', odds:{ h:2.30, d:3.20, a:3.10 }, live:false },
+  { id:4, sport:'basketball', league:'NBA', time:'23:30', home:'Lakers', away:'Warriors', odds:{ h:1.95, d:null, a:1.90 }, live:false },
+  { id:5, sport:'basketball', league:'NBA', time:'02:00', home:'Celtics', away:'Heat', odds:{ h:1.65, d:null, a:2.30 }, live:false },
+  { id:6, sport:'tennis', league:'ATP Masters 1000', time:'14:00', home:'Djokovic', away:'Alcaraz', odds:{ h:1.55, d:null, a:2.50 }, live:false },
+  { id:7, sport:'tennis', league:'WTA Tour', time:'13:00', home:'Swiatek', away:'Sabalenka', odds:{ h:1.70, d:null, a:2.15 }, live:false },
+  { id:8, sport:'football', league:'La Liga', time:'KO 21:00', home:'Barcelona', away:'Atletico', odds:{ h:1.90, d:3.50, a:4.00 }, live:false },
+];
+
+const LIVE_MATCHES = [
+  { id:101, sport:'football', league:'Premier League 🔴 LIVE', time:"67'", home:'Tottenham', away:'Man Utd', score:'1 - 1', odds:{ h:2.80, d:2.90, a:2.60 }, live:true },
+  { id:102, sport:'basketball', league:'NBA 🔴 LIVE', time:'Q3 4:22', home:'Bucks', away:'Knicks', score:'78 - 71', odds:{ h:1.55, d:null, a:2.60 }, live:true },
+  { id:103, sport:'football', league:'La Liga 🔴 LIVE', time:"45+2'", home:'Sevilla', away:'Valencia', score:'0 - 0', odds:{ h:2.20, d:2.80, a:3.30 }, live:true },
+];
+
+// ——— TICKER ———
+const tickerData = [
+  ['Arsenal','2.10'], ['Man City','1.85'], ['Real Madrid','2.30'], ['Lakers','1.95'], ['Djokovic','1.55'], ['Barcelona','1.90'], ['Celtics','1.65'], ['Swiatek','1.70'],
+  ['Arsenal','2.10'], ['Man City','1.85'], ['Real Madrid','2.30'], ['Lakers','1.95'], ['Djokovic','1.55'], ['Barcelona','1.90'], ['Celtics','1.65'], ['Swiatek','1.70'],
+];
+function buildTicker() {
+  const t = document.getElementById('ticker');
+  t.innerHTML = tickerData.map(([team, odds]) =>
+    `<span class="tick-item"><span class="tick-team">${team}</span><span class="tick-odds">${odds}</span><span class="tick-sep">|</span></span>`
+  ).join('');
+}
+
+// ——— MODAL ———
+function openModal(id) { document.getElementById('modal-'+id).classList.add('open'); }
+function closeModal(id) { document.getElementById('modal-'+id).classList.remove('open'); }
+function switchModal(from, to) { closeModal(from); setTimeout(() => openModal(to), 200); }
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if(e.target === el) el.classList.remove('open'); });
+});
+
+// ——— AUTH ———
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-password').value;
+  if(!email || !pw) { toast('Please fill in all fields','error'); return; }
+  const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
+  const found = stored.find(u => u.email === email && u.password === pw);
+  if(!found) { toast('Invalid email or password','error'); return; }
+  loginUser(found);
+  closeModal('login');
+  toast(`Welcome back, ${found.first}! 🎉`, 'success');
+}
+
+function doRegister() {
+  const first = document.getElementById('reg-first').value.trim();
+  const last = document.getElementById('reg-last').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const username = document.getElementById('reg-username').value.trim();
+  const dob = document.getElementById('reg-dob').value;
+  const password = document.getElementById('reg-password').value;
+  const terms = document.getElementById('reg-terms').checked;
+  if(!first||!last||!email||!username||!dob||!password) { toast('Please complete all required fields','error'); return; }
+  if(!terms) { toast('You must agree to the Terms & Conditions','error'); return; }
+  if(password.length < 8) { toast('Password must be at least 8 characters','error'); return; }
+  const dobDate = new Date(dob);
+  const age = (new Date() - dobDate) / (1000*60*60*24*365.25);
+  if(age < 18) { toast('You must be 18 or older to register','error'); return; }
+  const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
+  if(stored.find(u => u.email === email)) { toast('An account with this email already exists','error'); return; }
+  const newUser = { first, last, email, username, dob, password, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
+  stored.push(newUser);
+  localStorage.setItem('dw_users', JSON.stringify(stored));
+  loginUser(newUser);
+  closeModal('register');
+  toast(`Account created! Welcome, ${first}! 🎁 £50 bonus activated.`, 'success');
+}
+
+function loginUser(u) {
+  user = u;
+  balance = u.balance || 0;
+  loyaltyPoints = u.loyaltyPoints || 0;
+  totalWagered = u.totalWagered || 0;
+  transactions = u.transactions || [];
+  betsHistory = u.bets || [];
+  document.getElementById('btn-login').style.display = 'none';
+  document.getElementById('btn-signup').style.display = 'none';
+  document.getElementById('btn-logout').style.display = '';
+  document.getElementById('btn-dashboard').style.display = '';
+  document.getElementById('balance-chip').style.display = '';
+  updateBalanceUI();
+  showPage('dashboard');
+}
+
+function logout() {
+  saveUser();
+  user = null; balance=0; loyaltyPoints=0; totalWagered=0; transactions=[]; betsHistory=[]; betSlip=[];
+  document.getElementById('btn-login').style.display = '';
+  document.getElementById('btn-signup').style.display = '';
+  document.getElementById('btn-logout').style.display = 'none';
+  document.getElementById('btn-dashboard').style.display = 'none';
+  document.getElementById('balance-chip').style.display = 'none';
+  showPage('home');
+  toast('You have been logged out', 'info');
+}
+
+function saveUser() {
+  if(!user) return;
+  const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
+  const idx = stored.findIndex(u => u.email === user.email);
+  if(idx > -1) {
+    stored[idx] = { ...stored[idx], balance, loyaltyPoints, totalWagered, transactions, bets: betsHistory };
+    localStorage.setItem('dw_users', JSON.stringify(stored));
+  }
+}
+
+function requireAuth() { if(!user) { openModal('register'); } else { showPage('dashboard'); } }
+
+function applyPromo() {
+  const code = document.getElementById('reg-promo').value.trim().toUpperCase();
+  if(code === 'DARWINIUM' || code === 'WELCOME50') { toast('Promo code applied! Bonus activated on sign-up 🎉', 'success'); }
+  else { toast('Invalid promo code', 'error'); }
+}
+
+// ——— PAGES ———
+function showPage(page) {
+  document.getElementById('page-home').style.display = page==='home' ? 'block' : 'none';
+  document.getElementById('page-dashboard').style.display = page==='dashboard' ? 'block' : 'none';
+  if(page === 'dashboard') refreshDashboard();
+  window.scrollTo(0,0);
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({ behavior:'smooth' });
+}
+
+// ——— DASHBOARD ———
+function refreshDashboard() {
+  if(!user) return;
+  document.getElementById('welcome-msg').textContent = `Welcome back, ${user.first}!`;
+  document.getElementById('profile-avatar').textContent = user.first[0].toUpperCase();
+  document.getElementById('profile-name-disp').textContent = user.first + ' ' + user.last;
+  document.getElementById('profile-email-disp').textContent = user.email;
+  document.getElementById('pf-first').value = user.first;
+  document.getElementById('pf-last').value = user.last;
+  document.getElementById('pf-email').value = user.email;
+  updateBalanceUI();
+  renderMatches(MATCHES);
+  renderLiveMatches();
+  renderHistory();
+  renderTransactions();
+}
+
+function updateBalanceUI() {
+  const fmt = n => '£' + n.toFixed(2);
+  document.getElementById('balance-chip').textContent = fmt(balance);
+  document.getElementById('ov-balance').textContent = fmt(balance);
+  document.getElementById('withdraw-avail').textContent = fmt(balance);
+  document.getElementById('ov-openbets').textContent = betsHistory.filter(b=>b.status==='pending').length;
+  document.getElementById('ov-wagered').textContent = fmt(totalWagered);
+  document.getElementById('ov-points').textContent = loyaltyPoints;
+  const tier = getTier();
+  document.getElementById('ov-tier').textContent = tier.name + ' Tier';
+  document.getElementById('tier-name').textContent = tier.name;
+  document.getElementById('tier-pts-disp').textContent = loyaltyPoints + ' / ' + tier.next + ' pts';
+  document.getElementById('tier-fill').style.width = Math.min(100, (loyaltyPoints / tier.next) * 100) + '%';
+}
+
+function getTier() {
+  if(loyaltyPoints >= 5000) return { name:'Diamond', next:10000 };
+  if(loyaltyPoints >= 2000) return { name:'Gold', next:5000 };
+  if(loyaltyPoints >= 500) return { name:'Silver', next:2000 };
+  return { name:'Bronze', next:500 };
+}
+
+// ——— PANELS ———
+function showPanel(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelector('#panel-'+id).classList.add('active');
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  if(el) el.classList.add('active');
+  if(id==='wallet') updateBalanceUI();
+}
+
+// ——— MATCHES ———
+let currentFilter = 'all';
+function filterSport(sport, tabEl) {
+  currentFilter = sport;
+  document.querySelectorAll('#panel-betting .tab').forEach(t => t.classList.remove('active'));
+  if(tabEl) tabEl.classList.add('active');
+  const filtered = sport === 'all' ? MATCHES : MATCHES.filter(m => m.sport === sport);
+  renderMatches(filtered);
+}
+
+function renderMatches(matches) {
+  const list = document.getElementById('matches-list');
+  list.innerHTML = matches.map(m => renderMatchCard(m)).join('');
+}
+
+function renderMatchCard(m) {
+  const hasDrawOdds = m.odds.d !== null;
+  return `
+  <div class="match-card" id="match-${m.id}">
+    <div class="match-meta">
+      <span class="match-league">${m.league}</span>
+      <span>${m.live ? '<span class="chip chip-live">● LIVE</span>' : '<span class="match-time">⏰ ' + m.time + '</span>'}</span>
+    </div>
+    <div class="match-teams">
+      <div class="team-name">${m.home}</div>
+      <div class="vs">${m.live && m.score ? m.score : 'vs'}</div>
+      <div class="team-name">${m.away}</div>
+    </div>
+    <div class="odds-row" style="grid-template-columns:${hasDrawOdds?'1fr 1fr 1fr':'1fr 1fr'}">
+      <div class="odds-btn" id="ob-${m.id}-h" onclick="toggleOdds(${m.id},'h','${m.home} to Win','${m.odds.h}','${m.league}: ${m.home} v ${m.away}')">
+        <span class="outcome">${m.home}</span><span class="price">${m.odds.h.toFixed(2)}</span>
+      </div>
+      ${hasDrawOdds ? `<div class="odds-btn" id="ob-${m.id}-d" onclick="toggleOdds(${m.id},'d','Draw','${m.odds.d}','${m.league}: ${m.home} v ${m.away}')">
+        <span class="outcome">Draw</span><span class="price">${m.odds.d.toFixed(2)}</span>
+      </div>` : ''}
+      <div class="odds-btn" id="ob-${m.id}-a" onclick="toggleOdds(${m.id},'a','${m.away} to Win','${m.odds.a}','${m.league}: ${m.home} v ${m.away}')">
+        <span class="outcome">${m.away}</span><span class="price">${m.odds.a.toFixed(2)}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderLiveMatches() {
+  const list = document.getElementById('live-matches-list');
+  list.innerHTML = LIVE_MATCHES.map(m => renderMatchCard(m)).join('');
+}
+
+// ——— BET SLIP ———
+function toggleOdds(matchId, market, label, odds, matchLabel) {
+  const key = `${matchId}-${market}`;
+  const existingIdx = betSlip.findIndex(b => b.key === key);
+  if(existingIdx > -1) {
+    betSlip.splice(existingIdx, 1);
+    document.getElementById('ob-'+key).classList.remove('selected');
+  } else {
+    // Remove other markets from same match
+    const removed = betSlip.filter(b => b.matchId === matchId);
+    removed.forEach(r => {
+      const el = document.getElementById('ob-'+r.key);
+      if(el) el.classList.remove('selected');
+    });
+    betSlip = betSlip.filter(b => b.matchId !== matchId);
+    betSlip.push({ key, matchId, market, label, odds: parseFloat(odds), matchLabel });
+    document.getElementById('ob-'+key).classList.add('selected');
+  }
+  renderSlip();
+}
+
+function renderSlip() {
+  const body = document.getElementById('betslip-body');
+  const stakeDiv = document.getElementById('betslip-stake');
+  const count = betSlip.length;
+  document.getElementById('slip-count').textContent = count;
+  if(count === 0) {
+    body.innerHTML = '<div class="betslip-empty">Select odds to add to your slip</div>';
+    stakeDiv.style.display = 'none';
+    document.getElementById('slip-badge').style.display = 'none';
+    return;
+  }
+  document.getElementById('slip-badge').style.display = '';
+  document.getElementById('slip-badge').textContent = count;
+  body.innerHTML = betSlip.map(b => `
+    <div class="slip-item">
+      <button class="slip-item-remove" onclick="removeFromSlip('${b.key}')">✕</button>
+      <div class="slip-item-match">${b.matchLabel}</div>
+      <div class="slip-item-pick">${b.label}</div>
+      <div class="slip-item-odds">${b.odds.toFixed(2)}</div>
+    </div>
+  `).join('');
+  stakeDiv.style.display = 'block';
+  updatePayout();
+}
+
+function removeFromSlip(key) {
+  betSlip = betSlip.filter(b => b.key !== key);
+  const el = document.getElementById('ob-'+key);
+  if(el) el.classList.remove('selected');
+  renderSlip();
+}
+
+function clearSlip() {
+  betSlip.forEach(b => { const el = document.getElementById('ob-'+b.key); if(el) el.classList.remove('selected'); });
+  betSlip = [];
+  renderSlip();
+}
+
+function setStake(v) { document.getElementById('stake-amount').value = v; updatePayout(); }
+
+function updatePayout() {
+  const stake = parseFloat(document.getElementById('stake-amount').value) || 0;
+  const totalOdds = betSlip.reduce((acc, b) => acc * b.odds, 1);
+  const payout = stake * totalOdds;
+  document.getElementById('est-payout').textContent = '£' + payout.toFixed(2);
+}
+
+function placeBet() {
+  if(!user) { openModal('login'); return; }
+  if(betSlip.length === 0) { toast('Add selections to your bet slip', 'error'); return; }
+  const stake = parseFloat(document.getElementById('stake-amount').value) || 0;
+  if(stake < 0.50) { toast('Minimum stake is £0.50', 'error'); return; }
+  if(stake > balance) { toast('Insufficient funds. Please deposit.', 'error'); return; }
+  const totalOdds = betSlip.reduce((acc, b) => acc * b.odds, 1);
+  const potentialReturn = stake * totalOdds;
+  balance -= stake;
+  totalWagered += stake;
+  loyaltyPoints += Math.floor(stake);
+  const bet = {
+    id: Date.now(), date: new Date().toLocaleDateString('en-GB'),
+    event: betSlip.map(b => b.matchLabel).join(' + '),
+    selection: betSlip.map(b => b.label).join(' + '),
+    odds: totalOdds, stake, potentialReturn,
+    status: 'pending'
+  };
+  betsHistory.unshift(bet);
+  transactions.unshift({ type:'bet', label:'Bet Placed', sub: bet.selection, amount: -stake, date: new Date().toLocaleDateString('en-GB'), status:'complete' });
+  // Simulate settlement after delay
+  setTimeout(() => {
+    const b = betsHistory.find(b => b.id === bet.id);
+    if(b && b.status === 'pending') {
+      const won = Math.random() > 0.5;
+      b.status = won ? 'won' : 'lost';
+      if(won) {
+        balance += potentialReturn;
+        transactions.unshift({ type:'win', label:'Bet Won 🎉', sub: bet.selection, amount: +potentialReturn, date: new Date().toLocaleDateString('en-GB'), status:'complete' });
+        toast(`🎉 Bet Won! £${potentialReturn.toFixed(2)} credited.`, 'success');
+      } else {
+        toast(`Bet lost: ${bet.selection.split(' + ')[0]}`, 'error');
+      }
+      updateBalanceUI(); renderHistory(); renderTransactions(); saveUser();
+    }
+  }, 5000 + Math.random() * 5000);
+  updateBalanceUI(); renderHistory(); renderTransactions(); saveUser();
+  clearSlip();
+  toast(`Bet placed! £${stake.toFixed(2)} stake. Potential: £${potentialReturn.toFixed(2)}`, 'success');
+}
+
+// ——— HISTORY ———
+function renderHistory() {
+  const tbody = document.getElementById('history-tbody');
+  if(betsHistory.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">No bets placed yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = betsHistory.map(b => `
+    <tr>
+      <td>${b.date}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.event}</td>
+      <td>${b.selection}</td>
+      <td>${b.odds.toFixed(2)}</td>
+      <td>£${b.stake.toFixed(2)}</td>
+      <td style="color:${b.status==='won'?'var(--green)':b.status==='pending'?'var(--amber)':'var(--muted)'}">
+        ${b.status==='won'?'£'+b.potentialReturn.toFixed(2):b.status==='pending'?'Pending':'—'}
+      </td>
+      <td><span class="bet-status ${b.status}">${b.status.charAt(0).toUpperCase()+b.status.slice(1)}</span></td>
+    </tr>
+  `).join('');
+}
+
+// ——— WALLET ———
+function switchWalletTab(tab, el) {
+  document.getElementById('wallet-deposit').style.display = tab==='deposit'?'block':'none';
+  document.getElementById('wallet-withdraw').style.display = tab==='withdraw'?'block':'none';
+  document.getElementById('wallet-transactions').style.display = tab==='transactions'?'block':'none';
+  document.querySelectorAll('#wallet-tabs .tab').forEach(t => t.classList.remove('active'));
+  const idx = ['deposit','withdraw','transactions'].indexOf(tab);
+  document.querySelectorAll('#wallet-tabs .tab')[idx].classList.add('active');
+  if(tab==='transactions') renderTransactions();
+}
+
+function selectPayMethod(el) {
+  el.closest('.payment-methods').querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function setDepositAmt(v) { document.getElementById('deposit-amount').value = v; }
+
+function doDeposit() {
+  if(!user) { openModal('login'); return; }
+  const amount = parseFloat(document.getElementById('deposit-amount').value);
+  if(!amount || amount < 10) { toast('Minimum deposit is £10', 'error'); return; }
+  balance += amount;
+  transactions.unshift({ type:'deposit', label:'Deposit', sub:'Card ending ****', amount:+amount, date:new Date().toLocaleDateString('en-GB'), status:'complete' });
+  updateBalanceUI(); renderTransactions(); saveUser();
+  toast(`£${amount.toFixed(2)} deposited successfully! 🎉`, 'success');
+}
+
+function doWithdraw() {
+  if(!user) { openModal('login'); return; }
+  const amount = parseFloat(document.getElementById('withdraw-amount').value);
+  if(!amount || amount < 10) { toast('Minimum withdrawal is £10', 'error'); return; }
+  if(amount > balance) { toast('Insufficient balance', 'error'); return; }
+  balance -= amount;
+  transactions.unshift({ type:'withdraw', label:'Withdrawal', sub:'Bank Transfer', amount:-amount, date:new Date().toLocaleDateString('en-GB'), status:'pending' });
+  updateBalanceUI(); renderTransactions(); saveUser();
+  toast(`Withdrawal of £${amount.toFixed(2)} requested. Processing in 1-3 days.`, 'info');
+  setTimeout(() => {
+    const tx = transactions.find(t => t.type==='withdraw' && t.status==='pending');
+    if(tx) { tx.status = 'complete'; renderTransactions(); toast('Withdrawal processed ✔', 'success'); }
+  }, 8000);
+}
+
+function renderTransactions() {
+  const list = document.getElementById('tx-list');
+  if(transactions.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:32px">No transactions yet</div>';
+    return;
+  }
+  list.innerHTML = transactions.slice(0,20).map(tx => `
+    <div class="tx-item">
+      <div>
+        <div class="tx-label">${tx.label}</div>
+        <div class="tx-sub">${tx.sub} · ${tx.date}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="tx-amount ${tx.amount>0?'credit':'debit'}">${tx.amount>0?'+':''} £${Math.abs(tx.amount).toFixed(2)}</div>
+        <span class="tx-status ${tx.status}">${tx.status}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ——— PROFILE ———
+function saveProfile() {
+  if(!user) return;
+  user.first = document.getElementById('pf-first').value;
+  user.last = document.getElementById('pf-last').value;
+  user.email = document.getElementById('pf-email').value;
+  document.getElementById('profile-name-disp').textContent = user.first + ' ' + user.last;
+  document.getElementById('profile-avatar').textContent = user.first[0].toUpperCase();
+  document.getElementById('welcome-msg').textContent = `Welcome back, ${user.first}!`;
+  saveUser(); toast('Profile updated successfully', 'success');
+}
+
+function saveLimits() {
+  const dl = document.getElementById('daily-limit').value;
+  const sl = document.getElementById('session-limit').value;
+  toast('Responsible gambling limits saved', 'success');
+}
+
+function selfExclude() {
+  if(confirm('Are you sure you want to self-exclude? Your account will be suspended for 6 months.')) {
+    toast('Self-exclusion request submitted. You will receive a confirmation email.', 'info');
+    setTimeout(logout, 2000);
+  }
+}
+
+// ——— CARD FORMATTING ———
+function formatCard(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExpiry(el) {
+  let v = el.value.replace(/\D/g,'');
+  if(v.length >= 2) v = v.substring(0,2)+'/'+v.substring(2,4);
+  el.value = v;
+}
+
+// ——— TOAST ———
+function toast(msg, type='info') {
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span class="toast-dot"></span>${msg}`;
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity='0'; el.style.transform='translateX(100px)'; el.style.transition='all .3s'; setTimeout(()=>el.remove(),300); }, 3500);
+}
+
+// ——— INIT ———
+buildTicker();
+renderMatches(MATCHES);
+renderLiveMatches();
+</script>
+</body>
+</html>
