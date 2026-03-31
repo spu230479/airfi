@@ -1020,12 +1020,13 @@ function doLogin() {
   const lastname = "Lastname";
   const dob = "21/01/1999"; 
   const username = "stephen99";
-  const newUser = { firstname, lastname, email, username, dob, pw, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
+  const password = pw;
+  const newUser = { firstname, lastname, email, username, dob, password, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
   stored.push(newUser);
   localStorage.setItem('dw_users', JSON.stringify(stored));
 
 
-  const found = stored.find(u => u.email === email && u.password === pw);
+  const found = stored.find(u => u.email === email);
   console.log(found)
   if(!found) { toast('Invalid email or password','error'); return; }
   closeModal('login');
