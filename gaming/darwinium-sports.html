@@ -1152,6 +1152,7 @@ function applyPromo() {
 function showPage(page) {
   document.getElementById('page-home').style.display = page==='home' ? 'block' : 'none';
   document.getElementById('page-dashboard').style.display = page==='dashboard' ? 'block' : 'none';
+  document.getElementById('page-errorscreen').style.display = page==='errorscreen' ? 'block' : 'none';
   if(page === 'dashboard') refreshDashboard();
   window.scrollTo(0,0);
 }
