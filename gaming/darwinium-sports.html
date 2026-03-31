@@ -1076,9 +1076,31 @@ function doRegister() {
   const newUser = { first, last, email, username, dob, password, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
   stored.push(newUser);
   localStorage.setItem('dw_users', JSON.stringify(stored));
-  loginUser(newUser);
+  //loginUser(newUser);
   closeModal('register');
-  toast(`Account created! Welcome, ${first}! 🎁 £50 bonus activated.`, 'success');
+  //toast(`Account created! Welcome, ${first}! 🎁 £50 bonus activated.`, 'success');
+
+  // POST Event
+  urlStr = "method=account_login_success&Email=" + email + "&Password=" + password + "&first=" + first + "&last=" + last;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+      loginUser(newUser);
+      toast(`Account created! Welcome, ${first}! 🎁 £50 bonus activated.`, 'success');
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Registration failed");
+       showPage('errorscreen');
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/gaming/registration?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+
+
+
 }
 
 function loginUser(u) {
