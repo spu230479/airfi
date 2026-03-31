@@ -1016,12 +1016,12 @@ function doLogin() {
 
   //create temp user for testing  
   const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
-  const firstname = "Stephen";
-  const lastname = "Lastname";
+  const first = "Stephen";
+  const last = "Lastname";
   const dob = "21/01/1999"; 
   const username = "stephen99";
   const password = pw;
-  const newUser = { firstname, lastname, email, username, dob, password, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
+  const newUser = { first, last, email, username, dob, password, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
   stored.push(newUser);
   localStorage.setItem('dw_users', JSON.stringify(stored));
 
