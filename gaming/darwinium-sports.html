@@ -1015,7 +1015,7 @@ function doLogin() {
   const pw = document.getElementById('login-password').value;
   if(!email || !pw) { toast('Please fill in all fields','error'); return; }
 
-  //create temp user for testing  
+  /* create temp user for testing  
   const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
   const first = "Stephen";
   const last = "Lastname";
@@ -1024,7 +1024,7 @@ function doLogin() {
   const password = pw;
   const newUser = { first, last, email, username, dob, password, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
   stored.push(newUser);
-  localStorage.setItem('dw_users', JSON.stringify(stored));
+  localStorage.setItem('dw_users', JSON.stringify(stored)); */
 
 
   const found = stored.find(u => u.email === email);
