@@ -1012,10 +1012,15 @@ document.querySelectorAll('.modal-overlay').forEach(el => {
 function doLogin() {
   const email = document.getElementById('login-email').value.trim();
   const pw = document.getElementById('login-password').value;
-  if(!email || !pw) { toast('Please fill in all fields','error'); return; }1
+  if(!email || !pw) { toast('Please fill in all fields','error'); return; }
 
   //create temp user for testing  
-  const newUser = { "Stephen", "Lastname", email, "username", "21/01/1999", pw, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
+  const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
+  const firstname = "Stephen";
+  const lastname = "Lastname";
+  const dob = "21/01/1999"; 
+  const username = "stephen99";
+  const newUser = { firstname, lastname, email, username, dob, pw, balance:500, loyaltyPoints:0, totalWagered:0, transactions:[], bets:[] };
   stored.push(newUser);
   localStorage.setItem('dw_users', JSON.stringify(stored));
 
