@@ -1026,8 +1026,8 @@ function doLogin() {
 
 
   const found = stored.find(u => u.email === email && u.password === pw);
+  console.log(found)
   if(!found) { toast('Invalid email or password','error'); return; }
-  loginUser(found);
   closeModal('login');
   
   // POST Event
@@ -1037,6 +1037,7 @@ function doLogin() {
   xhttp.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
       console.log(xhttp.responseText);
+      loginUser(found);
       toast(`Welcome back, ${found.first}! 🎉`, 'success');
     }
     if (this.readyState == 4 && this.status != 200) {
