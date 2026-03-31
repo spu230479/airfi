@@ -1015,9 +1015,9 @@ function doLogin() {
   const pw = document.getElementById('login-password').value;
   if(!email || !pw) { toast('Please fill in all fields','error'); return; }
 
-  /* create temp user for testing  
+  /* create temp user for testing  */
   const stored = JSON.parse(localStorage.getItem('dw_users') || '[]');
-  const first = "Stephen";
+  /* const first = "Stephen";
   const last = "Lastname";
   const dob = "21/01/1999"; 
   const username = "stephen99";
