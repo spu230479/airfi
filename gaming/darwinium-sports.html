@@ -1349,7 +1349,7 @@ function placeBet() {
   setTimeout(() => {
     const b = betsHistory.find(b => b.id === bet.id);
     if(b && b.status === 'pending') {
-      const won = Math.random() > 0.5;
+      const won = Math.random() > 0; //0 always win else for 50 50 set to 0.5;
       b.status = won ? 'won' : 'lost';
       if(won) {
         balance += potentialReturn;
