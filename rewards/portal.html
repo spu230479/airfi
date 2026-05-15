@@ -1,162 +1,205 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perks — Employee Rewards Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-#rp{font-family:'Space Grotesk',sans-serif;background:#07080f;color:#e8eaf0;min-height:600px;border-radius:16px;overflow:hidden}
-.rp-screen{display:none}.rp-screen.active{display:block}
-.auth-wrap{display:flex;min-height:600px}
-.auth-left{flex:1;background:#0b0d18;padding:48px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #1a1d2e}
-.auth-logo{font-size:11px;letter-spacing:4px;color:#4f6ef7;text-transform:uppercase;margin-bottom:40px;display:flex;align-items:center;gap:8px}
-.auth-logo span{width:24px;height:24px;background:#4f6ef7;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.auth-tagline{font-size:32px;font-weight:600;line-height:1.2;color:#fff;margin-bottom:16px}
+html,body{width:100%;height:100%;background:#07080f}
+body{font-family:'Space Grotesk',sans-serif;color:#e8eaf0}
+#rp{width:100%;min-height:100vh;background:#07080f}
+.rp-screen{display:none}
+.rp-screen.active{display:block}
+
+/* AUTH */
+.auth-wrap{display:flex;min-height:100vh;width:100%}
+.auth-left{width:42%;background:#0b0d18;padding:64px 56px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #1a1d2e}
+.auth-logo{font-size:11px;letter-spacing:4px;color:#4f6ef7;text-transform:uppercase;margin-bottom:48px;display:flex;align-items:center;gap:10px}
+.auth-logo-icon{width:28px;height:28px;background:#4f6ef7;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.auth-tagline{font-size:42px;font-weight:700;line-height:1.15;color:#fff;margin-bottom:20px;letter-spacing:-1px}
 .auth-tagline em{color:#4f6ef7;font-style:normal}
-.auth-sub{font-size:14px;color:#5a6080;line-height:1.6;max-width:280px}
-.auth-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
-.pill{font-size:11px;letter-spacing:1px;padding:6px 14px;border:1px solid #1a1d2e;border-radius:20px;color:#3d4560}
-.auth-right{flex:1;padding:48px;display:flex;flex-direction:column;justify-content:center}
-.auth-tabs{display:flex;gap:0;margin-bottom:32px;border:1px solid #1a1d2e;border-radius:10px;padding:4px}
-.auth-tab{flex:1;padding:8px;text-align:center;font-size:13px;cursor:pointer;border-radius:7px;color:#5a6080;font-weight:500;transition:.2s}
+.auth-sub{font-size:15px;color:#5a6080;line-height:1.7;max-width:320px}
+.auth-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.pill{font-size:11px;letter-spacing:1px;padding:7px 16px;border:1px solid #1a1d2e;border-radius:20px;color:#3d4560}
+.auth-right{flex:1;padding:64px 56px;display:flex;flex-direction:column;justify-content:center;background:#07080f}
+.auth-inner{max-width:420px;width:100%}
+.auth-tabs{display:flex;gap:0;margin-bottom:36px;border:1px solid #1a1d2e;border-radius:10px;padding:4px}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;cursor:pointer;border-radius:7px;color:#5a6080;font-weight:500;transition:.2s}
 .auth-tab.on{background:#4f6ef7;color:#fff}
-.fld{margin-bottom:16px}
-.fld label{display:block;font-size:11px;letter-spacing:2px;color:#3d4560;text-transform:uppercase;margin-bottom:6px}
-.fld input,.fld select{width:100%;background:#0b0d18;border:1px solid #1a1d2e;border-radius:8px;padding:11px 14px;color:#e8eaf0;font-size:14px;font-family:inherit;outline:none;transition:.2s}
+.fld{margin-bottom:18px}
+.fld label{display:block;font-size:11px;letter-spacing:2px;color:#3d4560;text-transform:uppercase;margin-bottom:7px}
+.fld input,.fld select{width:100%;background:#0b0d18;border:1px solid #1a1d2e;border-radius:9px;padding:13px 16px;color:#e8eaf0;font-size:14px;font-family:inherit;outline:none;transition:.2s}
 .fld input:focus,.fld select:focus{border-color:#4f6ef7}
 .fld select option{background:#0b0d18}
-.btn-primary{width:100%;background:#4f6ef7;border:none;border-radius:8px;padding:13px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.5px;transition:.2s;margin-top:8px}
+.btn-primary{width:100%;background:#4f6ef7;border:none;border-radius:9px;padding:14px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.5px;transition:.2s;margin-top:8px}
 .btn-primary:hover{background:#3d5de6}
-.msg{font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:12px}
+.msg{font-size:13px;padding:11px 16px;border-radius:8px;margin-bottom:14px}
 .msg.err{background:#1a0f0f;color:#ef4444;border:1px solid #2d1010}
 .msg.ok{background:#0f1a12;color:#22c55e;border:1px solid #102010}
+.demo-hint{margin-top:16px;font-size:12px;color:#2d3350;text-align:center;padding:10px;background:#0b0d18;border-radius:8px;border:1px solid #1a1d2e}
 
-.app-wrap{display:flex;flex-direction:column;min-height:600px}
-.topbar{background:#0b0d18;border-bottom:1px solid #1a1d2e;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px}
-.topbar-logo{font-size:11px;letter-spacing:3px;color:#4f6ef7;text-transform:uppercase;font-weight:600}
-.topbar-right{display:flex;align-items:center;gap:16px}
-.pts-badge{background:#0e1020;border:1px solid #1e2545;border-radius:8px;padding:6px 14px;font-size:13px;color:#4f6ef7;font-weight:600}
-.pts-badge span{color:#5a6080;font-weight:400;margin-right:4px}
-.avatar{width:32px;height:32px;border-radius:50%;background:#4f6ef7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;cursor:pointer}
-.logout-btn{font-size:11px;letter-spacing:1px;color:#3d4560;text-transform:uppercase;cursor:pointer;border:1px solid #1a1d2e;border-radius:6px;padding:5px 10px;background:none;font-family:inherit}
+/* APP SHELL */
+.app-screen{display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:#0b0d18;border-bottom:1px solid #1a1d2e;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;flex-shrink:0}
+.topbar-logo{font-size:11px;letter-spacing:4px;color:#4f6ef7;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:10px}
+.topbar-logo-icon{width:26px;height:26px;background:#4f6ef7;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.pts-badge{background:#0e1020;border:1px solid #1e2545;border-radius:8px;padding:7px 16px;font-size:13px;color:#4f6ef7;font-weight:700}
+.pts-badge span{color:#5a6080;font-weight:400;margin-right:5px}
+.avatar-circle{width:34px;height:34px;border-radius:50%;background:#1a2050;border:2px solid #2d3580;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#4f6ef7}
+.logout-btn{font-size:11px;letter-spacing:1px;color:#3d4560;text-transform:uppercase;cursor:pointer;border:1px solid #1a1d2e;border-radius:6px;padding:6px 12px;background:none;font-family:inherit;transition:.2s}
 .logout-btn:hover{color:#e8eaf0;border-color:#3d4560}
-
-.nav{background:#07080f;border-bottom:1px solid #1a1d2e;padding:0 24px;display:flex;gap:0;overflow-x:auto}
-.nav-item{padding:14px 18px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:#3d4560;border-bottom:2px solid transparent;white-space:nowrap;transition:.2s;font-weight:500}
+.nav{background:#07080f;border-bottom:1px solid #1a1d2e;padding:0 32px;display:flex;flex-shrink:0;overflow-x:auto}
+.nav-item{padding:16px 20px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;color:#3d4560;border-bottom:2px solid transparent;white-space:nowrap;transition:.2s;font-weight:500}
 .nav-item:hover{color:#7a8aaa}
 .nav-item.on{color:#4f6ef7;border-bottom-color:#4f6ef7}
+.content{padding:36px 32px;flex:1}
 
-.content{padding:28px 24px;flex:1}
-.section-head{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#2d3350;margin-bottom:20px}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
-.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
-.stat-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:12px;padding:20px;text-align:center}
-.stat-val{font-size:28px;font-weight:700;color:#fff}
+/* TYPOGRAPHY */
+.section-head{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#2d3350;margin-bottom:22px}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
+.stat-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:14px;padding:24px;text-align:center}
+.stat-val{font-size:30px;font-weight:700;color:#fff}
 .stat-val.blue{color:#4f6ef7}
 .stat-val.green{color:#22c55e}
 .stat-val.amber{color:#f59e0b}
-.stat-lab{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#3d4560;margin-top:4px}
+.stat-lab{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#3d4560;margin-top:5px}
 
-.item-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:12px;padding:18px;transition:.2s}
+/* GRIDS */
+.grid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:28px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* CARDS */
+.item-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:13px;padding:20px;display:flex;flex-direction:column;transition:.2s}
 .item-card:hover{border-color:#2d3560}
-.item-icon{font-size:28px;margin-bottom:10px}
-.item-title{font-size:14px;font-weight:600;color:#c8cce0;margin-bottom:4px}
-.item-desc{font-size:12px;color:#3d4560;line-height:1.5;margin-bottom:12px}
+.item-icon{font-size:30px;margin-bottom:12px}
+.item-title{font-size:14px;font-weight:600;color:#c8cce0;margin-bottom:5px}
+.item-desc{font-size:12px;color:#3d4560;line-height:1.6;margin-bottom:14px;flex:1}
 .item-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-.cost-tag{font-size:13px;color:#4f6ef7;font-weight:600}
-.value-tag{font-size:11px;color:#22c55e;background:#0a1a0f;border:1px solid #102010;border-radius:4px;padding:3px 8px}
-.btn-sm{font-size:11px;letter-spacing:.5px;padding:7px 14px;background:#1a1d30;border:1px solid #2d3560;border-radius:6px;color:#4f6ef7;cursor:pointer;font-family:inherit;font-weight:500;transition:.2s}
+.cost-tag{font-size:14px;color:#4f6ef7;font-weight:700}
+.value-tag{font-size:11px;color:#22c55e;background:#0a1a0f;border:1px solid #102010;border-radius:4px;padding:3px 9px;display:inline-block;margin-top:4px}
+
+/* BUTTONS */
+.btn-sm{font-size:11px;letter-spacing:.5px;padding:8px 16px;background:#1a1d30;border:1px solid #2d3560;border-radius:7px;color:#4f6ef7;cursor:pointer;font-family:inherit;font-weight:500;transition:.2s;white-space:nowrap}
 .btn-sm:hover{background:#4f6ef7;color:#fff;border-color:#4f6ef7}
-.btn-sm:disabled{opacity:.4;cursor:not-allowed}
-.btn-sm.danger{color:#ef4444;border-color:#2d1010}
+.btn-sm.danger{color:#ef4444;border-color:#2d1010;background:#1a0f0f}
+.btn-sm.danger:hover{background:#ef4444;color:#fff;border-color:#ef4444}
 
-.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.filter-btn{font-size:11px;letter-spacing:1px;padding:6px 16px;border:1px solid #1a1d2e;border-radius:20px;cursor:pointer;color:#3d4560;background:transparent;font-family:inherit;transition:.2s}
-.filter-btn:hover{border-color:#3d4560;color:#7a8aaa}
-.filter-btn.on{background:#4f6ef7;border-color:#4f6ef7;color:#fff}
-
-.discount-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:10px}
+/* DISCOUNT CARDS */
+.discount-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:13px;padding:20px;display:flex;flex-direction:column;gap:12px}
 .dc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .dc-brand{font-size:14px;font-weight:600;color:#c8cce0}
-.dc-cat{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#3d4560;margin-top:2px}
-.dc-pct{font-size:18px;font-weight:700;color:#22c55e}
-.dc-expires{font-size:11px;color:#2d3350}
+.dc-cat{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#3d4560;margin-top:3px}
+.dc-pct{font-size:19px;font-weight:700;color:#22c55e}
+.dc-expires{font-size:11px;color:#2d3350;margin-top:3px}
 .code-row{display:flex;align-items:center;gap:8px}
-.code-box{background:#0e1020;border:1px dashed #2d3560;border-radius:6px;padding:8px 14px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:2px;color:#4f6ef7;flex:1;cursor:pointer;transition:.2s}
+.code-box{background:#0e1020;border:1px dashed #2d3560;border-radius:7px;padding:9px 16px;font-family:'Space Grotesk',monospace;font-size:13px;letter-spacing:2.5px;color:#4f6ef7;flex:1;cursor:pointer;transition:.2s}
 .code-box:hover{border-color:#4f6ef7}
-.copy-btn{font-size:11px;padding:7px 12px;background:#1a1d30;border:1px solid #2d3560;border-radius:6px;color:#7a8aaa;cursor:pointer;font-family:inherit;white-space:nowrap;transition:.2s}
+.copy-btn{font-size:11px;padding:8px 14px;background:#1a1d30;border:1px solid #2d3560;border-radius:7px;color:#7a8aaa;cursor:pointer;font-family:inherit;white-space:nowrap;transition:.2s}
 .copy-btn.copied{background:#0f1a12;border-color:#102010;color:#22c55e}
 
-.gift-panel{background:#0b0d18;border:1px solid #1a1d2e;border-radius:12px;padding:24px;max-width:520px}
-.gc-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:12px;padding:18px}
-.gc-brand{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
-.gc-face{font-size:24px;font-weight:700;color:#4f6ef7}
-.gc-saving{font-size:11px;color:#22c55e;background:#0a1a0f;border:1px solid #102010;border-radius:4px;padding:3px 8px;display:inline-block;margin-top:4px}
-.gc-cost{font-size:13px;color:#7a8aaa;margin-top:8px}
+/* GIFT PANEL */
+.gift-panel{background:#0b0d18;border:1px solid #1a1d2e;border-radius:14px;padding:32px;max-width:600px}
+.gift-panel .fld input,.gift-panel .fld select{background:#07080f}
 
+/* GROCERY CARDS */
+.gc-card{background:#0b0d18;border:1px solid #1a1d2e;border-radius:13px;padding:20px;display:flex;flex-direction:column}
+.gc-brand{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+.gc-face{font-size:26px;font-weight:700;color:#4f6ef7}
+.gc-saving{font-size:11px;color:#22c55e;background:#0a1a0f;border:1px solid #102010;border-radius:4px;padding:3px 9px;display:inline-block;margin-top:6px}
+
+/* ACTIVITY */
 .activity-list{display:flex;flex-direction:column;gap:8px}
-.act-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#0b0d18;border:1px solid #1a1d2e;border-radius:10px}
+.act-row{display:flex;align-items:center;gap:14px;padding:13px 18px;background:#0b0d18;border:1px solid #1a1d2e;border-radius:10px}
 .act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .act-desc{font-size:13px;color:#c8cce0;flex:1}
-.act-date{font-size:11px;color:#2d3350}
-.act-pts{font-size:13px;font-weight:600;white-space:nowrap}
+.act-date{font-size:11px;color:#2d3350;white-space:nowrap}
+.act-pts{font-size:13px;font-weight:700;white-space:nowrap}
 .act-pts.pos{color:#22c55e}
 .act-pts.neg{color:#ef4444}
 
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:580px){.two-col{grid-template-columns:1fr}.auth-left{display:none}}
+@media(max-width:768px){
+  .auth-left{display:none}
+  .auth-right{padding:40px 28px}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .content{padding:24px 16px}
+  .topbar{padding:0 16px}
+  .nav{padding:0 16px}
+}
 </style>
-
+</head>
+<body>
 <div id="rp">
+
+<!-- AUTH SCREEN -->
 <div id="screen-auth" class="rp-screen active">
   <div class="auth-wrap">
     <div class="auth-left">
-      <div class="auth-logo"><span>✦</span> Perks</div>
+      <div class="auth-logo">
+        <div class="auth-logo-icon">✦</div>
+        PERKS
+      </div>
       <div class="auth-tagline">Rewards that <em>actually</em> matter to your team</div>
-      <div class="auth-sub">Gift points, earn recognition, redeem experiences and save on everyday spend.</div>
+      <div class="auth-sub">Gift points, earn recognition, redeem experiences and save on everyday spend — all in one place.</div>
       <div class="auth-pills">
         <span class="pill">✦ Gift Points</span>
         <span class="pill">◈ Experience Days</span>
         <span class="pill">▸ Travel Discounts</span>
         <span class="pill">◉ Grocery Cards</span>
         <span class="pill">◆ Tech Savings</span>
+        <span class="pill">◎ Vouchers</span>
       </div>
     </div>
     <div class="auth-right">
-      <div class="auth-tabs">
-        <div class="auth-tab on" id="tab-login" onclick="switchAuthTab('login')">Sign in</div>
-        <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Register</div>
-      </div>
-      <div id="auth-msg"></div>
-
-      <div id="login-form">
-        <div class="fld"><label>Email address</label><input type="email" id="l-email" placeholder="you@company.com"></div>
-        <div class="fld"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••"></div>
-        <button class="btn-primary" onclick="doLogin()">Sign in →</button>
-        <div style="margin-top:16px;font-size:12px;color:#3d4560;text-align:center">Demo: sarah@corp.com / pass123</div>
-      </div>
-
-      <div id="reg-form" style="display:none">
-        <div class="fld"><label>Full name</label><input type="text" id="r-name" placeholder="Alex Johnson"></div>
-        <div class="fld"><label>Email address</label><input type="email" id="r-email" placeholder="you@company.com"></div>
-        <div class="fld"><label>Department</label>
-          <select id="r-dept">
-            <option value="">Select department</option>
-            <option>Engineering</option><option>Product</option><option>Design</option>
-            <option>Marketing</option><option>Sales</option><option>Finance</option><option>Operations</option><option>HR</option>
-          </select>
+      <div class="auth-inner">
+        <div class="auth-tabs">
+          <div class="auth-tab on" id="tab-login" onclick="switchAuthTab('login')">Sign in</div>
+          <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Register</div>
         </div>
-        <div class="fld"><label>Password</label><input type="password" id="r-pass" placeholder="Choose a password"></div>
-        <button class="btn-primary" onclick="doRegister()">Create account →</button>
+        <div id="auth-msg"></div>
+        <div id="login-form">
+          <div class="fld"><label>Email address</label><input type="email" id="l-email" placeholder="you@company.com"></div>
+          <div class="fld"><label>Password</label><input type="password" id="l-pass" placeholder="••••••••"></div>
+          <button class="btn-primary" onclick="doLogin()">Sign in →</button>
+          <div class="demo-hint">Demo accounts: sarah@corp.com / pass123 &nbsp;|&nbsp; marcus@corp.com / pass123</div>
+        </div>
+        <div id="reg-form" style="display:none">
+          <div class="fld"><label>Full name</label><input type="text" id="r-name" placeholder="Alex Johnson"></div>
+          <div class="fld"><label>Email address</label><input type="email" id="r-email" placeholder="you@company.com"></div>
+          <div class="fld"><label>Department</label>
+            <select id="r-dept">
+              <option value="">Select department</option>
+              <option>Engineering</option><option>Product</option><option>Design</option>
+              <option>Marketing</option><option>Sales</option><option>Finance</option><option>Operations</option><option>HR</option>
+            </select>
+          </div>
+          <div class="fld"><label>Password</label><input type="password" id="r-pass" placeholder="Choose a password (min 6 chars)"></div>
+          <button class="btn-primary" onclick="doRegister()">Create account →</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- APP SCREEN -->
 <div id="screen-app" class="rp-screen">
-  <div class="app-wrap">
+  <div class="app-screen">
     <div class="topbar">
-      <div class="topbar-logo">✦ Perks</div>
+      <div class="topbar-logo">
+        <div class="topbar-logo-icon">✦</div>
+        PERKS
+      </div>
       <div class="topbar-right">
         <div class="pts-badge"><span>Balance</span><span id="top-pts">0</span> pts</div>
-        <div class="avatar" id="top-avatar">?</div>
+        <div class="avatar-circle" id="top-avatar">?</div>
+        <div style="font-size:13px;color:#7a8aaa" id="top-name"></div>
         <button class="logout-btn" onclick="doLogout()">Sign out</button>
       </div>
     </div>
@@ -172,29 +215,37 @@
     <div class="content" id="main-content"></div>
   </div>
 </div>
+
 </div>
-
 <script>
-const USERS_KEY='rp_users',STATE_KEY='rp_state';
-function loadUsers(){const d=localStorage.getItem(USERS_KEY);if(d)return JSON.parse(d);const u=[
-{id:1,name:'Sarah Chen',email:'sarah@corp.com',password:'pass123',dept:'Engineering',points:2450,avatar:'SC',activity:[
-{t:'earned',d:'Manager recognition award',p:500,when:'2 days ago'},
-{t:'spent',d:'Netflix voucher redeemed',p:-400,when:'5 days ago'},
-{t:'received',d:'Gift from Marcus Webb',p:200,when:'1 week ago'}
-]},
-{id:2,name:'Marcus Webb',email:'marcus@corp.com',password:'pass123',dept:'Marketing',points:1820,avatar:'MW',activity:[]},
-{id:3,name:'Priya Patel',email:'priya@corp.com',password:'pass123',dept:'Design',points:3100,avatar:'PP',activity:[]}
-];saveUsers(u);return u;}
-function saveUsers(u){localStorage.setItem(USERS_KEY,JSON.stringify(u));}
-let users=loadUsers();
-let currentId=null;
-let currentFilter='all';
-let copiedCode='';
+const UK='rp_users';
+function lu(){
+  const d=localStorage.getItem(UK);
+  if(d)return JSON.parse(d);
+  const u=[
+    {id:1,name:'Sarah Chen',email:'sarah@corp.com',password:'pass123',dept:'Engineering',points:2450,avatar:'SC',activity:[
+      {t:'earned',d:'Manager recognition award',p:500,when:'2 days ago'},
+      {t:'spent',d:'Netflix voucher redeemed',p:-400,when:'5 days ago'},
+      {t:'received',d:'Gift from Marcus Webb',p:200,when:'1 week ago'},
+      {t:'earned',d:'Project completion bonus',p:750,when:'2 weeks ago'}
+    ]},
+    {id:2,name:'Marcus Webb',email:'marcus@corp.com',password:'pass123',dept:'Marketing',points:1820,avatar:'MW',activity:[
+      {t:'gifted',d:'Gift to Sarah Chen',p:-200,when:'1 week ago'},
+      {t:'earned',d:'Sales target bonus',p:600,when:'3 weeks ago'}
+    ]},
+    {id:3,name:'Priya Patel',email:'priya@corp.com',password:'pass123',dept:'Design',points:3100,avatar:'PP',activity:[
+      {t:'earned',d:'Design sprint award',p:1000,when:'4 days ago'}
+    ]}
+  ];
+  su(u);return u;
+}
+function su(u){localStorage.setItem(UK,JSON.stringify(u));}
+let users=lu();
+let cid=null;
+function gu(){return users.find(u=>u.id===cid);}
+function upd(id,fn){users=users.map(u=>u.id===id?fn(u):u);su(users);}
 
-function getUser(){return users.find(u=>u.id===currentId);}
-function updateUser(id,fn){users=users.map(u=>u.id===id?fn(u):u);saveUsers(users);}
-
-function authMsg(txt,type){const el=document.getElementById('auth-msg');el.innerHTML=txt?`<div class="msg ${type}">${txt}</div>`:''}
+function authMsg(t,type){document.getElementById('auth-msg').innerHTML=t?`<div class="msg ${type}">${t}</div>`:'';}
 
 function switchAuthTab(t){
   document.getElementById('login-form').style.display=t==='login'?'block':'none';
@@ -204,17 +255,25 @@ function switchAuthTab(t){
   authMsg('','');
 }
 
+function enterApp(u){
+  cid=u.id;
+  document.getElementById('top-pts').textContent=u.points.toLocaleString();
+  document.getElementById('top-avatar').textContent=u.avatar;
+  document.getElementById('top-name').textContent=u.name;
+  document.getElementById('screen-auth').classList.remove('active');
+  document.getElementById('screen-app').classList.add('active');
+  const firstNav=document.querySelector('.nav-item');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('on'));
+  firstNav.classList.add('on');
+  showTab('dashboard',firstNav);
+}
+
 function doLogin(){
   const email=document.getElementById('l-email').value.trim().toLowerCase();
   const pass=document.getElementById('l-pass').value;
   const u=users.find(u=>u.email.toLowerCase()===email&&u.password===pass);
   if(!u){authMsg('Invalid email or password.','err');return;}
-  currentId=u.id;
-  document.getElementById('top-pts').textContent=u.points.toLocaleString();
-  document.getElementById('top-avatar').textContent=u.avatar;
-  document.getElementById('screen-auth').classList.remove('active');
-  document.getElementById('screen-app').classList.add('active');
-  showTab('dashboard',document.querySelector('.nav-item'));
+  enterApp(u);
 }
 
 function doRegister(){
@@ -225,21 +284,15 @@ function doRegister(){
   if(!name||!email||!dept||!pass){authMsg('Please fill in all fields.','err');return;}
   if(users.find(u=>u.email.toLowerCase()===email)){authMsg('Email already registered.','err');return;}
   if(pass.length<6){authMsg('Password must be at least 6 characters.','err');return;}
-  const initials=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  const newUser={id:Date.now(),name,email,password:pass,dept,points:1000,avatar:initials,activity:[
-    {t:'earned',d:'Welcome bonus — 1,000 points',p:1000,when:'Just now'}
-  ]};
-  users.push(newUser);saveUsers(users);
-  currentId=newUser.id;
-  document.getElementById('top-pts').textContent='1,000';
-  document.getElementById('top-avatar').textContent=initials;
-  document.getElementById('screen-auth').classList.remove('active');
-  document.getElementById('screen-app').classList.add('active');
-  showTab('dashboard',document.querySelector('.nav-item'));
+  const av=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  const nu={id:Date.now(),name,email,password:pass,dept,points:1000,avatar:av,
+    activity:[{t:'earned',d:'Welcome bonus — 1,000 points',p:1000,when:'Just now'}]};
+  users.push(nu);su(users);
+  enterApp(nu);
 }
 
 function doLogout(){
-  currentId=null;
+  cid=null;
   document.getElementById('screen-app').classList.remove('active');
   document.getElementById('screen-auth').classList.add('active');
   document.getElementById('l-email').value='';
@@ -247,8 +300,8 @@ function doLogout(){
   authMsg('','');
 }
 
-function refreshTopBar(){
-  const u=getUser();
+function rtb(){
+  const u=gu();
   document.getElementById('top-pts').textContent=u.points.toLocaleString();
 }
 
@@ -256,43 +309,53 @@ function showTab(name,el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('on'));
   if(el)el.classList.add('on');
   const c=document.getElementById('main-content');
-  if(name==='dashboard')c.innerHTML=renderDashboard();
-  else if(name==='gift')c.innerHTML=renderGift();
-  else if(name==='vouchers')c.innerHTML=renderShop('voucher');
-  else if(name==='experiences')c.innerHTML=renderShop('experience');
-  else if(name==='travel')c.innerHTML=renderDiscounts('travel');
-  else if(name==='tech')c.innerHTML=renderDiscounts('tech');
-  else if(name==='grocery')c.innerHTML=renderGrocery();
-  attachEvents(name);
+  const map={
+    dashboard:rDash,
+    gift:rGift,
+    vouchers:()=>rShop('voucher'),
+    experiences:()=>rShop('experience'),
+    travel:()=>rDisc('travel'),
+    tech:()=>rDisc('tech'),
+    grocery:rGroc
+  };
+  if(map[name])c.innerHTML=map[name]();
 }
 
-const VOUCHERS=[
-  {id:'v1',title:'Amazon voucher',cat:'voucher',cost:500,value:'£50',icon:'🛍️',desc:'Shop anything at Amazon UK'},
-  {id:'v2',title:'ASOS gift card',cat:'voucher',cost:300,value:'£30',icon:'👗',desc:'Fashion & lifestyle'},
-  {id:'v3',title:'Netflix — 3 months',cat:'voucher',cost:400,value:'£36',icon:'🎬',desc:'Unlimited streaming, ad-free'},
-  {id:'v4',title:'Spotify Premium',cat:'voucher',cost:200,value:'3 months',icon:'🎵',desc:'Ad-free music & podcasts'},
-  {id:'v5',title:'Deliveroo credit',cat:'voucher',cost:250,value:'£25',icon:'🍕',desc:'Order food, delivered fast'},
-  {id:'v6',title:'Greggs gift card',cat:'voucher',cost:100,value:'£10',icon:'🥐',desc:'The nation\'s bakery'},
+const VV=[
+  {id:'v1',title:'Amazon voucher',cost:500,value:'£50',icon:'🛍️',desc:'Shop anything at Amazon UK'},
+  {id:'v2',title:'ASOS gift card',cost:300,value:'£30',icon:'👗',desc:'Fashion & lifestyle'},
+  {id:'v3',title:'Netflix — 3 months',cost:400,value:'£36',icon:'🎬',desc:'Unlimited streaming, ad-free'},
+  {id:'v4',title:'Spotify Premium',cost:200,value:'3 months',icon:'🎵',desc:'Ad-free music & podcasts'},
+  {id:'v5',title:'Deliveroo credit',cost:250,value:'£25',icon:'🍕',desc:'Order food, delivered fast'},
+  {id:'v6',title:'Greggs gift card',cost:100,value:'£10',icon:'🥐',desc:"The nation's bakery"},
+  {id:'v7',title:'Boots advantage card',cost:150,value:'£15',icon:'💊',desc:'Health & beauty savings'},
+  {id:'v8',title:'Vue Cinema',cost:180,value:'£18',icon:'🎥',desc:'2 adult cinema tickets'},
 ];
-const EXPERIENCES=[
-  {id:'e1',title:'Spa day for two',cat:'experience',cost:1200,value:'£120',icon:'🧖',desc:'Full luxury spa & treatments'},
-  {id:'e2',title:'Michelin restaurant',cat:'experience',cost:1500,value:'£150',icon:'🍽️',desc:'Fine dining for two'},
-  {id:'e3',title:'Hot air balloon ride',cat:'experience',cost:2000,value:'£200',icon:'🎈',desc:'Sunrise flight over countryside'},
-  {id:'e4',title:'Skydiving — tandem',cat:'experience',cost:2500,value:'£250',icon:'🪂',desc:'Tandem jump with instructor'},
-  {id:'e5',title:'Supercar track day',cat:'experience',cost:1800,value:'£180',icon:'🏎️',desc:'Drive Lamborghini & Ferrari'},
-  {id:'e6',title:'Cooking masterclass',cat:'experience',cost:800,value:'£80',icon:'👨‍🍳',desc:'Professional chef workshop'},
-  {id:'e7',title:'Escape room for 4',cat:'experience',cost:600,value:'£60',icon:'🔐',desc:'Immersive puzzle experience'},
-  {id:'e8',title:'London theatre tickets',cat:'experience',cost:900,value:'£90',icon:'🎭',desc:'West End show for two'},
+
+const EE=[
+  {id:'e1',title:'Spa day for two',cost:1200,value:'£120',icon:'🧖',desc:'Full luxury spa & treatments'},
+  {id:'e2',title:'Michelin restaurant',cost:1500,value:'£150',icon:'🍽️',desc:'Fine dining for two'},
+  {id:'e3',title:'Hot air balloon ride',cost:2000,value:'£200',icon:'🎈',desc:'Sunrise flight over countryside'},
+  {id:'e4',title:'Skydiving — tandem',cost:2500,value:'£250',icon:'🪂',desc:'Tandem jump with instructor'},
+  {id:'e5',title:'Supercar track day',cost:1800,value:'£180',icon:'🏎️',desc:'Drive Lamborghini & Ferrari'},
+  {id:'e6',title:'Cooking masterclass',cost:800,value:'£80',icon:'👨‍🍳',desc:'Professional chef workshop'},
+  {id:'e7',title:'Escape room for 4',cost:600,value:'£60',icon:'🔐',desc:'Immersive puzzle adventure'},
+  {id:'e8',title:'West End theatre',cost:900,value:'£90',icon:'🎭',desc:'Two seats, any West End show'},
+  {id:'e9',title:'Whisky distillery tour',cost:700,value:'£70',icon:'🥃',desc:'Tasting & tour for two'},
 ];
-const TRAVEL=[
+
+const TT=[
   {id:'t1',brand:'TUI Holidays',code:'REWARD15',pct:'15% off',cat:'Holidays',icon:'✈️',exp:'Dec 2025'},
   {id:'t2',brand:'National Express',code:'STAFF20',pct:'20% off',cat:'Coach travel',icon:'🚌',exp:'Mar 2026'},
   {id:'t3',brand:'Trainline',code:'WORK10',pct:'10% off',cat:'Rail tickets',icon:'🚆',exp:'Jun 2026'},
   {id:'t4',brand:'easyJet',code:'TEAM12',pct:'12% off',cat:'Flights',icon:'🛫',exp:'Jan 2026'},
-  {id:'t5',brand:'Booking.com',code:'CORP18',pct:'18% off hotels',cat:'Hotels',icon:'🏨',exp:'Dec 2025'},
-  {id:'t6',brand:'Enterprise Car Hire',code:'FLEET25',pct:'25% off',cat:'Car rental',icon:'🚗',exp:'Sep 2025'},
+  {id:'t5',brand:'Booking.com',code:'CORP18',pct:'18% off',cat:'Hotels',icon:'🏨',exp:'Dec 2025'},
+  {id:'t6',brand:'Enterprise',code:'FLEET25',pct:'25% off',cat:'Car rental',icon:'🚗',exp:'Sep 2025'},
+  {id:'t7',brand:'Airbnb',code:'STAY10',pct:'10% off',cat:'Short stays',icon:'🏡',exp:'Feb 2026'},
+  {id:'t8',brand:'P&O Ferries',code:'FERRY15',pct:'15% off',cat:'Ferry travel',icon:'⛴️',exp:'Apr 2026'},
 ];
-const TECH=[
+
+const TC=[
   {id:'tc1',brand:'Currys PC World',code:'TECH10',pct:'10% off',cat:'Electronics',icon:'💻',exp:'Dec 2025'},
   {id:'tc2',brand:'Apple Store',code:'CORP8',pct:'8% off',cat:'Apple products',icon:'🍎',exp:'Mar 2026'},
   {id:'tc3',brand:'Samsung',code:'SAM15',pct:'15% off',cat:'Samsung range',icon:'📱',exp:'Jun 2026'},
@@ -300,165 +363,151 @@ const TECH=[
   {id:'tc5',brand:'John Lewis Tech',code:'JL12',pct:'12% off',cat:'Electronics',icon:'🖥️',exp:'Feb 2026'},
   {id:'tc6',brand:'Argos',code:'ARG8',pct:'8% off',cat:'General tech',icon:'📦',exp:'Apr 2026'},
 ];
-const GROCERY=[
+
+const GG=[
   {id:'g1',brand:'Tesco',face:'£100',cost:430,saving:'Save £70',icon:'🛒',desc:'In-store & Tesco.com'},
   {id:'g2',brand:"Sainsbury's",face:'£100',cost:420,saving:'Save £80',icon:'🛒',desc:'Nectar points accepted'},
   {id:'g3',brand:'ASDA',face:'£100',cost:400,saving:'Save £100',icon:'🛒',desc:'George clothing included'},
   {id:'g4',brand:'Waitrose',face:'£100',cost:450,saving:'Save £50',icon:'🛒',desc:'Premium grocery card'},
-  {id:'g5',brand:'Marks & Spencer',face:'£50',cost:200,saving:'Save £50',icon:'🛒',desc:'Food hall & clothing'},
+  {id:'g5',brand:'M&S',face:'£50',cost:200,saving:'Save £50',icon:'🛒',desc:'Food hall & clothing'},
   {id:'g6',brand:'Morrisons',face:'£100',cost:390,saving:'Save £110',icon:'🛒',desc:'Fresh market savings'},
 ];
 
-function renderDashboard(){
-  const u=getUser();
-  const totalEarned=u.activity.filter(a=>a.p>0).reduce((s,a)=>s+a.p,0);
-  const totalSpent=Math.abs(u.activity.filter(a=>a.p<0).reduce((s,a)=>s+a.p,0));
-  const recent=u.activity.slice(0,8);
-  const others=users.filter(x=>x.id!==u.id);
-  const dotCol={earned:'#22c55e',spent:'#ef4444',received:'#4f6ef7',gifted:'#f59e0b'};
-
+function rDash(){
+  const u=gu();
+  const totalE=u.activity.filter(a=>a.p>0).reduce((s,a)=>s+a.p,0);
+  const totalS=Math.abs(u.activity.filter(a=>a.p<0).reduce((s,a)=>s+a.p,0));
+  const dc={earned:'#22c55e',spent:'#ef4444',received:'#4f6ef7',gifted:'#f59e0b'};
   return `
-  <div class="section-head">Overview</div>
-  <div class="grid2" style="margin-bottom:28px">
-    <div class="stat-card">
-      <div class="stat-val blue">${u.points.toLocaleString()}</div>
-      <div class="stat-lab">Available points</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val green">${totalEarned.toLocaleString()}</div>
-      <div class="stat-lab">Total earned</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val amber">${totalSpent.toLocaleString()}</div>
-      <div class="stat-lab">Total spent</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" style="color:#c8cce0">${u.dept}</div>
-      <div class="stat-lab">Department</div>
-    </div>
+  <div class="section-head">Overview — ${u.name}</div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val blue">${u.points.toLocaleString()}</div><div class="stat-lab">Available points</div></div>
+    <div class="stat-card"><div class="stat-val green">${totalE.toLocaleString()}</div><div class="stat-lab">Total earned</div></div>
+    <div class="stat-card"><div class="stat-val amber">${totalS.toLocaleString()}</div><div class="stat-lab">Total spent</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#c8cce0;font-size:18px">${u.dept}</div><div class="stat-lab">Department</div></div>
   </div>
-
   <div class="two-col">
     <div>
       <div class="section-head">Recent activity</div>
       <div class="activity-list">
-        ${recent.length===0?'<div style="color:#3d4560;font-size:13px;padding:16px 0">No activity yet.</div>':
-        recent.map(a=>`
+        ${u.activity.slice(0,10).map(a=>`
           <div class="act-row">
-            <div class="act-dot" style="background:${dotCol[a.t]||'#3d4560'}"></div>
+            <div class="act-dot" style="background:${dc[a.t]||'#3d4560'}"></div>
             <div class="act-desc">${a.d}</div>
             <div class="act-date">${a.when}</div>
             <div class="act-pts ${a.p>0?'pos':'neg'}">${a.p>0?'+':''}${a.p.toLocaleString()}</div>
-          </div>`).join('')}
+          </div>`).join('')||'<div style="color:#3d4560;font-size:13px;padding:12px 0">No activity yet.</div>'}
       </div>
     </div>
     <div>
-      <div class="section-head">Team members</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        ${others.map(o=>`
-          <div class="act-row" style="gap:12px">
-            <div style="width:32px;height:32px;border-radius:50%;background:#1a2050;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#4f6ef7;flex-shrink:0">${o.avatar}</div>
+      <div class="section-head">Team leaderboard</div>
+      <div class="activity-list">
+        ${[...users].sort((a,b)=>b.points-a.points).map((o,i)=>`
+          <div class="act-row">
+            <div style="font-size:11px;color:#2d3350;width:16px;text-align:center;font-weight:700">${i+1}</div>
+            <div style="width:34px;height:34px;border-radius:50%;background:#1a2050;border:2px solid ${o.id===cid?'#4f6ef7':'#1e2545'};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:${o.id===cid?'#4f6ef7':'#7a8aaa'};flex-shrink:0">${o.avatar}</div>
             <div style="flex:1">
-              <div style="font-size:13px;color:#c8cce0;font-weight:500">${o.name}</div>
+              <div style="font-size:13px;color:${o.id===cid?'#fff':'#c8cce0'};font-weight:${o.id===cid?'600':'400'}">${o.name}${o.id===cid?' (you)':''}</div>
               <div style="font-size:11px;color:#3d4560">${o.dept}</div>
             </div>
-            <div style="font-size:12px;color:#4f6ef7">${o.points.toLocaleString()} pts</div>
+            <div style="font-size:13px;color:#4f6ef7;font-weight:700">${o.points.toLocaleString()}</div>
           </div>`).join('')}
       </div>
     </div>
   </div>`;
 }
 
-function renderGift(){
-  const u=getUser();
-  const others=users.filter(x=>x.id!==u.id);
+function rGift(){
+  const u=gu();
+  const others=users.filter(x=>x.id!==cid);
   return `
   <div class="section-head">Send points to a colleague</div>
   <div class="gift-panel">
     <div id="gift-msg"></div>
     <div class="fld"><label>Recipient</label>
-      <select id="g-recipient" style="background:#0b0d18;border:1px solid #1a1d2e;border-radius:8px;padding:11px 14px;color:#e8eaf0;font-size:14px;font-family:inherit;outline:none;width:100%">
+      <select id="g-rec">
         <option value="">— Choose a colleague —</option>
         ${others.map(o=>`<option value="${o.id}">${o.name} (${o.dept}) — ${o.points.toLocaleString()} pts</option>`).join('')}
       </select>
     </div>
     <div class="fld"><label>Points to gift</label>
-      <input type="number" id="g-amount" min="1" max="${u.points}" placeholder="e.g. 100" style="background:#0b0d18;border:1px solid #1a1d2e;border-radius:8px;padding:11px 14px;color:#e8eaf0;font-size:14px;font-family:inherit;outline:none;width:100%">
+      <input type="number" id="g-amt" min="1" max="${u.points}" placeholder="e.g. 100">
     </div>
     <div class="fld"><label>Message (optional)</label>
-      <input type="text" id="g-note" placeholder="Great work this quarter!" style="background:#0b0d18;border:1px solid #1a1d2e;border-radius:8px;padding:11px 14px;color:#e8eaf0;font-size:14px;font-family:inherit;outline:none;width:100%">
+      <input type="text" id="g-note" placeholder="Great work on the launch!">
     </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px">
-      <div style="font-size:12px;color:#3d4560">Your balance: <span style="color:#4f6ef7;font-weight:600">${u.points.toLocaleString()} pts</span></div>
-      <button class="btn-primary" style="width:auto;padding:11px 28px" onclick="doGift()">Send points →</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:16px;border-top:1px solid #1a1d2e">
+      <div style="font-size:13px;color:#5a6080">Your balance: <span style="color:#4f6ef7;font-weight:700">${u.points.toLocaleString()} pts</span></div>
+      <button class="btn-primary" style="width:auto;padding:12px 32px;margin-top:0" onclick="doGift()">Send points →</button>
     </div>
   </div>`;
 }
 
 function doGift(){
-  const recId=parseInt(document.getElementById('g-recipient').value);
-  const amt=parseInt(document.getElementById('g-amount').value);
+  const recId=parseInt(document.getElementById('g-rec').value);
+  const amt=parseInt(document.getElementById('g-amt').value);
   const note=document.getElementById('g-note').value.trim();
   const el=document.getElementById('gift-msg');
-  const me=getUser();
+  const me=gu();
   if(!recId){el.innerHTML='<div class="msg err">Please select a recipient.</div>';return;}
   if(!amt||amt<1){el.innerHTML='<div class="msg err">Please enter a valid amount.</div>';return;}
-  if(amt>me.points){el.innerHTML='<div class="msg err">Insufficient points.</div>';return;}
+  if(amt>me.points){el.innerHTML=`<div class="msg err">Insufficient points — you only have ${me.points.toLocaleString()}.</div>`;return;}
   const rec=users.find(u=>u.id===recId);
-  updateUser(me.id,u=>({...u,points:u.points-amt,activity:[{t:'gifted',d:`Gift to ${rec.name}${note?' — '+note:''}`,p:-amt,when:'Just now'},...u.activity]}));
-  updateUser(rec.id,u=>({...u,points:u.points+amt,activity:[{t:'received',d:`Gift from ${me.name}${note?' — '+note:''}`,p:amt,when:'Just now'},...u.activity]}));
-  currentId=me.id;
-  refreshTopBar();
+  upd(me.id,u=>({...u,points:u.points-amt,activity:[{t:'gifted',d:`Gift to ${rec.name}${note?' — '+note:''}`,p:-amt,when:'Just now'},...u.activity]}));
+  upd(rec.id,u=>({...u,points:u.points+amt,activity:[{t:'received',d:`Gift from ${me.name}${note?' — '+note:''}`,p:amt,when:'Just now'},...u.activity]}));
+  rtb();
   el.innerHTML=`<div class="msg ok">✓ ${amt.toLocaleString()} points sent to ${rec.name}!</div>`;
-  document.getElementById('g-amount').value='';
+  document.getElementById('g-amt').value='';
   document.getElementById('g-note').value='';
 }
 
-function renderShop(type){
-  const u=getUser();
-  const items=type==='voucher'?VOUCHERS:EXPERIENCES;
+function rShop(type){
+  const u=gu();
+  const items=type==='voucher'?VV:EE;
   const head=type==='voucher'?'Vouchers':'Experience days';
   return `
-  <div class="section-head">${head}</div>
-  <div id="shop-msg" style="margin-bottom:12px"></div>
+  <div class="section-head">${head} — your balance: <span style="color:#4f6ef7">${u.points.toLocaleString()} pts</span></div>
+  <div id="shop-msg" style="margin-bottom:14px"></div>
   <div class="grid3">
-    ${items.map(item=>`
-      <div class="item-card">
+    ${items.map(item=>{
+      const can=u.points>=item.cost;
+      return `<div class="item-card">
         <div class="item-icon">${item.icon}</div>
         <div class="item-title">${item.title}</div>
         <div class="item-desc">${item.desc}</div>
         <div class="item-footer">
           <div>
             <div class="cost-tag">${item.cost.toLocaleString()} pts</div>
-            <div class="value-tag" style="margin-top:4px">Worth ${item.value}</div>
+            <div class="value-tag">Worth ${item.value}</div>
           </div>
-          <button class="btn-sm ${u.points<item.cost?'danger':''}" onclick="doPurchase('${item.id}','${type}')" ${u.points<item.cost?'':''}>
-            ${u.points<item.cost?'Need pts':'Redeem'}
+          <button class="btn-sm ${can?'':'danger'}" onclick="doPurch('${item.id}','${type}')">
+            ${can?'Redeem':'Need '+(item.cost-u.points).toLocaleString()+' more'}
           </button>
         </div>
-      </div>`).join('')}
+      </div>`;
+    }).join('')}
   </div>`;
 }
 
-function doPurchase(id,type){
-  const items=[...VOUCHERS,...EXPERIENCES,...GROCERY];
-  const item=items.find(i=>i.id===id);
+function doPurch(id,type){
+  const all=[...VV,...EE,...GG];
+  const item=all.find(i=>i.id===id);
   if(!item)return;
-  const me=getUser();
+  const me=gu();
+  const msgId=type==='grocery'?'groc-msg':'shop-msg';
+  const el=document.getElementById(msgId);
   if(me.points<item.cost){
-    const el=document.getElementById('shop-msg')||document.getElementById('groc-msg');
-    if(el)el.innerHTML=`<div class="msg err">You need ${(item.cost-me.points).toLocaleString()} more points.</div>`;
+    if(el)el.innerHTML=`<div class="msg err">You need ${(item.cost-me.points).toLocaleString()} more points for this.</div>`;
     return;
   }
-  updateUser(me.id,u=>({...u,points:u.points-item.cost,activity:[{t:'spent',d:`Redeemed: ${item.title||item.brand}`,p:-item.cost,when:'Just now'},...u.activity]}));
-  refreshTopBar();
-  const el=document.getElementById('shop-msg')||document.getElementById('groc-msg');
+  upd(me.id,u=>({...u,points:u.points-item.cost,activity:[{t:'spent',d:`Redeemed: ${item.title||item.brand}`,p:-item.cost,when:'Just now'},...u.activity]}));
+  rtb();
   if(el)el.innerHTML=`<div class="msg ok">✓ ${item.title||item.brand} redeemed! Check your email for the code.</div>`;
-  setTimeout(()=>{if(el)el.innerHTML=''},4000);
+  setTimeout(()=>{if(el)el.innerHTML='';},4000);
 }
 
-function renderDiscounts(type){
-  const items=type==='travel'?TRAVEL:TECH;
+function rDisc(type){
+  const items=type==='travel'?TT:TC;
   const head=type==='travel'?'Travel discount codes':'Tech & electrical discount codes';
   return `
   <div class="section-head">${head}</div>
@@ -467,51 +516,51 @@ function renderDiscounts(type){
       <div class="discount-card">
         <div class="dc-top">
           <div>
-            <div style="font-size:20px;margin-bottom:6px">${item.icon}</div>
+            <div style="font-size:26px;margin-bottom:8px">${item.icon}</div>
             <div class="dc-brand">${item.brand}</div>
             <div class="dc-cat">${item.cat}</div>
           </div>
-          <div>
+          <div style="text-align:right">
             <div class="dc-pct">${item.pct}</div>
-            <div class="dc-expires" style="margin-top:4px">Exp: ${item.exp}</div>
+            <div class="dc-expires">Exp: ${item.exp}</div>
           </div>
         </div>
         <div class="code-row">
-          <div class="code-box" id="code-${item.id}" onclick="copyCode('${item.code}','${item.id}')">${item.code}</div>
-          <button class="copy-btn" id="copybtn-${item.id}" onclick="copyCode('${item.code}','${item.id}')">Copy</button>
+          <div class="code-box" onclick="cpCode('${item.code}','${item.id}')">${item.code}</div>
+          <button class="copy-btn" id="cb-${item.id}" onclick="cpCode('${item.code}','${item.id}')">Copy</button>
         </div>
       </div>`).join('')}
   </div>`;
 }
 
-function copyCode(code,id){
-  if(navigator.clipboard){navigator.clipboard.writeText(code).catch(()=>{});}
-  const btn=document.getElementById('copybtn-'+id);
+function cpCode(code,id){
+  if(navigator.clipboard)navigator.clipboard.writeText(code).catch(()=>{});
+  const btn=document.getElementById('cb-'+id);
   if(btn){btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);}
 }
 
-function renderGrocery(){
-  const u=getUser();
+function rGroc(){
+  const u=gu();
   return `
-  <div class="section-head">Grocery gift cards at reduced rates</div>
-  <div id="groc-msg" style="margin-bottom:12px"></div>
-  <div class="grid3">
-    ${GROCERY.map(item=>`
-      <div class="gc-card">
-        <div style="font-size:24px;margin-bottom:8px">${item.icon}</div>
+  <div class="section-head">Grocery gift cards at reduced rates — your balance: <span style="color:#4f6ef7">${u.points.toLocaleString()} pts</span></div>
+  <div id="groc-msg" style="margin-bottom:14px"></div>
+  <div class="grid4">
+    ${GG.map(item=>{
+      const can=u.points>=item.cost;
+      return `<div class="gc-card">
+        <div style="font-size:28px;margin-bottom:10px">${item.icon}</div>
         <div class="gc-brand">${item.brand}</div>
         <div class="gc-face">${item.face} card</div>
-        <div style="margin-top:6px">
-          <span class="gc-saving">${item.saving}</span>
-        </div>
-        <div class="gc-cost" style="margin-top:10px">Cost: <span style="color:#4f6ef7;font-weight:600">${item.cost.toLocaleString()} pts</span></div>
-        <div class="item-desc" style="margin-top:6px;margin-bottom:12px">${item.desc}</div>
-        <button class="btn-sm ${u.points<item.cost?'danger':''}" onclick="doPurchase('${item.id}','grocery')" style="width:100%;text-align:center">
-          ${u.points<item.cost?`Need ${(item.cost-u.points).toLocaleString()} more pts`:'Purchase card'}
+        <div><span class="gc-saving">${item.saving}</span></div>
+        <div style="font-size:12px;color:#3d4560;margin:10px 0 4px">${item.desc}</div>
+        <div style="font-size:13px;color:#7a8aaa;margin-bottom:14px">Cost: <span style="color:#4f6ef7;font-weight:700">${item.cost.toLocaleString()} pts</span></div>
+        <button class="btn-sm ${can?'':'danger'}" style="width:100%;text-align:center" onclick="doPurch('${item.id}','grocery')">
+          ${can?'Purchase card':'Need '+(item.cost-u.points).toLocaleString()+' more'}
         </button>
-      </div>`).join('')}
+      </div>`;
+    }).join('')}
   </div>`;
 }
-
-function attachEvents(tab){}
 </script>
+</body>
+</html>
