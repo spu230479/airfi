@@ -1345,7 +1345,7 @@ function placeBet() {
   };
 
   // POST Event
-  urlStr = "method=bet&Email=" + user.email + "&amount=" + stake + "&betslip=" + betSlip;
+  urlStr = "method=bet&Email=" + user.email + "&amount=" + stake + "&betslip=" + betSlip[0].label + " odds " + betSlip[0].odds;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
