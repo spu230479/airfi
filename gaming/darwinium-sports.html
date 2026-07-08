@@ -1343,6 +1343,24 @@ function placeBet() {
     odds: totalOdds, stake, potentialReturn,
     status: 'pending'
   };
+
+  // POST Event
+  urlStr = "method=bet&Email=" + user.email + "&amount=" + stake + "&betslip=" + betSlip;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Bet failed");
+       showPage('errorscreen');
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/gaming/bet?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+
   betsHistory.unshift(bet);
   transactions.unshift({ type:'bet', label:'Bet Placed', sub: bet.selection, amount: -stake, date: new Date().toLocaleDateString('en-GB'), status:'complete' });
   // Simulate settlement after delay
