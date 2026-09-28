@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How much do you want to be refunded? - Request a Self Assessment refund - GOV.UK</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/govuk-frontend.min.css">
+  <link rel="stylesheet" href="assets/mockup.css">
+</head>
+<body class="govuk-template__body">
+<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+<header class="hmrc-header"><div class="govuk-width-container hmrc-header__inner"><a href="index.html" class="hmrc-header__logo">GOV.UK</a><span class="hmrc-header__service">Request a Self Assessment refund</span></div></header>
+
+<main class="govuk-width-container govuk-main-wrapper govuk-main-wrapper--l" id="main-content">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <a class="govuk-back-link" href="money-in-account.html" data-back-link>Back</a>
+      <form data-journey-form data-next="ecospend-explainer.html" novalidate>
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"><h1 class="govuk-fieldset__heading">How much do you want to be refunded?</h1></legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="amount-300" name="amountChoice" type="radio" value="£300.00" checked>
+              <label class="govuk-label govuk-radios__label" for="amount-300">£300.00</label>
+              <div class="govuk-hint govuk-radios__hint">This leaves £1,200 in your account to pay your next tax bill, due by 31 January 2027</div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="amount-all" name="amountChoice" type="radio" value="£1,500.00">
+              <label class="govuk-label govuk-radios__label" for="amount-all">£1,500</label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="amount-other" name="amountChoice" type="radio" value="other" data-reveal="other-amount-reveal">
+              <label class="govuk-label govuk-radios__label" for="amount-other">A different amount</label>
+            </div>
+            <div class="conditional-reveal" id="other-amount-reveal" hidden>
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="other-amount">Enter amount in pounds</label>
+                <div class="govuk-input__wrapper">
+                  <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                  <input class="govuk-input govuk-input--width-5" id="other-amount" name="otherAmount" inputmode="decimal">
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <button class="govuk-button govuk-!-margin-top-6">Continue</button>
+      </form>
+      <p class="govuk-body"><a class="govuk-link" href="#">Get help with this page (opens in new tab)</a></p>
+    </div>
+  </div>
+</main>
+
+<footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
+<script src="assets/mockup.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in using Government Gateway - GOV.UK</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/govuk-frontend.min.css">
+  <link rel="stylesheet" href="assets/mockup.css">
+</head>
+<body class="govuk-template__body">
+<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+<header class="hmrc-header"><div class="govuk-width-container hmrc-header__inner"><a href="index.html" class="hmrc-header__logo">GOV.UK</a><span class="hmrc-header__service">Government Gateway</span></div></header>
+
+<main class="govuk-width-container govuk-main-wrapper govuk-main-wrapper--l" id="main-content">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-notification-banner" role="region" aria-labelledby="secure-title">
+        <div class="govuk-notification-banner__header"><h2 class="govuk-notification-banner__title" id="secure-title">Keeping your information secure</h2></div>
+        <div class="govuk-notification-banner__content"><p class="govuk-notification-banner__heading">Do not share your Government Gateway user ID and password with anyone else.</p></div>
+      </div>
+      <h1 class="govuk-heading-xl">Sign in using Government Gateway</h1>
+      <form data-journey-form data-next="confirmation.html">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="gg-id">Government Gateway user ID</label>
+          <div class="govuk-hint" id="gg-id-hint">This could be up to 12 characters.</div>
+          <input class="govuk-input govuk-input--width-20" id="gg-id" name="ggId" aria-describedby="gg-id-hint" autocomplete="username" spellcheck="false">
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="gg-password">Password</label>
+          <input class="govuk-input govuk-input--width-20" id="gg-password" name="ggPassword" type="password" autocomplete="current-password">
+        </div>
+        <button class="govuk-button">Sign in</button>
+      </form>
+      <h2 class="govuk-heading-m">Problems signing in</h2>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="#">I have forgotten my password</a></li>
+        <li><a class="govuk-link" href="#">I have forgotten my Government Gateway user ID</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
+<script src="assets/mockup.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+/* The CDN stylesheet uses root-relative font URLs, which resolve to the CDN root and 404. */
+@font-face { font-family: "GDS Transport"; font-style: normal; font-weight: 400; font-display: fallback; src: url("https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/assets/fonts/light-94a07e06a1-v2.woff2") format("woff2"), url("https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/assets/fonts/light-f591b13f7d-v2.woff") format("woff"); }
+@font-face { font-family: "GDS Transport"; font-style: normal; font-weight: 700; font-display: fallback; src: url("https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/assets/fonts/bold-b542beb274-v2.woff2") format("woff2"), url("https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/assets/fonts/bold-affa96571d-v2.woff") format("woff"); }
+.govuk-template__body { font-family: "GDS Transport", arial, sans-serif; }
+
+.hmrc-header { background: #0b0c0c; color: #fff; border-bottom: 10px solid #1d70b8; }
+.hmrc-header__inner { min-height: 58px; display: flex; align-items: center; gap: 18px; }
+.hmrc-header__logo { color: #fff; font-size: 30px; font-weight: 700; text-decoration: none; }
+.hmrc-header__service { color: #fff; border-left: 1px solid #b1b4b6; padding-left: 18px; font-size: 19px; font-weight: 700; text-decoration: none; }
+.hmrc-header__sign-out { color: #fff; margin-left: auto; }
+.beta-banner { border-bottom: 1px solid #b1b4b6; padding: 10px 0; }
+.beta-banner .govuk-tag { margin-right: 8px; }
+.account-nav { background: #f3f2f1; border-bottom: 1px solid #b1b4b6; }
+.account-nav__inner { display: flex; gap: 30px; padding: 12px 0; }
+.tile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 30px; }
+.tile { border-top: 5px solid #1d70b8; background: #f3f2f1; padding: 20px 20px 5px; }
+.task-list { border-top: 1px solid #b1b4b6; list-style: none; margin: 0 0 30px; padding: 0; }
+.task-list__item { border-bottom: 1px solid #b1b4b6; padding: 18px 0; }
+.bta-section { border-top: 1px solid #b1b4b6; padding-top: 25px; margin-bottom: 30px; }
+.get-help { border-top: 1px solid #b1b4b6; margin-top: 40px; padding-top: 20px; }
+.cb-button-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: baseline; }
+.conditional-reveal[hidden] { display: none; }
+.conditional-reveal { border-left: 4px solid #b1b4b6; margin: 0 0 15px 18px; padding-left: 33px; }
+@media (max-width: 40.0525em) {
+  .hmrc-header__service { font-size: 16px; padding-left: 10px; }
+  .hmrc-header__logo { font-size: 24px; }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enter your bank or building society account details - Request a Self Assessment refund - GOV.UK</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/govuk-frontend.min.css">
+  <link rel="stylesheet" href="assets/mockup.css">
+</head>
+<body class="govuk-template__body">
+<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+<header class="hmrc-header"><div class="govuk-width-container hmrc-header__inner"><a href="index.html" class="hmrc-header__logo">GOV.UK</a><span class="hmrc-header__service">Request a Self Assessment refund</span></div></header>
+
+<main class="govuk-width-container govuk-main-wrapper govuk-main-wrapper--l" id="main-content">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <a class="govuk-back-link" href="account-type.html" data-back-link="account-type.html?from=cya">Back</a>
+      <h1 class="govuk-heading-xl">Enter your bank or building society account details</h1>
+      <p class="govuk-body">The account number and sort code you enter must match the name shown. This helps us keep your refund secure.</p>
+      <form data-journey-form data-next="check-answers.html">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="account-name">Name on the account</label>
+          <input class="govuk-input govuk-!-width-two-thirds" id="account-name" name="accountName" value="Alex Brown" autocomplete="name" spellcheck="false">
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="sort-code">Sort code</label>
+          <div class="govuk-hint" id="sort-code-hint">Must be 6 digits long</div>
+          <input class="govuk-input govuk-input--width-5" id="sort-code" name="sortCode" inputmode="numeric" aria-describedby="sort-code-hint" spellcheck="false">
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="account-number">Account number</label>
+          <div class="govuk-hint" id="account-number-hint">Must be between 6 and 8 digits long</div>
+          <input class="govuk-input govuk-input--width-10" id="account-number" name="accountNumber" inputmode="numeric" aria-describedby="account-number-hint" spellcheck="false">
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-label--s" for="roll-number">Building society roll number (if you have one)</label>
+          <div class="govuk-hint" id="roll-number-hint">You can find it on your card, statement or passbook</div>
+          <input class="govuk-input govuk-input--width-10" id="roll-number" name="rollNumber" aria-describedby="roll-number-hint" spellcheck="false">
+        </div>
+        <input type="hidden" name="bankName" value="">
+        <button class="govuk-button">Continue</button>
+      </form>
+      <p class="govuk-body"><a class="govuk-link" href="#">Get help with this page (opens in new tab)</a></p>
+    </div>
+  </div>
+</main>
+
+<footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
+<script src="assets/mockup.js"></script>
+</body>
+</html>

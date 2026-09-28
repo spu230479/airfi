@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How would you like to receive your refund? - Request a Self Assessment refund - GOV.UK</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/govuk-frontend.min.css">
+  <link rel="stylesheet" href="assets/mockup.css">
+</head>
+<body class="govuk-template__body">
+<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+<header class="hmrc-header"><div class="govuk-width-container hmrc-header__inner"><a href="index.html" class="hmrc-header__logo">GOV.UK</a><span class="hmrc-header__service">Request a Self Assessment refund</span></div></header>
+
+<main class="govuk-width-container govuk-main-wrapper govuk-main-wrapper--l" id="main-content">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <a class="govuk-back-link" href="ecospend-explainer.html">Back</a>
+      <form data-journey-form data-next="how-you-get-refund.html">
+        <fieldset class="govuk-fieldset" aria-describedby="method-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"><h1 class="govuk-fieldset__heading">How would you like to receive your refund?</h1></legend>
+          <div class="govuk-hint" id="method-hint">You can get your refund paid into a UK bank account.</div>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="method-open-banking" name="refundMethod" type="radio" value="Signed in to your bank" data-next="select-bank.html">
+              <label class="govuk-label govuk-radios__label" for="method-open-banking">Sign in to your bank to approve the refund (recommended)</label>
+              <div class="govuk-hint govuk-radios__hint">You'll be transferred to your bank to sign in and choose the account you want to use. You won't need to enter your account details, and it's more secure</div>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="method-manual" name="refundMethod" type="radio" value="Entered bank account details" data-next="how-you-get-refund.html" checked>
+              <label class="govuk-label govuk-radios__label" for="method-manual">Enter your bank account details</label>
+              <div class="govuk-hint govuk-radios__hint">You'll need to type in your account number and sort code.</div>
+            </div>
+          </div>
+        </fieldset>
+        <button class="govuk-button govuk-!-margin-top-6">Continue</button>
+      </form>
+      <p class="govuk-body"><a class="govuk-link" href="#">Get help with this page (opens in new tab)</a></p>
+    </div>
+  </div>
+</main>
+
+<footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
+<script src="assets/mockup.js"></script>
+</body>
+</html>

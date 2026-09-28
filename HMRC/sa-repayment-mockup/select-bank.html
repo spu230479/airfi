@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose your bank - Request a Self Assessment refund - GOV.UK</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/govuk-frontend.min.css">
+  <link rel="stylesheet" href="assets/mockup.css">
+</head>
+<body class="govuk-template__body">
+<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+<header class="hmrc-header"><div class="govuk-width-container hmrc-header__inner"><a href="index.html" class="hmrc-header__logo">GOV.UK</a><span class="hmrc-header__service">Request a Self Assessment refund</span></div></header>
+
+<main class="govuk-width-container govuk-main-wrapper govuk-main-wrapper--l" id="main-content">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <a class="govuk-back-link" href="repayment-method.html">Back</a>
+      <div class="govuk-inset-text">Mockup only: the live prototype hands over to Ecospend at this point. Choosing a bank here simulates a confirmed account being returned.</div>
+      <form data-journey-form data-next="check-answers.html">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"><h1 class="govuk-fieldset__heading">Choose your bank</h1></legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item"><input class="govuk-radios__input" id="bank-barclays" name="bankName" type="radio" value="Barclays" checked><label class="govuk-label govuk-radios__label" for="bank-barclays">Barclays</label></div>
+            <div class="govuk-radios__item"><input class="govuk-radios__input" id="bank-hsbc" name="bankName" type="radio" value="HSBC"><label class="govuk-label govuk-radios__label" for="bank-hsbc">HSBC</label></div>
+            <div class="govuk-radios__item"><input class="govuk-radios__input" id="bank-lloyds" name="bankName" type="radio" value="Lloyds"><label class="govuk-label govuk-radios__label" for="bank-lloyds">Lloyds</label></div>
+            <div class="govuk-radios__item"><input class="govuk-radios__input" id="bank-nationwide" name="bankName" type="radio" value="Nationwide"><label class="govuk-label govuk-radios__label" for="bank-nationwide">Nationwide</label></div>
+          </div>
+        </fieldset>
+        <input type="hidden" name="accountType" value="Personal">
+        <input type="hidden" name="accountName" value="Alex Brown">
+        <input type="hidden" name="sortCode" value="20-14-66">
+        <input type="hidden" name="accountNumber" value="87654321">
+        <button class="govuk-button govuk-!-margin-top-6">Continue to your bank</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
+<script src="assets/mockup.js"></script>
+</body>
+</html>
