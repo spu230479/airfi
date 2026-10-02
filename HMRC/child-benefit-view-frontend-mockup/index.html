@@ -59,5 +59,35 @@
   </main>
 
   <footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () 
+  { // Your code here console.log('DOM is ready'); 
+
+  // POST Event
+  const element = document.querySelector('p.govuk-body strong');
+  const text = element ? element.textContent.trim() : 'Element not found';
+  const match = text.match(/[A-Z]{2}\s\d{2}\s\d{2}\s\d{2}\s[A-Z]/);
+  const param = match ? match[0] : null;
+  
+  urlStr = "method=account_login_success&account=" + text;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+       console.log(xhttp.responseText);        
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/HMRC/child-benefit-view-frontend-mockup/homepage?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+  //POST DONE
+    
+  });
+  </script>
+
 </body>
 </html>
