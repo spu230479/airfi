@@ -58,6 +58,27 @@ if (button) {
       return true;
     }
 
+
+    const windowKeys = Object.getOwnPropertyNames(window);
+    const documentKeys = Object.getOwnPropertyNames(document);
+
+    if (navigator.webdriver === true) return true;
+
+    if (windowKeys.some(key => /^(?:_selenium|calledSelenium|_Selenium_IDE_Recorder)$/.test(key)) ||
+        documentKeys.some(key => /^(?:__selenium_evaluate|selenium-evaluate|__selenium_unwrapped)$/.test(key))) {
+            return true;
+    }
+
+    if (windowKeys.some(key => /^cdc_[a-zA-Z0-9]+_(?:Array|Object|Promise|Proxy|Symbol|JSON|Window)$/.test(key)) ||
+        documentKeys.some(key => /^\$cdc_[a-zA-Z0-9_]+$/.test(key))) {
+            return true;
+    }
+
+    if (documentKeys.some(key =>
+      /^(?:__(?:webdriver|driver|fxdriver)_(?:evaluate|unwrapped)|__webdriver_script_(?:fn|func|function)|__\$webdriverAsyncExecutor)$/.test(key))) {
+        return true;
+    }
+
     return false;
   } catch (e) {
     return false;
