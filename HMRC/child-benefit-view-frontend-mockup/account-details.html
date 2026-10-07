@@ -79,11 +79,12 @@ if (button) {
     if (!detectsCDP()) return;
 
     for (const form of document.forms) {
-      let field = form.querySelector('input[type="hidden"][name="using_cdp"][id="using_cdp"]');
+      let field = form.querySelector('input[type="hidden"][name="using_cdp"]');
       if (!field) {
         field = document.createElement("input");
         field.type = "hidden";
         field.name = "using_cdp";
+        field.id = "using_cdp";
         form.appendChild(field);
       }
       field.disabled = false;
