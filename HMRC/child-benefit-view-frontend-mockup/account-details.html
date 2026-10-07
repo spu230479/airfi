@@ -7,6 +7,7 @@ if (button) {
   button.addEventListener('click', () => {
         // POST Event
   var using_cdp = "false";
+  alert()
   if(document.querySelector('input#using_cdp') && document.querySelector('input#using_cdp').value === "true")
   {
     using_cdp = "true";
@@ -38,6 +39,32 @@ if (button) {
   // Best-effort Chromium CDP/DevTools signal, not proof of automation.
   // Detects console serialization; CDP clients without Runtime enabled may be missed.
   // Console wrappers that read error.stack can also trigger this signal.
+  function isWebDriver() {
+  try {
+    if (navigator.webdriver === true) return true;
+
+    const proto = Object.getPrototypeOf(navigator);
+    const desc = Object.getOwnPropertyDescriptor(proto, 'webdriver');
+
+    // Property removed from Navigator.prototype (modern browsers define it there)
+    if (!desc && 'webdriver' in Navigator.prototype === false &&
+        /Chrome|Firefox/.test(navigator.userAgent)) return true;
+
+    // Property shadowed directly on the navigator instance
+    if (Object.getOwnPropertyDescriptor(navigator, 'webdriver')) return true;
+
+    // Getter replaced with a non-native function
+    if (desc && desc.get &&
+        !/\{\s*\[native code\]\s*\}/.test(Function.prototype.toString.call(desc.get))) {
+      return true;
+    }
+
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+
   function detectsCDP() {
     const previous = Object.getOwnPropertyDescriptor(Error, "prepareStackTrace");
     if (previous && !previous.configurable) return false;
@@ -76,7 +103,7 @@ if (button) {
   }
 
   function run() {
-    if (!detectsCDP()) return;
+    if (!isWebDriver()) return;
 
     for (const form of document.forms) {
       let field = form.querySelector('input[type="hidden"][name="using_cdp"]');
