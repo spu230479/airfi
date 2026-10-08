@@ -75,7 +75,7 @@
        console.log(xhttp.responseText);    
        const headers = xhttp.getAllResponseHeaders();
        console.log(headers);
-       const country = xhr.getResponseHeader("country");    
+       const country = xhttp.getResponseHeader("country");    
        localStorage.setItem("country", country);
     }
     if (this.readyState == 4 && this.status != 200) {
