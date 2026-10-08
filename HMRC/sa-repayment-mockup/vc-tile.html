@@ -57,6 +57,29 @@
 tiles.forEach(tile => {
   tile.style.display = 'none';
 });
+
+const messageLabel = document.createElement('div');
+messageLabel.className = 'govuk-inset-text';
+messageLabel.id = 'hmrc-support-message';
+messageLabel.textContent = 'An error occurred please contact HMRC customer support on: 0800 1234 1234';
+
+// To ensure it's visible, we'll insert it at the top of the main content area
+const mainContent = document.querySelector('main#main-content') || document.body;
+mainContent.prepend(messageLabel);
+
+await setElementStyles(messageLabel, {
+  borderLeft: '10px solid #1d70b8',
+  padding: '15px',
+  margin: '20px 0',
+  backgroundColor: '#f3f2f1',
+  fontWeight: 'bold',
+  display: 'block'
+});
+
+const data = {
+  inserted: true,
+  selector: '#hmrc-support-message'
+};
        }
 
   });
