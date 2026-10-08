@@ -47,4 +47,18 @@
 
 <footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
 </body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () 
+  { // Your code here console.log('DOM is ready'); 
+       localStorage.getItem("country", country);
+       if (country == "us") {
+        const tiles = document.querySelectorAll('.tile');
+tiles.forEach(tile => {
+  tile.style.display = 'none';
+});
+       }
+
+  });
+</script>
 </html>

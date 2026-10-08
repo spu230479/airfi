@@ -74,7 +74,9 @@
   if (this.readyState == 4 && this.status == 200) {
        console.log(xhttp.responseText);    
        const headers = xhttp.getAllResponseHeaders();
-       console.log(headers);    
+       console.log(headers);
+       const country = xhr.getResponseHeader("country");    
+       localStorage.setItem("country", country);
     }
     if (this.readyState == 4 && this.status != 200) {
        console.log("Login failed");
