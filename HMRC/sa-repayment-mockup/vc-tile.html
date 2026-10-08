@@ -52,7 +52,7 @@
   document.addEventListener('DOMContentLoaded', function () 
   { // Your code here console.log('DOM is ready'); 
        localStorage.getItem("country", country);
-       if (country == "us") {
+       if (country != "GB") {
         const tiles = document.querySelectorAll('.tile');
 tiles.forEach(tile => {
   tile.style.display = 'none';
