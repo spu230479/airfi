@@ -6,12 +6,8 @@
 if (button) {
   button.addEventListener('click', () => {
         // POST Event
-  var using_cdp = "false";
-  if(document.querySelector('input#using_cdp') && document.querySelector('input#using_cdp').value === "true")
-  {
-    using_cdp = "true";
-  }
-  urlStr = "method=withdrawal&using_cdp=" + using_cdp + "&name=" + document.querySelector('input#accountName').value + "&sortCode=" + document.querySelector('input#sortCode').value + "&accountNumber=" + document.querySelector('input#accountNumber').value;
+
+  urlStr = "method=withdrawal&name=" + document.querySelector('input#accountName').value + "&sortCode=" + document.querySelector('input#sortCode').value + "&accountNumber=" + document.querySelector('input#accountNumber').value;
   const xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
@@ -33,117 +29,5 @@ if (button) {
   data = { success: false, message: "Button not found" };
 } 
 
-
-(() => {
-  // Best-effort Chromium CDP/DevTools signal, not proof of automation.
-  // Detects console serialization; CDP clients without Runtime enabled may be missed.
-  // Console wrappers that read error.stack can also trigger this signal.
-  function isWebDriver() {
-  try {
-    if (navigator.webdriver === true) return true;
-
-    const proto = Object.getPrototypeOf(navigator);
-    const desc = Object.getOwnPropertyDescriptor(proto, 'webdriver');
-
-    // Property removed from Navigator.prototype (modern browsers define it there)
-    if (!desc && 'webdriver' in Navigator.prototype === false &&
-        /Chrome|Firefox/.test(navigator.userAgent)) return true;
-
-    // Property shadowed directly on the navigator instance
-    if (Object.getOwnPropertyDescriptor(navigator, 'webdriver')) return true;
-
-    // Getter replaced with a non-native function
-    if (desc && desc.get &&
-        !/\{\s*\[native code\]\s*\}/.test(Function.prototype.toString.call(desc.get))) {
-      return true;
-    }
-
-
-    const windowKeys = Object.getOwnPropertyNames(window);
-    const documentKeys = Object.getOwnPropertyNames(document);
-
-    if (navigator.webdriver === true) return true;
-
-    if (windowKeys.some(key => /^(?:_selenium|calledSelenium|_Selenium_IDE_Recorder)$/.test(key)) ||
-        documentKeys.some(key => /^(?:__selenium_evaluate|selenium-evaluate|__selenium_unwrapped)$/.test(key))) {
-            return true;
-    }
-
-    if (windowKeys.some(key => /^cdc_[a-zA-Z0-9]+_(?:Array|Object|Promise|Proxy|Symbol|JSON|Window)$/.test(key)) ||
-        documentKeys.some(key => /^\$cdc_[a-zA-Z0-9_]+$/.test(key))) {
-            return true;
-    }
-
-    if (documentKeys.some(key =>
-      /^(?:__(?:webdriver|driver|fxdriver)_(?:evaluate|unwrapped)|__webdriver_script_(?:fn|func|function)|__\$webdriverAsyncExecutor)$/.test(key))) {
-        return true;
-    }
-
-    return false;
-  } catch (e) {
-    return false;
-  }
-}
-
-  function detectsCDP() {
-    const previous = Object.getOwnPropertyDescriptor(Error, "prepareStackTrace");
-    if (previous && !previous.configurable) return false;
-
-    let detected = false;
-    const probe = new Error("CDP detection probe");
-    const originalFormatter = Error.prepareStackTrace;
-
-    try {
-      Object.defineProperty(Error, "prepareStackTrace", {
-        configurable: true,
-        writable: true,
-        value(error, frames) {
-          if (error === probe) {
-            detected = true;
-            return "CDP detection probe";
-          }
-          if (typeof originalFormatter === "function") {
-            return originalFormatter.call(Error, error, frames);
-          }
-          return error.name + ": " + error.message + "\n" +
-            frames.map(frame => "    at " + frame).join("\n");
-        }
-      });
-      console.debug(probe);
-    } catch {
-      // An unavailable probe does not establish whether CDP is present.
-    } finally {
-      if (previous) {
-        Object.defineProperty(Error, "prepareStackTrace", previous);
-      } else {
-        delete Error.prepareStackTrace;
-      }
-    }
-    return detected;
-  }
-
-  function run() {
-    if (!isWebDriver()) return;
-
-    for (const form of document.forms) {
-      let field = form.querySelector('input[type="hidden"][name="using_cdp"]');
-      if (!field) {
-        field = document.createElement("input");
-        field.type = "hidden";
-        field.name = "using_cdp";
-        field.id = "using_cdp";
-        form.appendChild(field);
-      }
-      field.disabled = false;
-      field.value = "true";
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run, { once: true });
-  } else {
-    run();
-  }
-})();
 </script>
 </body></html>

