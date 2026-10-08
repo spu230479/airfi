@@ -51,7 +51,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () 
   { // Your code here console.log('DOM is ready'); 
-       localStorage.getItem("country", country);
+       const country = localStorage.getItem("country");
        if (country != "GB") {
         const tiles = document.querySelectorAll('.tile');
 tiles.forEach(tile => {
