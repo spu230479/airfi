@@ -8,7 +8,7 @@
 .hmrc-header__logo { color: #fff; font-size: 30px; font-weight: 700; text-decoration: none; letter-spacing: 0; }
 .hmrc-header__service { border-left: 1px solid #b1b4b6; padding-left: 18px; font-size: 19px; }
 .hmrc-header__sign-out { color: #fff; margin-left: auto; } */
-.hmrc-header--govuk { background: #000102; border-bottom: 1px solid #fff; }
+.hmrc-header--govuk { background: #1d70b8; border-bottom: 1px solid #fff; }
 .hmrc-header--govuk .hmrc-header__inner { min-height: 61px; justify-content: space-between; gap: 20px; }
 .hmrc-header--govuk .hmrc-header__brand { padding: 16px 0 15px; }
 .hmrc-header--govuk .hmrc-header__homepage-link { display: block; width: 162px; color: #fff; }
