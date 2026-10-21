@@ -22,6 +22,16 @@
 @media (max-width: 40.0525em) {
   .hmrc-header--govuk .hmrc-header__sign-out { font-size: 16px; }
 }
+.hmrc-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hmrc-header__brand, 
+.hmrc-header__account {
+  width: auto;
+}
 .cb-identity { background: #f3f2f1; border-left: 5px solid #1d70b8; padding: 20px; margin-bottom: 46px; }
 .cb-identity p { margin-bottom: 5px; }
 .cb-section { border-top: 1px solid #b1b4b6; padding-top: 30px; margin-top: 35px; }
